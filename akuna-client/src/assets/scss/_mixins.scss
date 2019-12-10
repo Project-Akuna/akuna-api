@@ -1,0 +1,17 @@
+// Positioning (Parent)
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Shadows
+@mixin card-shadow-sm {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+  border-radius: 10px;
+}
+
+@mixin shadow-sm {
+  box-shadow: 0 2px 8px 0 rgba(darken($c-primary, 10%), .3) !important;
+  // box-shadow: 0 2px 8px 0 rgba($c-primary, .2);
+}
