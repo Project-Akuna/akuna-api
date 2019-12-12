@@ -8,6 +8,7 @@ public final class RoleConstant {
 
     public static final String SYSADMIN = "SYSADMIN";
     public static final String USER = "USER";
+    public static final String CASHIER = "CASHIER";
 
     private  RoleConstant() {
 

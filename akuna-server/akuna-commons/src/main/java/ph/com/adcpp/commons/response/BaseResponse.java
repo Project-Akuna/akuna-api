@@ -1,4 +1,4 @@
-package ph.com.adcpp.commons;
+package ph.com.adcpp.commons.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/3/2019.
  */
 @Getter

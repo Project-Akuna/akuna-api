@@ -11,7 +11,7 @@ import ph.com.adcpp.commons.constant.RoleConstant;
 import ph.com.adcpp.user.service.CustomUserDetailsService;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/6/2019.
  */
 @Configuration
@@ -25,21 +25,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/home").hasAnyRole(RoleConstant.SYSADMIN,RoleConstant.USER)
-                .antMatchers("/admin/***").hasRole(RoleConstant.SYSADMIN)
+                .antMatchers("/products/**").hasAnyRole(RoleConstant.SYSADMIN,
+                    RoleConstant.USER)
+                .antMatchers("/admin/**").hasRole(RoleConstant.SYSADMIN)
                 .anyRequest().authenticated()
                 .and()
-//                .formLogin().loginPage("/login")
-//                .successForwardUrl("/dashboard")
-//                .and()
-                .httpBasic().and()
-                .logout().logoutSuccessUrl("/login")
-                .and()
-                .csrf().disable();
+                .httpBasic();
     }
 
     @Override
@@ -53,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public BCryptPasswordEncoder getPasswordEncoder(){
+    public BCryptPasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

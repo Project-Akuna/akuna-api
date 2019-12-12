@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/3/2019.
  */
 

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ph.com.adcpp.commons.BaseResponse;
+import ph.com.adcpp.commons.response.BaseResponse;
 import ph.com.adcpp.user.request.AkunaUserRequest;
 import ph.com.adcpp.user.service.AkunaUserService;
 import ph.com.adcpp.utils.ResponseUtil;
