@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ph.com.adcpp.models.entity.ADC;
 import ph.com.adcpp.models.repository.ADCRepository;
 
+import java.util.List;
+
 /**
  * @author Choy
  * @date 12/12/2019.
@@ -22,5 +24,9 @@ public class ADCService {
 
     public ADC save(ADC adc) {
         return adcRepository.save(adc);
+    }
+
+    public List<ADC> findAll() {
+        return adcRepository.findAll();
     }
 }

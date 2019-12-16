@@ -22,10 +22,6 @@ public class City {
     @Column(name = "PSGCCODE")
     private String psgcCode;
 
-    @ManyToOne
-    @JoinColumn(name = "REG_ID")
-    private Region region;
-
     @Column(name = "PROVCODE")
     private String provCode;
 
@@ -37,4 +33,8 @@ public class City {
 
     @Column(name = "ZIP_CODE")
     private String zipCode;
+
+    @ManyToOne
+    @JoinColumn(name = "REG_ID")
+    private Region region;
 }

@@ -2,7 +2,6 @@ package ph.com.adcpp.models.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ph.com.adcpp.models.entity.Region;
 
 import javax.persistence.*;
 
@@ -31,11 +30,7 @@ public class ADC {
     @Column(name = "ADC_OFFICE_ADDRESS", nullable = false)
     private String officeAddress;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ADC_REGION")
-    private Region region;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ADC_CITY")
     private City city;
 
