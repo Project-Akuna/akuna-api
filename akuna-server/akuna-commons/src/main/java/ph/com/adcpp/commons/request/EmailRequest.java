@@ -5,12 +5,14 @@ import lombok.Setter;
 
 /**
  * @author Choy
- * @date 12/12/2019.
+ * @date 12/16/2019.
  */
 
 @Getter
 @Setter
-public class ADCRequest {
+public class EmailRequest {
 
-    private Long id;
+    private String email;
+    private String subject;
+    private String body;
 }

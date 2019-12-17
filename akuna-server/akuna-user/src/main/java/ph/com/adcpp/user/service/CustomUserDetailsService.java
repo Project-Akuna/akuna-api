@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ph.com.adcpp.user.model.AkunaUser;
-import ph.com.adcpp.user.repository.AkunaUserRepository;
+import ph.com.adcpp.user.model.User;
+import ph.com.adcpp.user.repository.UserRepository;
 
 import java.util.Objects;
 
@@ -19,22 +19,22 @@ import java.util.Objects;
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 
-    private AkunaUserRepository userRepository;
+    private UserRepository userRepository;
 
-    public CustomUserDetailsService(AkunaUserRepository userRepository) {
+    public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) {
 
-        AkunaUser user = userRepository.findByUsername(s);
+        User user = userRepository.findByUsername(s);
 
         if(Objects.isNull(user)) {
             log.error("User [{}] doesn't exist.", s);
             throw new UsernameNotFoundException(String.format("User [%s] doesn't exist.", s));
         }
 
-        return new AkunaUserRepoUserDetails(user);
+        return new UserRepoUserDetails(user);
     }
 }

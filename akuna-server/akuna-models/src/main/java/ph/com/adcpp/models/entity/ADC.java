@@ -51,5 +51,10 @@ public class ADC {
 
     private Boolean isSelling;
 
+    public ADC(Long id) {
+        this.id = id;
+    }
 
+    public ADC() {
+    }
 }

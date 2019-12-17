@@ -42,5 +42,10 @@ public class Member {
     @Column(name = "MEMBER_ADC_CODE")
     private String adcCode;
 
+    public Member(Long id) {
+        this.id = id;
+    }
 
+    public Member() {
+    }
 }

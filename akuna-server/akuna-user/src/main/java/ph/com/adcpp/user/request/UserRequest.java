@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class AkunaUserRequest {
+public class UserRequest {
 
     @NotEmpty
     private String username;
@@ -28,9 +28,6 @@ public class AkunaUserRequest {
 
     @NotEmpty
     private String lastName;
-
-    @NotEmpty
-    private String fullName;
 
     @NotEmpty
     private Boolean isEnabled;

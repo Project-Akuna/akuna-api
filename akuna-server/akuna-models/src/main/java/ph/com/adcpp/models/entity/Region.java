@@ -32,4 +32,11 @@ public class Region {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "region")
     @JsonIgnore
     private List<City> cities;
+
+    public Region(Long id) {
+        this.id = id;
+    }
+
+    public Region() {
+    }
 }

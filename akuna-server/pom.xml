@@ -21,6 +21,7 @@
         <module>akuna-utils</module>
         <module>akuna-user</module>
         <module>akuna-models</module>
+        <module>akuna-email</module>
     </modules>
 
     <properties>

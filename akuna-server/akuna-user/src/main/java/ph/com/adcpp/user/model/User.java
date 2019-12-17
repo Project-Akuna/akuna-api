@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "TBL_USERS")
-public class AkunaUser {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +30,6 @@ public class AkunaUser {
 
     private String lastName;
 
-    private String fullName;
-
     @Column(unique = true)
     private String email;
 
@@ -42,18 +40,21 @@ public class AkunaUser {
     inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles;
 
-    public AkunaUser() {
+    public User() {
     }
 
-    public AkunaUser(AkunaUser user) {
+    public User(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.fullName = user.getFullName();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.isEnabled = user.getIsEnabled();
         this.roles = user.getRoles();
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 }

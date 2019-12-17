@@ -1,0 +1,47 @@
+package ph.com.adcpp.models.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import ph.com.adcpp.user.model.User;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ * @author Choy
+ * @date 12/17/2019.
+ */
+@Getter
+@Setter
+@Entity
+public class RegistrationCode {
+
+    @Id
+    private String code;
+
+    private BigDecimal amount;
+
+    @ManyToOne
+    @JoinColumn(name = "ADC_ID")
+    private ADC adc;
+
+    private Boolean isUsed;
+
+    @ManyToOne
+    @JoinColumn(name = "SOLD_TO")
+    private Member soldTo;
+
+    @ManyToOne
+    @JoinColumn(name = "ADDED_BY")
+    private User addedBy;
+
+    private Date dtimeCreated;
+
+    private Date dtimeUsed;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dtimeCreated = new Date();
+    }
+}

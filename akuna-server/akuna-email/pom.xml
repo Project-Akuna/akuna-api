@@ -3,30 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>ph.com.adcpp</groupId>
         <artifactId>akuna-server</artifactId>
+        <groupId>ph.com.adcpp</groupId>
         <version>1.0.0</version>
-        <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ph.com.adcpp</groupId>
-    <artifactId>akuna-models</artifactId>
+    <artifactId>akuna-email</artifactId>
+
     <dependencies>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
             <groupId>ph.com.adcpp</groupId>
             <artifactId>akuna-commons</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>ph.com.adcpp</groupId>
-            <artifactId>akuna-user</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
-
 </project>

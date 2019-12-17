@@ -2,17 +2,17 @@ package ph.com.adcpp.user.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ph.com.adcpp.user.model.AkunaUser;
+import ph.com.adcpp.user.model.User;
 
 import java.util.Collection;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/7/2019.
  */
-public class AkunaUserRepoUserDetails extends AkunaUser implements UserDetails{
+public class UserRepoUserDetails extends User implements UserDetails{
 
-    AkunaUserRepoUserDetails(AkunaUser user) {
+    UserRepoUserDetails(User user) {
         super(user);
     }
 
