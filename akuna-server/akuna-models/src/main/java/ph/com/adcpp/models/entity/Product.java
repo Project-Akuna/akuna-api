@@ -15,7 +15,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "TBL_PRODUCTS")
 public class Product {
 
     @Id

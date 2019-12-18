@@ -1,8 +1,8 @@
-package ph.com.adcpp.user.service;
+package ph.com.adcpp.models.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ph.com.adcpp.user.model.User;
+import ph.com.adcpp.models.entity.User;
 
 import java.util.Collection;
 

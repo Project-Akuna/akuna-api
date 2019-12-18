@@ -35,7 +35,6 @@ public class EmailService {
             log.info("Email successfully sent to [{}]", request.getEmail());
         } catch (Exception ex) {
             log.error("Error sending email to [{}].", request.getEmail());
-            log.error("Exception encountered : [{}]", ex.getMessage());
         }
     }
 }

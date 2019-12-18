@@ -1,15 +1,13 @@
-package ph.com.adcpp.user.request;
+package ph.com.adcpp.commons.request;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
-import ph.com.adcpp.user.model.Role;
-
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/7/2019.
  */
 
@@ -36,6 +34,6 @@ public class UserRequest {
     @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
     private String email;
 
-    @NotEmpty
-    private Set<Role> roles;
+//    @NotEmpty
+//    private Set<Role> roles;
 }

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ph.com.adcpp.commons.response.BaseResponse;
-import ph.com.adcpp.user.request.UserRequest;
-import ph.com.adcpp.user.service.UserService;
+import ph.com.adcpp.commons.request.UserRequest;
+import ph.com.adcpp.models.service.UserService;
 import ph.com.adcpp.utils.ResponseUtil;
 
 /**

@@ -2,13 +2,12 @@ package ph.com.adcpp.models.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ph.com.adcpp.models.entity.Member;
+import ph.com.adcpp.models.entity.Role;
 
 /**
- * @author Choy
- * @date 12/12/2019.
+ * @author raymond.galima
+ * @date 12/7/2019.
  */
-
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long>{
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }

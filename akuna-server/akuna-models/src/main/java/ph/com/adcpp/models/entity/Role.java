@@ -1,4 +1,4 @@
-package ph.com.adcpp.user.model;
+package ph.com.adcpp.models.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "TBL_ROLES")
 public class Role implements GrantedAuthority {
 
     @Id

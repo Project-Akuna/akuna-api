@@ -19,7 +19,6 @@
         <module>akuna-core</module>
         <module>akuna-commons</module>
         <module>akuna-utils</module>
-        <module>akuna-user</module>
         <module>akuna-models</module>
         <module>akuna-email</module>
     </modules>

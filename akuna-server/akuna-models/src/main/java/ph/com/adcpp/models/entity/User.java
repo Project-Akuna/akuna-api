@@ -1,8 +1,12 @@
-package ph.com.adcpp.user.model;
+package ph.com.adcpp.models.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import ph.com.adcpp.commons.constant.MaritalStatus;
+import ph.com.adcpp.commons.constant.Relationship;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -13,11 +17,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "TBL_USERS")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     private Long id;
 
@@ -35,10 +38,38 @@ public class User {
 
     private Boolean isEnabled;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "TBL_USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"),
+    @OneToOne
+    @JoinColumn(name = "ADC_ID")
+    private ADC adc;
+
+    @OneToOne
+    @JoinColumn(name = "IMMEDIATE_UPLINE_ID")
+    private User upline;
+
+    @OneToOne
+    @JoinColumn(name = "DIRECT_SPONSOR_ID")
+    private User directSponsor;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"),
     inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles;
+
+    private Date birthday;
+
+    private String address;
+
+    @Enumerated(EnumType.STRING)
+    private MaritalStatus maritalStatus;
+
+    private String spouse;
+
+    private String successor;
+
+    @Enumerated(EnumType.STRING)
+    private Relationship relationship;
+
+    private Date dateRegistered;
 
     public User() {
     }

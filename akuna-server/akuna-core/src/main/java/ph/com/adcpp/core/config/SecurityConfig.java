@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ph.com.adcpp.commons.constant.RoleConstant;
-import ph.com.adcpp.user.service.CustomUserDetailsService;
+import ph.com.adcpp.models.service.CustomUserDetailsService;
 
 /**
  * @author raymond.galima
@@ -33,9 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/test/**", "/admin/user/save").permitAll()
-                .antMatchers("/api", "/api/**").authenticated()
-                .antMatchers("/products/**").hasAnyRole(RoleConstant.SYSADMIN,
-                    RoleConstant.USER)
+                .antMatchers("/products/**", "/region/**").hasAnyRole(RoleConstant.SYSADMIN,
+                    RoleConstant.MEMBER)
                 .antMatchers("/admin/**").hasRole(RoleConstant.SYSADMIN)
                 .anyRequest().authenticated()
                 .and()

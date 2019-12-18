@@ -1,11 +1,12 @@
-package ph.com.adcpp.user.repository;
+package ph.com.adcpp.models.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ph.com.adcpp.user.model.User;
+import ph.com.adcpp.models.entity.User;
+
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/3/2019.
  */
 @Repository

@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "TBL_ADC")
 public class ADC {
 
     @Id
@@ -21,32 +20,32 @@ public class ADC {
     @Column(name = "ADC_ID")
     private Long id;
 
-    @Column(name = "ADC_NAME", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(name = "ADC_CODE", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String code;
 
-    @Column(name = "ADC_OFFICE_ADDRESS", nullable = false)
+    @Column(nullable = false)
     private String officeAddress;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ADC_CITY")
+    @JoinColumn(name = "CITY_ID")
     private City city;
 
-    @Column(name = "ADC_PHONE_1", nullable = false)
+    @Column(name = "PHONE_1", nullable = false)
     private String landLineNumber1;
 
-    @Column(name = "ADC_PHONE_2")
+    @Column(name = "PHONE_2")
     private String landLineNumber2;
 
-    @Column(name = "ADC_MOBILE_1", nullable = false)
+    @Column(name = "MOBILE_1", nullable = false)
     private String mobileNumber1;
 
-    @Column(name = "ADC_MOBILE_2")
+    @Column(name = "MOBILE_2")
     private String mobileNumber2;
 
-    @Column(name = "ADC_EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
     private Boolean isSelling;

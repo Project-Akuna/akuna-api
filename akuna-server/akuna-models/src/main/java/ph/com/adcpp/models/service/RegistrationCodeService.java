@@ -8,14 +8,14 @@ import ph.com.adcpp.commons.response.RegistrationCodeResponse;
 import ph.com.adcpp.models.entity.ADC;
 import ph.com.adcpp.models.entity.RegistrationCode;
 import ph.com.adcpp.models.repository.RegistrationCodeRepository;
-import ph.com.adcpp.user.model.User;
+import ph.com.adcpp.models.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * @author xx
+ * @author Choy
  * @date 12/17/2019.
  */
 @Slf4j

@@ -1,17 +1,17 @@
-package ph.com.adcpp.user.service;
+package ph.com.adcpp.models.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ph.com.adcpp.user.model.User;
-import ph.com.adcpp.user.repository.UserRepository;
+import ph.com.adcpp.models.entity.User;
+import ph.com.adcpp.models.repository.UserRepository;
 
 import java.util.Objects;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/7/2019.
  */
 

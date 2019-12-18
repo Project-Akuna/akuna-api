@@ -1,12 +1,12 @@
-package ph.com.adcpp.user.service;
+package ph.com.adcpp.models.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ph.com.adcpp.user.model.User;
-import ph.com.adcpp.user.repository.UserRepository;
-import ph.com.adcpp.user.request.UserRequest;
+import ph.com.adcpp.models.entity.User;
+import ph.com.adcpp.models.repository.UserRepository;
+import ph.com.adcpp.commons.request.UserRequest;
 
 import java.util.List;
 

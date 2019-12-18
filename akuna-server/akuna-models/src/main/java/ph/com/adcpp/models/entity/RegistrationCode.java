@@ -2,7 +2,6 @@ package ph.com.adcpp.models.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ph.com.adcpp.user.model.User;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -30,7 +29,7 @@ public class RegistrationCode {
 
     @ManyToOne
     @JoinColumn(name = "SOLD_TO")
-    private Member soldTo;
+    private User soldTo;
 
     @ManyToOne
     @JoinColumn(name = "ADDED_BY")

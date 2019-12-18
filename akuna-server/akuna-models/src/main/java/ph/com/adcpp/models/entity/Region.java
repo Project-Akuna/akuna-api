@@ -14,19 +14,15 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "TBL_REGION")
 public class Region {
 
     @Id
     private Long id;
 
-    @Column(name = "REGDESC")
     private String description;
 
-    @Column(name = "REGCODE")
     private Long code;
 
-    @Column(name = "PSGCCODE")
     private String psgcCode;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "region")
