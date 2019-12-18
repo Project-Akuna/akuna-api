@@ -1,10 +1,10 @@
 package ph.com.adcpp.utils;
 
 import org.springframework.http.HttpStatus;
-import ph.com.adcpp.commons.BaseResponse;
+import ph.com.adcpp.commons.response.BaseResponse;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/7/2019.
  */
 public final class ResponseUtil {
