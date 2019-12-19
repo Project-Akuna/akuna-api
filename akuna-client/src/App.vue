@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Navbar from './components/navigation/navbar'
+import Navbar from './components/navigation/TheNavbar'
 export default {
   name: 'App',
 
@@ -36,7 +36,39 @@ export default {
   label {
     margin-left: 10px;
     font-size: 14px;
+    background: white;
+    padding-right: 10px;
   }
-  
+  &.v-text-field--enclosed .v-text-field__details {
+    margin-bottom: 0 !important;
+  }
+}
+
+.v-stepper {
+  .v-stepper__header {
+    @include shadow-sm;
+  }
+  .v-stepper__label {
+    font-size: 12px;
+    text-align: center;
+  }
+  .v-stepper__content {
+    padding: 0;
+  }
+  .v-stepper__wrapper {
+    padding: 24px;
+  }
+}
+
+.v-select {
+  .v-label {
+    left: -10px !important;
+    background: white;
+    padding: 0 .5rem;
+  }
+
+  &.v-text-field.v-text-field--enclosed .v-text-field__details {
+    margin-bottom: 0;
+  }
 }
 </style>

@@ -27,7 +27,7 @@
 
       div.login__register-container.text-center.mt-7
         span.grey--text.text--darken-1 Dont have an account? 
-        a Register here.
+        router-link(to="/signup") Register here.
 </template>
 <script>
 export default {
@@ -73,6 +73,10 @@ export default {
 
   .login__register-container {
     font-size: 12px;
+
+    a {
+      text-decoration: none;
+    }
   }
 }
 </style>
