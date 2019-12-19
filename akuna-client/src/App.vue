@@ -70,9 +70,5 @@ export default {
   &.v-text-field.v-text-field--enclosed .v-text-field__details {
     margin-bottom: 0;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 689a07bc868c727c8b9b3ee3bb72c731d1e7ce80
 }
 </style>
