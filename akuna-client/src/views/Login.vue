@@ -8,12 +8,14 @@
           v-form
             v-text-field(
               required
+              clearable
               v-model="username" 
               label="Username"
               prepend-inner-icon="mdi-account")
 
             v-text-field(
               required
+              clearable
               v-model="password" 
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
               @click:append="showPassword = !showPassword"
@@ -44,7 +46,7 @@ export default {
 .login {
   height: 100vh;
   @include flex-center;
-  background: $c-accent;
+  background: $c-lighter-blue-gray;
 
   .login__card {
     @include card-shadow-sm;

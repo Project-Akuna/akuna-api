@@ -2,7 +2,6 @@
   v-select(
     :items="selectItems" 
     :label="selectLabel"
-    outlined
     dense
     )
 </template>

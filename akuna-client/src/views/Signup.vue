@@ -15,7 +15,7 @@ export default {
 .signup {
   min-height: 100vh;
   @include flex-center;
-  background: $c-accent;
+  background: $c-lighter-blue-gray;
 
   .signup__container {
     max-width: 600px;
