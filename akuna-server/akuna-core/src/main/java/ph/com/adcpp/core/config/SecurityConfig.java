@@ -32,10 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test/**", "/admin/user/save").permitAll()
-                .antMatchers("/products/**", "/region/**").hasAnyRole(RoleConstant.SYSADMIN,
-                    RoleConstant.MEMBER)
-                .antMatchers("/admin/**").hasRole(RoleConstant.SYSADMIN)
+                .antMatchers("/api/**")
+                .hasAnyRole(RoleConstant.SYSADMIN.name(), RoleConstant.ADC.name(),
+                        RoleConstant.MEMBER.name(), RoleConstant.CASHIER.name(),
+                        RoleConstant.DEPOT.name())
+                .antMatchers("/admin/**").hasRole(RoleConstant.SYSADMIN.name())
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

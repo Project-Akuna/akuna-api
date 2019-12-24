@@ -48,6 +48,7 @@ public class ADC {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private Boolean isSelling;
 
     public ADC(Long id) {

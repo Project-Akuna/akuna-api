@@ -3,6 +3,7 @@ package ph.com.adcpp.commons.request;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,10 +15,16 @@ import java.util.Date;
 @Setter
 public class ProductRequest {
 
+    @NotNull
     private Long id;
+    @NotNull
     private BigDecimal codePrice;
+    @NotNull
     private BigDecimal price;
+    @NotNull
     private BigDecimal adcFee;
+    @NotNull
     private BigDecimal driFee;
+    @NotNull
     private Date dtimeCreated;
 }

@@ -42,6 +42,7 @@ out/
 *.iml
 *.ipr
 *.iws
+akuna-server/akuna-core/src/main/resources/static/
 
 ##############################
 ## Eclipse

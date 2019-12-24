@@ -52,7 +52,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/classes/META-INF/resources</outputDirectory>
+                            <outputDirectory>../akuna-server/akuna-core/src/main/resources/static</outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>
                                 <resource>

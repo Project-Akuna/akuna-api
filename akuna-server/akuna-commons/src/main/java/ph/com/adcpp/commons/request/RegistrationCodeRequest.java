@@ -19,4 +19,5 @@ public class RegistrationCodeRequest {
     private Long addedBy;
     private Long soldTo;
     private BigDecimal amount;
+
 }

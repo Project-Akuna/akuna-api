@@ -3,11 +3,12 @@ package ph.com.adcpp.models.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import ph.com.adcpp.commons.constant.RoleConstant;
 
 import javax.persistence.*;
 
 /**
- * @Author raymond.galima
+ * @author raymond.galima
  * @date 12/7/2019.
  */
 @Getter
@@ -22,6 +23,14 @@ public class Role implements GrantedAuthority {
 
     @Column(unique = true)
     private String name;
+
+    public Role(RoleConstant roleConstant) {
+        this.id = roleConstant.getId();
+        this.name = roleConstant.getName();
+    }
+
+    public Role() {
+    }
 
     @Override
     public String getAuthority() {

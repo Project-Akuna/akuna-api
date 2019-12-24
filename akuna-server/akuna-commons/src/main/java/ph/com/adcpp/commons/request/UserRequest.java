@@ -2,9 +2,13 @@ package ph.com.adcpp.commons.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+
+import ph.com.adcpp.commons.constant.MaritalStatus;
+import ph.com.adcpp.commons.constant.Relationship;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Set;
+
 
 /**
  * @author raymond.galima
@@ -15,25 +19,52 @@ import java.util.Set;
 @Setter
 public class UserRequest {
 
-    @NotEmpty
+    private Long id;
+
+    @NotNull
     private String username;
 
-    @NotEmpty
+    @NotNull
     private String password;
 
-    @NotEmpty
+    @NotNull
     private String firstName;
 
-    @NotEmpty
+    @NotNull
     private String lastName;
 
-    @NotEmpty
+    @NotNull
     private Boolean isEnabled;
 
-    @NotEmpty
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
+    @NotNull
     private String email;
 
-//    @NotEmpty
-//    private Set<Role> roles;
+    private UserRequest upline;
+
+    @NotNull
+    private UserRequest directSponsor;
+
+    @NotNull
+    private Date birthday;
+
+    @NotNull
+    private ADCRequest adc;
+
+    @NotNull
+    private String address;
+
+    @NotNull
+    private MaritalStatus maritalStatus;
+
+    private String spouse;
+
+    private String successor;
+
+    private Relationship relationship;
+
+    @NotNull
+    private CityRequest city;
+
+    @NotNull
+    private Set<RoleRequest> roles;
 }

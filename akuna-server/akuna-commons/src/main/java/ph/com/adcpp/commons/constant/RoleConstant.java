@@ -1,18 +1,26 @@
 package ph.com.adcpp.commons.constant;
 
+import lombok.Getter;
+
 /**
- * @author raymond.galima
- * @date 12/7/2019.
+ * @author Choy
+ * @date 12/19/2019.
  */
-public final class RoleConstant {
 
-    public static final String SYSADMIN = "SYSADMIN";
-    public static final String MEMBER = "MEMBER";
-    public static final String CASHIER = "CASHIER";
-    private static final String ADC = "ADC";
-    private static final String DEPOT = "DEPOT";
+@Getter
+public enum RoleConstant {
 
-    private  RoleConstant() {
+    SYSADMIN("ROLE_SYSADMIN", 1L),
+    MEMBER("ROLE_MEMBER", 2L),
+    CASHIER("ROLE_CASHIER", 3L),
+    ADC("ROLE_ADC", 4L),
+    DEPOT("ROLE_DEPOT", 5L);
 
+    private String name;
+    private Long id;
+
+    RoleConstant(String name, Long id){
+        this.name = name;
+        this.id = id;
     }
 }
