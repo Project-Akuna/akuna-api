@@ -8,11 +8,12 @@
     :type="type"
     :suffix="suffix",
     :rules="rulesList"
+    :prepend-inner-icon="prependInnerIcon"
     )
 </template>
 <script>
 export default {
-  props: ['textFieldLabel','disabled','counter','type','suffix','rulesList'],
+  props: ['textFieldLabel','disabled','counter','type','suffix','rulesList','prependInnerIcon'],
   data() {
     return {
       rules: {
