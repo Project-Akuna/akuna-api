@@ -8,15 +8,36 @@
 
         // Username TextField
         v-col.signup__input-container(cols="12")
-          base-text-field.signup__username-textfield(textFieldLabel="Username" counter="10")
+          v-text-field.signup__username-textfield(
+              dense
+              required
+              clearable
+              label="Username"
+              counter="10")
 
         // Password TextField
         v-col.signup__input-container(cols="12")
-          base-text-field.signup__password-textfield(textFieldLabel="Password" counter="10")
+          v-text-field.signup__password-textfield(
+              dense
+              required
+              clearable
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+              @click:append="showPassword = !showPassword"
+              :type="showPassword ? 'text' : 'password'"
+              label="Password",
+              counter="10")
 
         // Confirm Password TextField
         v-col.signup__input-container(cols="12")
-          base-text-field.signup__confirm-password-textfield(textFieldLabel="Confirm Password" counter="10")
+          v-text-field.signup__confirm-password-textfield(
+              dense
+              required
+              clearable
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+              @click:append="showPassword = !showPassword"
+              :type="showPassword ? 'text' : 'password'"
+              label="Confirm Password"
+              counter="10")
 
         // Upline Information Buttons
         v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
@@ -32,6 +53,11 @@ import SignupMixin from '../../mixins/signupMixin'
 
 export default {
   mixins: [SignupMixin],
+  data() {
+    return {
+      showPassword: false
+    }
+  },
   components: {
     BaseSelect,
     BaseTextField,
