@@ -42,7 +42,7 @@
         // Upline Information Buttons
         v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
           v-btn(@click="changeStep(3)" depressed background-color="white") Back
-          v-btn.signup__btn.ml-3() Submit
+          v-btn.signup__btn.ml-3(@click="$router.push('/home')") Submit
 </template>
 <script>
 import BaseSelect from '../baseComponents/BaseSelect'

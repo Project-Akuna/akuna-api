@@ -1,6 +1,6 @@
 <template lang="pug">
   v-app
-    //- navbar
+    navbar(v-if="isNavShown")
     v-content
       router-view
 </template>
@@ -14,10 +14,35 @@ export default {
     Navbar
   },
 
-  data: () => ({
-    //
-  }),
-};
+  data() {
+    return {
+
+    }
+  },
+  mounted() {
+    this.checkRoute();
+  },
+  watch: {
+   $route: function() {
+    this.checkRoute();
+   }
+  },
+  computed: {
+    isNavShown() {
+      return this.$store.state.isNavShown;
+    }
+  },
+  methods: {
+    checkRoute() {
+      console.log(this.$route.path);
+      if (this.$route.path === "/login" || this.$route.path === "/signup") {
+        this.$store.commit('toggleNav', false);
+      } else  {
+        this.$store.commit('toggleNav', true);
+      }
+    }
+  }
+}
 </script>
 <style lang="scss">
 .v-text-field {

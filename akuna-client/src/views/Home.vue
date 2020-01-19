@@ -1,8 +1,6 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>hello</h1>
-  </div>
+<template lang="pug">
+  section.home
+    h1 home
 </template>
 
 <script>
