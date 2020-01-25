@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ph.com.adcpp.commons.response.CityResponse;
-import ph.com.adcpp.models.entity.City;
 import ph.com.adcpp.models.entity.Region;
 import ph.com.adcpp.models.repository.CityRepository;
 

@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     checkRoute() {
-      console.log(this.$route.path);
       if (this.$route.path === "/login" || this.$route.path === "/signup") {
         this.$store.commit('toggleNav', false);
       } else  {

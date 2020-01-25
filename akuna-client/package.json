@@ -9,9 +9,11 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.4.3",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-axios": "^2.1.5",
     "vue-cli-plugin-pug": "^1.0.7",
     "vue-pug": "^4.0.0",
     "vue-router": "^3.1.3",

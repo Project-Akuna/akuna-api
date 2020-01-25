@@ -55,7 +55,7 @@ export default {
   }
 
   .login__btn {
-    background: $c-accent !important;
+    background: $c-primary !important;
     @include shadow-sm;
     border-radius: 50px;
     

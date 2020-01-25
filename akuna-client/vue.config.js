@@ -20,5 +20,8 @@ module.exports = {
         @import "@/assets/scss/_mixins.scss";`
       }
     }
+  },
+  chainWebpack: config => {
+    config.module.rules.delete('eslint');
   }
 }

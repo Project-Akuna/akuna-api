@@ -6,12 +6,29 @@
         v-col.pa-0(cols="12")
           h4.font-weight-medium.grey--text.text--darken-3.pb-3.pl-3 ADC Information
         // Region Select
-        v-col.signup__input-container(cols="12" )
-          base-select.signup__region-select(:selectItems="items" selectLabel="Region")
+        v-col.signup__input-container(cols="12")
+          <!--base-select.signup__region-select(:selectItems="regionsList" selectLabel="Region" )-->
+          v-select.signup__region-select(
+            v-model="selectedRegion"
+            :items="regionsList"
+            item-text="description"
+            item-value="id"
+            label="Region"
+            dense
+            @change="findCityFromRegion()"
+            )
 
         // City Select
         v-col.signup__input-container(cols="8" )
-          base-select.signup__city-select(:selectItems="items" selectLabel="City")
+          <!--base-select.signup__city-select(:selectItems="items" selectLabel="City")-->
+          v-select.signup__city-select(
+            v-model="selectedCity"
+            :items="citiesList"
+            item-text="name"
+            item-value="id"
+            label="City"
+            dense
+            )
 
         // Zipcode Textfield
         v-col.signup__input-container(cols="4" )
@@ -50,14 +67,54 @@ export default {
   },
   data() {
     return {
-      
+      regionsList: [],
+      selectedRegion: '',
+      selectedCity: '',
+      citiesList: []
     }
   },
   computed: {
     items() {
       return this.$store.state.items;
+    },
+    findCityFromRegion() {
+      if(this.selectedRegion != '') {
+        var self = this;
+        this.axios.get('http://localhost:3000/api/city/get-all-city/' + self.selectedRegion, {
+          auth: {
+            username: 'asd',
+            password: 'asd'
+          }
+        })
+        .then(function (response) {
+          self.citiesList = response.data.payload;
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(async function () {
+        });
+      }
     }
   },
+  created(){
+    var self = this;
+    this.axios.get('http://localhost:3000/api/region/get-all-regions', {
+      auth: {
+        username: 'asd',
+        password: 'asd'
+      }
+    })
+    .then(function (response) {
+      self.regionsList = response.data.payload;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(async function () {
+    });
+  }
+
 }
 </script>
 <style lang="scss">

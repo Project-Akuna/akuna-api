@@ -11,12 +11,6 @@
           v-list-item-content
             v-list-item-title Dashboard
 
-        v-list-item(link dense)
-          v-list-item-action
-            v-icon mdi-contact-mail
-          v-list-item-content
-            v-list-item-title Contact
-
         v-list-group(no-action)
           template(v-slot:activator)
             v-list-item-action

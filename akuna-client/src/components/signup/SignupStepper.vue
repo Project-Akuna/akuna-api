@@ -1,15 +1,18 @@
 <template lang="pug">
-  v-stepper(v-model="signupStep" alt-labels transition="scroll-x-transition")
+  v-stepper(
+    v-model="signupStep" 
+    alt-labels 
+    transition="scroll-x-transition")
 
     // Stepper Headers
     v-stepper-header
-      v-stepper-step(:complete="signupStep > 1" step="1") ADC Information
+      v-stepper-step(color="green darken-2" :complete="signupStep > 1" step="1") ADC Information
       v-divider
-      v-stepper-step(:complete="signupStep > 2" step="2") Member Information
+      v-stepper-step(color="green darken-2" :complete="signupStep > 2" step="2") Member Information
       v-divider
-      v-stepper-step(:complete="signupStep > 3" step="3") Upline Information
+      v-stepper-step(color="green darken-2" :complete="signupStep > 3" step="3") Upline Information
       v-divider
-      v-stepper-step(step="4") Account Information
+      v-stepper-step(color="green darken-2" step="4") Account Information
      
     // Stepper Contents
     v-stepper-items
@@ -60,7 +63,7 @@ export default {
 <style lang="scss">
 .signup__stepper {
   .signup__btn {
-    background: $c-accent !important;
+    background: $c-primary !important;
     color: white !important;
     @include shadow-sm-primary;
   }

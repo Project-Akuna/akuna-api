@@ -3,6 +3,7 @@
     :items="selectItems" 
     :label="selectLabel"
     dense
+    color="green darken-2"
     )
 </template>
 <script>
