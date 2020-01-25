@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         RoleConstant.MEMBER.name(), RoleConstant.CASHIER.name(),
                         RoleConstant.DEPOT.name())
                 .antMatchers("/admin/**").hasRole(RoleConstant.SYSADMIN.name())
-                .antMatchers("/**").permitAll()
+                .antMatchers( "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**");
+        web.ignoring().antMatchers("/resources/**", "/api/city/**", "/api/region/**");
     }
 
     @Override

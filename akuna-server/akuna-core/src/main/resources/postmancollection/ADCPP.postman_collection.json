@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "d84cdf2d-fab7-4f1c-81dc-83d7769137bd",
+		"name": "ADCPP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save User",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\" : \"cas\",\n\t\"password\" : \"cas\",\n\t\"firstName\" : \"Cashier\",\n\t\"lastName\" : \"1\",\n\t\"email\" : \"raymond13ize@gmail.com\",\n\t\"isEnabled\" : 1,\n\t\"birthday\" : \"1997-09-30\",\n\t\"address\" : \"Sa bahay lang po namin\",\n\t\"maritalStatus\" : \"SINGLE\",\n\t\"adc\" : {\n\t\t\"id\" : 1\n\t},\n\t\"roles\" : [{\n\t\t\"id\" : 3\n\t}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{BASE_URL}}:3000/api/admin/user/save",
+					"protocol": "http",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Regions",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{BASE_URL}}:3000/api/region/get-all-regions",
+					"protocol": "http",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"region",
+						"get-all-regions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Cities",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{BASE_URL}}:3000/api/city/get-all-city/1",
+					"protocol": "http",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"city",
+						"get-all-city",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Registration Codes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"quantity\" : 10,\n\t\"adcId\" : 1,\n\t\"addedBy\" : 168,\n\t\"soldTo\" : 5,\n\t\"amount\" : 1900\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{BASE_URL}}:3000/api/registration/generate-codes",
+					"protocol": "http",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"registration",
+						"generate-codes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Email",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\" : \"raymond13ize@gmail.com\",\n\t\"subject\" : \"Test java email\",\n\t\"body\" : \"ASDASDASDASDASDASDAS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{BASE_URL}}:3000/api/registration/email",
+					"protocol": "http",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"registration",
+						"email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save ADC",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "asd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Caloocan ADC\",\n\t\"code\" : \"0002\",\n\t\"officeAddress\" : \"Dito lang po samin\",\n\t\"city\" : {\n\t\t\"id\" : 1369\n\t},\n\t\"landLineNumber1\" : \"2754-08411111\",\n\t\"mobileNumber1\" : \"09662030668\",\n\t\"email\" : \"raymond13ize@gmail.com\",\n\t\"isSelling\" : 1,\n\t\"username\" : \"cal_adc\",\n\t\"password\" : \"asd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{BASE_URL}}:3000/api/adc/save",
+					"protocol": "http",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"adc",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
