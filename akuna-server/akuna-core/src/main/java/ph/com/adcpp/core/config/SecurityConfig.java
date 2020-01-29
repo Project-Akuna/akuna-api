@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/**")
+                .antMatchers("/api/login", "/api/logout", "/api/**")
                 .hasAnyRole(RoleConstant.SYSADMIN.name(), RoleConstant.ADC.name(),
                         RoleConstant.MEMBER.name(), RoleConstant.CASHIER.name(),
                         RoleConstant.DEPOT.name())
@@ -40,12 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .logout().logoutUrl("/api/logout")
+                .logoutSuccessUrl("/login")
+                .and()
                 .httpBasic();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**", "/api/city/**", "/api/region/**");
+        web.ignoring()
+                .antMatchers("/resources/**", "/api/city/**", "/api/region/**");
     }
 
     @Override
