@@ -40,7 +40,7 @@ public class RegistrationCodeService {
     }
 
     public List<RegistrationCode> save(List<RegistrationCode> codes) {
-        return codeRepository.save(codes);
+        return codeRepository.saveAll(codes);
     }
 
     public List<RegistrationCodeResponse> convertToList(List<RegistrationCode> codes) {
@@ -69,6 +69,6 @@ public class RegistrationCodeService {
         }
 
         log.info("Successfully generated [{}] codes", request.getQuantity());
-        return codeRepository.save(registrationCodes);
+        return codeRepository.saveAll(registrationCodes);
     }
 }

@@ -37,13 +37,11 @@ public class UserController {
 
     @PostMapping("/save-multiple-users")
     public BaseResponse saveMultipleUsers(@RequestBody @Valid List<UserRequest> requests) {
-        requests.forEach(request -> {
-            log.info("Saving new user [{}]", request.getUsername());
+        log.info("Saving multiple users...");
 
-            userService.save(request);
+        userService.saveAll(requests);
 
-            log.info("User [{}] successfully saved.", request.getUsername());
-        });
+        log.info("Users successfully saved.");
         return ResponseUtil.success();
     }
 }

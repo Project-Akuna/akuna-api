@@ -51,6 +51,13 @@ public class UserService {
         return userRepository.save(convert(request));
     }
 
+    public List<User> saveAll(List<UserRequest> userRequests) {
+        List<User> users = new ArrayList<>();
+
+        userRequests.forEach(user -> users.add(mapper.convertValue(user, User.class)));
+        return userRepository.saveAll(users);
+    }
+
     private User convert(UserRequest request) {
         log.info("Saving new user [{}]", request.getUsername());
 

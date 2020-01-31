@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -34,10 +35,10 @@ public class Product {
     private BigDecimal driFee;
 
     @Column(name = "DATE")
-    private Date dtimeCreated;
+    private LocalDateTime dtimeCreated;
 
     @PrePersist
     protected void onCreate() {
-        dtimeCreated = new Date();
+        dtimeCreated = LocalDateTime.now();
     }
 }
