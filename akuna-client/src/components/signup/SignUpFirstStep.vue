@@ -77,6 +77,8 @@ export default {
     items() {
       return this.$store.state.items;
     },
+  },
+  methods: {
     findCityFromRegion() {
       if(this.selectedRegion != '') {
         var self = this;
