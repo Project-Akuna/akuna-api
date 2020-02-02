@@ -8,6 +8,7 @@ import ph.com.adcpp.models.service.UserService;
 import ph.com.adcpp.utils.ResponseUtil;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author raymond.galima
@@ -34,8 +35,13 @@ public class UserController {
         return ResponseUtil.success();
     }
 
-    @GetMapping("/get-user/{username}")
-    public BaseResponse getUser(@PathVariable("username") String username) {
-        return ResponseUtil.success(userService.findByUsername(username));
+    @PostMapping("/save-multiple-users")
+    public BaseResponse saveMultipleUsers(@RequestBody @Valid List<UserRequest> requests) {
+        log.info("Saving multiple users...");
+
+        userService.saveAll(requests);
+
+        log.info("Users successfully saved.");
+        return ResponseUtil.success();
     }
 }

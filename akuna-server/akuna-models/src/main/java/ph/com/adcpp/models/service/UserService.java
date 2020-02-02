@@ -4,11 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ph.com.adcpp.commons.response.UserResponse;
+import ph.com.adcpp.models.builder.GenealogyBuilder;
 import ph.com.adcpp.models.entity.User;
 import ph.com.adcpp.models.repository.UserRepository;
 import ph.com.adcpp.commons.request.UserRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,10 +37,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserResponse findByUsername(String username) {
-        return mapper.convertValue(userRepository.findByUsername(username), UserResponse.class);
-    }
-
     public User save(User user) {
         log.info("Saving new user [{}]", user.getUsername());
 
@@ -52,6 +49,13 @@ public class UserService {
 
     public User save(UserRequest request) {
         return userRepository.save(convert(request));
+    }
+
+    public List<User> saveAll(List<UserRequest> userRequests) {
+        List<User> users = new ArrayList<>();
+
+        userRequests.forEach(user -> users.add(mapper.convertValue(user, User.class)));
+        return userRepository.saveAll(users);
     }
 
     private User convert(UserRequest request) {
@@ -106,5 +110,16 @@ public class UserService {
         }
 
         return true;
+    }
+
+    public List<GenealogyBuilder> getGenealogy(String username) {
+
+        User user = userRepository.findByUsername(username);
+
+        List<GenealogyBuilder> userList = new ArrayList<>();
+        userList.add(GenealogyBuilder.create(user));
+        GenealogyBuilder.buildGenealogy(user, userList);
+
+        return userList;
     }
 }

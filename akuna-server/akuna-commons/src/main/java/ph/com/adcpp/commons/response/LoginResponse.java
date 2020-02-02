@@ -5,14 +5,13 @@ import lombok.Setter;
 
 /**
  * @author Choy
- * @date 12/17/2019.
+ * @date 1/25/2020.
  */
 
 @Getter
 @Setter
-public class CityResponse {
+public class LoginResponse {
 
-    private Long id;
-    private String name;
-    private String zipCode;
+    private String username;
+    private String sessionId;
 }

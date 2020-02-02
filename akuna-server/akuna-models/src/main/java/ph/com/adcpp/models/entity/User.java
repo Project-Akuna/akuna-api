@@ -12,6 +12,7 @@ import ph.com.adcpp.commons.response.UserResponse;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -82,7 +83,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
 
-    private Date dateRegistered;
+    private LocalDateTime dateRegistered;
 
     @OneToMany
     @JoinTable(name = "DOWNLINES", joinColumns = @JoinColumn(name = "UPLINE_ID"),
@@ -120,6 +121,6 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
-        this.dateRegistered = new Date();
+        this.dateRegistered = LocalDateTime.now();
     }
 }

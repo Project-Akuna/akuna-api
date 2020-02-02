@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -33,10 +34,10 @@ public class MemberType {
 
     private Integer status = 1;
 
-    private Date dateAdded;
+    private LocalDateTime dateAdded;
 
     @PrePersist
     protected void onCreate() {
-        dateAdded = new Date();
+        dateAdded = LocalDateTime.now();
     }
 }
