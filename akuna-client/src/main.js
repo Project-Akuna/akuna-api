@@ -8,9 +8,12 @@ import 'vuetify/dist/vuetify.min.css'
 import vuetify from './plugins/vuetify';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(Vuetify);
 Vue.use(VueAxios, axios);
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false
 

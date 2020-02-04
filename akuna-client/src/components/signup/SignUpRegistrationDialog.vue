@@ -16,7 +16,7 @@
             )
           v-radio(label="No" value="no" color="green darken-2")
         div.signup__registration-dialog-btn-container
-          v-btn.mr-4(depressed) Cancel
+          v-btn.mr-4(depressed @click="signupDialog=false") Cancel
           v-btn.signup__btn(@click="continueToSignup") Continue
 
 </template>
@@ -31,10 +31,15 @@ export default {
   },
   methods: {
     continueToSignup() {
-      if(this.registrationID != '' && this.signupRadioGroup == 'yes') {
-        this.$router.push('signup/'+this.registrationID);
+      if(this.registrationID == '' && this.signupRadioGroup == 'yes') {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please enter your Registration ID'
+        });
       } else {
-        console.log("Error message here")
+        this.$router.push('signup/'+this.registrationID);
+        
       }
     }
   }

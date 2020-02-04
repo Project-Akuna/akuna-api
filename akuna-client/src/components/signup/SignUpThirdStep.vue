@@ -59,6 +59,13 @@ export default {
       return this.$store.state.items;
     }
   },
+  created() {
+    if (typeof this.$route.params.regID === 'undefined') { // Reg ID is present
+      
+    } else { // Reg ID is not present
+
+    }
+  }
 }
 </script>
 <style lang="scss">

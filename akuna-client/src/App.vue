@@ -99,4 +99,8 @@ export default {
     }
   }
 }
+
+.swal2-container {
+  font-family: Roboto;
+}
 </style>
