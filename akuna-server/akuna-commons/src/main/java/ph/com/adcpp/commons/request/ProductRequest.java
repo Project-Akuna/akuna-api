@@ -25,6 +25,4 @@ public class ProductRequest {
     private BigDecimal adcFee;
     @NotNull
     private BigDecimal driFee;
-    @NotNull
-    private Date dtimeCreated;
 }

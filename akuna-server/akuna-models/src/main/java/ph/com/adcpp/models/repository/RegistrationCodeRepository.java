@@ -10,4 +10,6 @@ import ph.com.adcpp.models.entity.RegistrationCode;
  */
 @Repository
 public interface RegistrationCodeRepository extends JpaRepository<RegistrationCode, String> {
+
+    RegistrationCode findByCode(String code);
 }

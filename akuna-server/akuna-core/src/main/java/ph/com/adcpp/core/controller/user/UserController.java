@@ -1,4 +1,4 @@
-package ph.com.adcpp.core.controller.admin;
+package ph.com.adcpp.core.controller.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/admin/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     private UserService userService;
@@ -27,11 +27,7 @@ public class UserController {
 
     @PostMapping("/save")
     public BaseResponse saveUser(@RequestBody @Valid UserRequest request) {
-        log.info("Saving new user [{}]", request.getUsername());
-
         userService.save(request);
-
-        log.info("User [{}] successfully saved.", request.getUsername());
         return ResponseUtil.success();
     }
 

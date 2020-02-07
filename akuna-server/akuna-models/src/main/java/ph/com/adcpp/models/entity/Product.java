@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "REG_CODE_PRICE")
     private BigDecimal codePrice;
 
-    @Column(name = "ALVEO_BOT_PRICE")
+    @Column(name = "BOT_PRICE")
     private BigDecimal price;
 
     @Column(name = "ADC_FEE")

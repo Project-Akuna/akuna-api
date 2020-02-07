@@ -5,10 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ph.com.adcpp.models.builder.GenealogyBuilder;
+import ph.com.adcpp.models.entity.RegistrationCode;
 import ph.com.adcpp.models.entity.User;
+import ph.com.adcpp.models.entity.Wallet;
 import ph.com.adcpp.models.repository.UserRepository;
 import ph.com.adcpp.commons.request.UserRequest;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,22 +22,21 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class UserService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private ObjectMapper mapper;
+    private RegistrationCodeService codeService;
 
     public UserService(UserRepository userRepository,
                        BCryptPasswordEncoder passwordEncoder,
-                       ObjectMapper mapper) {
+                       ObjectMapper mapper, RegistrationCodeService codeService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mapper = mapper;
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
+        this.codeService = codeService;
     }
 
     public User save(User user) {
@@ -48,7 +50,12 @@ public class UserService {
     }
 
     public User save(UserRequest request) {
-        return userRepository.save(convert(request));
+
+        User user = convert(request);
+        user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode())); // set is_used to true
+        user.setWallet(new Wallet(user));
+
+        return userRepository.save(user);
     }
 
     public List<User> saveAll(List<UserRequest> userRequests) {
@@ -121,5 +128,12 @@ public class UserService {
         GenealogyBuilder.buildGenealogy(user, userList);
 
         return userList;
+    }
+
+    private RegistrationCode updateRegistrationCode(User user, String code) {
+        RegistrationCode registrationCode = codeService.findByCode(code);
+        registrationCode.setIsUsed(true);
+        registrationCode.setSoldTo(user);
+        return codeService.save(registrationCode);
     }
 }

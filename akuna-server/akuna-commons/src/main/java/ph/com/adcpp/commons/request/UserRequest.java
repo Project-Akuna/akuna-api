@@ -6,6 +6,7 @@ import lombok.Setter;
 import ph.com.adcpp.commons.constant.MaritalStatus;
 import ph.com.adcpp.commons.constant.Relationship;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -41,11 +42,10 @@ public class UserRequest {
 
     private UserRequest upline;
 
-    @NotNull
     private UserRequest directSponsor;
 
     @NotNull
-    private Date birthday;
+    private LocalDate birthday;
 
     @NotNull
     private ADCRequest adc;
@@ -67,4 +67,6 @@ public class UserRequest {
 
     @NotNull
     private Set<RoleRequest> roles;
+
+    private String regCode;
 }

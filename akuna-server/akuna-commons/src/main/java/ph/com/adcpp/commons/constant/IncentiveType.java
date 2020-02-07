@@ -6,8 +6,9 @@ package ph.com.adcpp.commons.constant;
  */
 public enum IncentiveType {
 
-    DRI("Direct Referral Incentive"),
-    PLA("PayLite Something");
+    Q1("Qualifier 1"),
+    Q2("Qualifier 2"),
+    Q3("Qualifier 3");
 
     private String description;
 

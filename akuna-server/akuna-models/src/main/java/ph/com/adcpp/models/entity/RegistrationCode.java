@@ -28,7 +28,7 @@ public class RegistrationCode {
 
     private Boolean isUsed;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "SOLD_TO")
     private User soldTo;
 
@@ -43,5 +43,10 @@ public class RegistrationCode {
     @PrePersist
     protected void onCreate() {
         this.dtimeCreated = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.dtimeUsed = LocalDateTime.now();
     }
 }

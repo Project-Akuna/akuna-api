@@ -1,17 +1,14 @@
 package ph.com.adcpp.models.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 import ph.com.adcpp.commons.constant.MaritalStatus;
 import ph.com.adcpp.commons.constant.Relationship;
-import ph.com.adcpp.commons.response.UserResponse;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -65,7 +62,7 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     private String address;
 
@@ -93,6 +90,12 @@ public class User {
 
     @Column(nullable = false)
     private Integer treeLevel;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private Wallet wallet;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "soldTo")
+    private RegistrationCode registrationCode;
 
     public User() {
     }

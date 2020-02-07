@@ -6,6 +6,7 @@ import ph.com.adcpp.commons.constant.IncentiveType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Choy
@@ -19,11 +20,17 @@ public class Incentive {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "INCENTIVE_ID")
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private IncentiveType incentiveType;
-    private Integer count;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_INCENTIVES", joinColumns = @JoinColumn(name = "INCENTIVE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    private List<User> users;
+
     private LocalDateTime dtimeCreated;
     private LocalDateTime dtimeUpdated;
 
@@ -36,7 +43,6 @@ public class Incentive {
 
     @PrePersist
     protected void onCreate() {
-        count = 0; // initial count is 0 for the start of the day
         dtimeCreated = LocalDateTime.now();
     }
 

@@ -71,4 +71,8 @@ public class RegistrationCodeService {
         log.info("Successfully generated [{}] codes", request.getQuantity());
         return codeRepository.saveAll(registrationCodes);
     }
+
+    public RegistrationCode findByCode(String code) {
+        return codeRepository.findByCode(code);
+    }
 }
