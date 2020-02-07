@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     checkRoute() {
-      if (this.$route.path === "/login" || this.$route.path === "/signup") {
+      if (this.$route.path.includes("signup") || this.$route.path.includes("login")) {
         this.$store.commit('toggleNav', false);
       } else  {
         this.$store.commit('toggleNav', true);
@@ -98,5 +98,9 @@ export default {
       padding: 24px;
     }
   }
+}
+
+.swal2-container {
+  font-family: Roboto;
 }
 </style>

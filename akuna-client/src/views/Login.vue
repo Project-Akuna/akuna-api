@@ -29,15 +29,21 @@
 
       div.login__register-container.text-center.mt-7
         span.grey--text.text--darken-1 Dont have an account? 
-        router-link(to="/signup") Register here.
+        sign-up-registration-dialog
 </template>
 <script>
+import SignUpRegistrationDialog from '../components/signup/SignUpRegistrationDialog';
+
+
 export default {
+  components: {
+    SignUpRegistrationDialog
+  },
   data(){
     return {
       username:'',
       password:'',
-      showPassword: false
+      showPassword: false,
     }
   }
 }

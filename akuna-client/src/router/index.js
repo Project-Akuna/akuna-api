@@ -22,6 +22,11 @@ const routes = [
     name: 'signup',
     component: Signup
   },
+  {
+    path: '/signup/:regID',
+    name: 'signupWithRegID',
+    component: Signup
+  },
 ]
 
 const router = new VueRouter({
