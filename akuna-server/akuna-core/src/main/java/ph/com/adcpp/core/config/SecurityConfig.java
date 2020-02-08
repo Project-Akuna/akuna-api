@@ -49,7 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/resources/**", "/api/city/**", "/api/region/**");
+                .antMatchers("/resources/**", "/api/city/**", "/api/region/**",
+                        "/api/user/**");
     }
 
     @Override

@@ -37,6 +37,8 @@ public class User {
 
     private String lastName;
 
+    private String middleName;
+
     @Column(nullable = false)
     private String email;
 
@@ -82,7 +84,7 @@ public class User {
 
     private LocalDateTime dateRegistered;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "DOWNLINES", joinColumns = @JoinColumn(name = "UPLINE_ID"),
     inverseJoinColumns = @JoinColumn(name = "DOWNLINE_ID"))
     @Size(max = 3)

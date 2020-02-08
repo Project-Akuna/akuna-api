@@ -2,7 +2,8 @@
   v-app
     navbar(v-if="isNavShown")
     v-content
-      router-view
+      transition(name="fade" mode="out-in")
+        router-view(style="padding: 20px;")
 </template>
 
 <script>
@@ -45,5 +46,15 @@ export default {
 </script>
 <style lang="scss">
 @import './assets/scss/_global.scss','./assets/scss/_vuetify.scss';
-
+// 640px+
+@media screen and (min-width: 40em) {
+  .v-stepper {
+    .v-stepper__wrapper {
+      padding: 24px;
+    }
+  }
+}
+.swal2-container {
+  font-family: Roboto;
+}
 </style>

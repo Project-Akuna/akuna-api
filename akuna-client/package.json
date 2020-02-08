@@ -9,8 +9,10 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@balkangraph/orgchart.js": "^6.1.9983",
     "axios": "^0.19.2",
     "core-js": "^3.4.3",
+    "nprogress": "^0.2.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",

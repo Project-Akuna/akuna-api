@@ -29,7 +29,7 @@ public class ADC {
     @Column(nullable = false)
     private String officeAddress;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID")
     private City city;
 

@@ -2,12 +2,14 @@ package ph.com.adcpp.core.controller.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ph.com.adcpp.commons.request.PaginatedRequest;
 import ph.com.adcpp.commons.response.BaseResponse;
 import ph.com.adcpp.commons.request.UserRequest;
 import ph.com.adcpp.models.service.UserService;
 import ph.com.adcpp.utils.ResponseUtil;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,5 +41,10 @@ public class UserController {
 
         log.info("Users successfully saved.");
         return ResponseUtil.success();
+    }
+
+    @PostMapping("/get-users")
+    public BaseResponse test(@RequestBody PaginatedRequest request) {
+        return ResponseUtil.success(userService.getAllUsers(request));
     }
 }

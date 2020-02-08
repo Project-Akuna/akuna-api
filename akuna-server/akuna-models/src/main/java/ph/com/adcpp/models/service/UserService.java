@@ -2,8 +2,13 @@ package ph.com.adcpp.models.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ph.com.adcpp.commons.request.PaginatedRequest;
+import ph.com.adcpp.commons.response.UserResponse;
 import ph.com.adcpp.models.builder.GenealogyBuilder;
 import ph.com.adcpp.models.entity.RegistrationCode;
 import ph.com.adcpp.models.entity.User;
@@ -15,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author raymond.galima
@@ -120,13 +126,14 @@ public class UserService {
     }
 
     public List<GenealogyBuilder> getGenealogy(String username) {
-
+        log.info("Building genealogy of user: [{}]", username);
         User user = userRepository.findByUsername(username);
 
         List<GenealogyBuilder> userList = new ArrayList<>();
         userList.add(GenealogyBuilder.create(user));
         GenealogyBuilder.buildGenealogy(user, userList);
 
+        log.info("User [{}] has [{}] network", username, userList.size() - 1);
         return userList;
     }
 
@@ -135,5 +142,25 @@ public class UserService {
         registrationCode.setIsUsed(true);
         registrationCode.setSoldTo(user);
         return codeService.save(registrationCode);
+    }
+
+    public List<UserResponse> getAllUsers(PaginatedRequest request) {
+        log.info("Getting users...");
+        Sort sort;
+
+        if (request.getSortValue().equals(Sort.Direction.DESC.name())) {
+            sort = Sort.by(request.getSortKey()).descending();
+        } else {
+            sort = Sort.by(request.getSortKey()).ascending();
+        }
+
+        Pageable pageRequest = PageRequest.of(request.getPageIndex(), request.getPageSize(), sort);
+        return userRepository.findAll(pageRequest).get()
+                .map(this::mapUser)
+                .collect(Collectors.toList());
+    }
+
+    private UserResponse mapUser(User user) {
+        return mapper.convertValue(user, UserResponse.class);
     }
 }

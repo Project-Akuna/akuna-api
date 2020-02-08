@@ -65,7 +65,7 @@
             v-list-item-content
               v-list-item-title Cashier
 
-          v-list-item(link dense)
+          v-list-item(link dense to="/members")
             v-list-item-content
               v-list-item-title Member
 
@@ -160,12 +160,6 @@
           v-list-item(link dense)
             v-list-item-content
               v-list-item-title Daily Payout Report
-
-          
-
-
-
-              
 
     v-app-bar(
       :clipped-left="$vuetify.breakpoint.lgAndUp"
