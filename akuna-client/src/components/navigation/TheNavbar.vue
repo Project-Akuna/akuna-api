@@ -61,7 +61,7 @@
             v-list-item-content
               v-list-item-title ADC
 
-          v-list-item(link dense)
+          v-list-item(link dense to="cashiers")
             v-list-item-content
               v-list-item-title Cashier
 

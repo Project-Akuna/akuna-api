@@ -8,10 +8,11 @@ import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Adc from '../views/membersFiles/Adc.vue';
-import Genealogy from "../components/genealogy/Genealogy";
+import Genealogy from "../views/genealogy/Genealogy";
 import Members from "../views/membersFiles/Members";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import Cashier from "../views/membersFiles/Cashier";
 
 Vue.use(VueSession);
 Vue.use(VueRouter);
@@ -52,6 +53,11 @@ const routes = [
     path: '/members',
     name: 'members',
     component: Members
+  },
+  {
+    path: '/cashiers',
+    name: 'cashiers',
+    component: Cashier
   }
 ];
 

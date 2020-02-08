@@ -2,6 +2,7 @@ package ph.com.adcpp.commons.request;
 
 import lombok.Getter;
 import lombok.Setter;
+import ph.com.adcpp.commons.response.CityResponse;
 
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +27,7 @@ public class ADCRequest {
     private String officeAddress;
 
     @NotNull
-    private CityRequest city;
+    private CityResponse city;
 
     @NotNull
     private String landLineNumber1;

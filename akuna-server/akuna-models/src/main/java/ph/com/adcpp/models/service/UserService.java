@@ -166,4 +166,10 @@ public class UserService {
     private UserResponse mapUser(User user) {
         return mapper.convertValue(user, UserResponse.class);
     }
+
+    public List<UserResponse> getCashiers() {
+        final Long roleId = 3L;
+        return userRepository.getUsersByRoleId(roleId)
+                .stream().map(this::mapUser).collect(Collectors.toList());
+    }
 }

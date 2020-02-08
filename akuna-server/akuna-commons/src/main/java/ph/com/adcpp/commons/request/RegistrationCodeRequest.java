@@ -17,7 +17,7 @@ public class RegistrationCodeRequest {
     private Integer quantity;
     private Long adcId;
     private Long addedBy;
-    private Long soldTo;
+    private Long owner;
     private BigDecimal amount;
 
 }

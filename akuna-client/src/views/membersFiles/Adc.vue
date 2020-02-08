@@ -39,7 +39,7 @@ export default {
         },
         {
           text: 'City',
-          value: 'city'
+          value: 'city.name'
         },
         {
           text: 'Landline 1',

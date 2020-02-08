@@ -59,11 +59,13 @@ public class RegistrationCodeService {
         List<RegistrationCode> registrationCodes = new ArrayList<>();
 
         for(int ctr = 0; ctr < request.getQuantity(); ctr++) {
+
             RegistrationCode registrationCode = new RegistrationCode();
             registrationCode.setCode(UUID.randomUUID().toString());
             registrationCode.setAdc(new ADC(request.getAdcId()));
             registrationCode.setAddedBy(new User(request.getAddedBy()));
             registrationCode.setAmount(request.getAmount());
+            registrationCode.setOwner(new User(request.getOwner()));
 
             registrationCodes.add(registrationCode);
         }
