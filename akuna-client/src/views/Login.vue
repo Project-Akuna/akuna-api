@@ -25,7 +25,7 @@
         v-col.pa-0.pr-3.login__forgot-container(cols="12")
           a.link Forgot password? 
 
-      v-btn.mt-4.login__btn(block large) SIGN IN
+      v-btn.mt-4.login__btn(block large @click="signin") SIGN IN
 
       div.login__register-container.text-center.mt-7
         span.grey--text.text--darken-1 Dont have an account? 
@@ -34,6 +34,7 @@
 <script>
 import SignUpRegistrationDialog from '../components/signup/SignUpRegistrationDialog';
 
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -44,6 +45,37 @@ export default {
       username:'',
       password:'',
       showPassword: false,
+    }
+  },
+  computed: mapState({
+    axiosURL: 'axiosURL'
+  }),
+  methods: {
+    signin() {
+      let self = this;
+      this.axios({
+        method: 'post',
+        url: self.axiosURL+ 'api/login',
+        auth: {
+          username: self.username ,
+          password: self.password
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          this.$session.start()
+          this.$session.set('session', response.payload);
+          this.$session.set('auth', {
+            username: self.username,
+            password: self.password
+          });
+
+          this.$router.push('/dashboard');
+        }
+      })
+      .catch(response => {
+        this.$swal('Opssss! Something went wrong', response.data, 'error');
+      });
     }
   }
 }

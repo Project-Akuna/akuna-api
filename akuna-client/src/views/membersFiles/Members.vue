@@ -69,7 +69,7 @@
             }
         },
         mounted: function () {
-            this.users = this.getUsers();
+            this.getUsers();
         }
     }
 </script>

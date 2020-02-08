@@ -99,7 +99,7 @@
               //- v-list-item-title Run Income / Incentives
               v-menu(top offset-x open-on-hover)
                 template(v-slot:activator="{ on }")
-                  v-list-item-title(v-on="on") Run Income
+                  v-list-item-title(v-on="on") Run Income/Incentives
                     v-icon.float-right mdi-menu-right
 
                   //- v-btn(v-on="on" text) Run Income / Incentives
@@ -123,7 +123,7 @@
             v-list-item-action
               v-icon mdi-file-chart
             v-list-item-content
-              v-list-item-title View/Listing/Reports
+              v-list-item-title Reports
 
           v-list-item(link dense)
             v-list-item-content

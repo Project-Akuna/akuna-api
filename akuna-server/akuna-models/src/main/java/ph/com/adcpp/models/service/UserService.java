@@ -61,8 +61,6 @@ public class UserService {
         User user = convert(request);
         if (Objects.nonNull(request.getRegCode())) {
             user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode()));
-        } else {
-            user.setAdc(codeService.findByCode(request.getRegCode()).getOwner().getAdc());
         }
         user.setWallet(new Wallet(user));
 
