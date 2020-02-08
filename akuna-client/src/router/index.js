@@ -3,9 +3,9 @@ import VueRouter from 'vue-router';
 import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
-import Adc from '../views/Adc.vue';
+import Adc from '../views/membersFiles/Adc.vue';
 import Genealogy from "../components/genealogy/Genealogy";
-import Members from "../components/members/Members";
+import Members from "../views/membersFiles/Members";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 

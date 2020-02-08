@@ -133,7 +133,7 @@ export default {
     var self = this;
 
     // Axios call for adc
-    this.axios.get(self.axiosURL+'api/adc/get-all-adcs', {
+    this.axios.get(self.axiosURL+'api/adc/get-all-adc', {
       auth: {
         username: 'asd',
         password: 'asd'
