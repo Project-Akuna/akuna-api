@@ -10,15 +10,15 @@
       v-divider
       v-stepper-step(color="green darken-2" :complete="signupStep > 2" step="2") Member Information
       v-divider
-      v-stepper-step(color="green darken-2" :complete="signupStep > 3" step="3") Upline Information
-      v-divider
-      v-stepper-step(color="green darken-2" step="4") Account Information
+      //- v-stepper-step(color="green darken-2" :complete="signupStep > 3" step="3") Upline Information
+      //- v-divider
+      v-stepper-step(color="green darken-2" step="3") Account Information
      
     // Stepper Contents
     v-stepper-items
       sign-up-first-step
       sign-up-second-step
-      sign-up-third-step
+      //- sign-up-third-step
       sign-up-fourth-step
 </template>
 <script>

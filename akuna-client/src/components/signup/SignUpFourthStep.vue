@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-stepper-content(step="4")
+  v-stepper-content(step="3")
     v-container.pt-0
       v-row
         //HEADING - Account Info
@@ -13,7 +13,8 @@
               required
               clearable
               label="Username"
-              counter="10")
+              counter="100"
+              @input="updateAccount({ username: $event})")
 
         // Password TextField
         v-col.signup__input-container(cols="12")
@@ -25,7 +26,9 @@
               @click:append="showPassword = !showPassword"
               :type="showPassword ? 'text' : 'password'"
               label="Password",
-              counter="10")
+              counter="100"
+              @input="updateAccount({ password: $event})"
+              )
 
         // Confirm Password TextField
         v-col.signup__input-container(cols="12")
@@ -37,19 +40,22 @@
               @click:append="showPassword = !showPassword"
               :type="showPassword ? 'text' : 'password'"
               label="Confirm Password"
-              counter="10")
+              counter="100")
 
         // Upline Information Buttons
         v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
           v-btn(@click="changeStep(3)" depressed background-color="white") Back
-          v-btn.signup__btn.ml-3(@click="$router.push('/dashboard')") Submit
+          //- v-btn.signup__btn.ml-3(@click="$router.push('/dashboard')") Submit
+          v-btn.signup__btn.ml-3(@click="submitAccount") Submit
 </template>
 <script>
 import BaseSelect from '../baseComponents/BaseSelect'
 import BaseTextField from '../baseComponents/BaseTextField'
 import BaseBirthdayPicker from '../baseComponents/BaseBirthdayPicker'
 import BaseRadioGroup from '../baseComponents/BaseRadioGroup'
+
 import SignupMixin from '../../mixins/signupMixin'
+import { mapState } from 'vuex';
 
 export default {
   mixins: [SignupMixin],
@@ -64,9 +70,47 @@ export default {
     BaseBirthdayPicker,
     BaseRadioGroup
   },
-  computed: {
-    items() {
-      return this.$store.state.items;
+  computed: mapState({
+    signupAccount: 'signupAccount',
+    axiosURL: 'axiosURL'
+    
+  }),
+  methods: {
+    submitAccount() {
+      let self = this;
+      self.updateAccount({isEnabled: 1});
+      self.updateAccount({roles: [{id: 3}]});
+
+      console.log(self.signupAccount);
+      console.log("update");
+      
+      // Axios post request for saving account
+      this.axios.post(self.axiosURL+'api/user/save', {
+        auth: {
+          username: 'asd',
+          password: 'asd'
+        },
+    
+      },
+      {
+        data : self.signupAccount
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then(() => {
+        
+      });
+    },
+
+    showAccount() {
+      console.log(this.signupAccount);
+    },
+    checkVal(val) {
+      console.log(val);
     }
   },
 }

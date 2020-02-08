@@ -9,7 +9,6 @@
     :suffix="suffix",
     :rules="rulesList"
     :prepend-inner-icon="prependInnerIcon"
-    color="green darken-2"
     )
 </template>
 <script>

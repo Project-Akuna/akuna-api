@@ -9,9 +9,33 @@
 </template>
 <script>
 import SignupStepper from '../components/signup/SignupStepper'
+
+import { mapState } from 'vuex'
 export default {
   components: {
     SignupStepper
+  },
+  computed: mapState({
+    axiosURL: 'axiosURL'
+  }),
+  created() {
+    var self = this;
+
+    // Axios call for regions
+    this.axios.get(self.axiosURL+'api/region/get-all-regions', {
+      auth: {
+        username: 'asd',
+        password: 'asd'
+      }
+    })
+    .then(function (response) {
+      self.$store.commit('updateRegions', response.data.payload)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(async function () {
+    });
   }
 }
 </script>

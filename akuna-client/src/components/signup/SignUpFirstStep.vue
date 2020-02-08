@@ -34,7 +34,7 @@
             dense
             v-model="zipcode"
             disabled
-            label="Zipcode"
+            label="Zipcode" 
           )
 
         // ADC Select
@@ -75,7 +75,9 @@ import BaseSelect from '../baseComponents/BaseSelect'
 import BaseTextField from '../baseComponents/BaseTextField'
 import BaseBirthdayPicker from '../baseComponents/BaseBirthdayPicker'
 import BaseRadioGroup from '../baseComponents/BaseRadioGroup'
+
 import SignupMixin from '../../mixins/signupMixin'
+import { mapState } from 'vuex'
 
 export default {
   mixins: [SignupMixin],
@@ -85,9 +87,15 @@ export default {
     BaseBirthdayPicker,
     BaseRadioGroup
   },
+  computed: mapState({
+    axiosURL: 'axiosURL',
+    signupStep: 'signupStep',
+    signupAccount: 'signupAccount',
+    regionsList: 'regionsList'
+  })
+  ,
   data() {
     return {
-      regionsList: [],
       citiesList: [],
       adcList: [],
       selectedRegion: '',
@@ -96,15 +104,6 @@ export default {
       owner: '',
       ownerContact: '',
       zipcode: ''
-      
-    }
-  },
-  computed: {
-    items() {
-      return this.$store.state.items;
-    },
-    axiosURL() {
-      return this.$store.state.axiosURL;
     }
   },
   methods: {
@@ -128,26 +127,10 @@ export default {
         .then(async function () {
         });
       }
-    }
+    },
   },
   created(){
     var self = this;
-
-    // Axios call for regions
-    this.axios.get(self.axiosURL+'api/region/get-all-regions', {
-      auth: {
-        username: 'asd',
-        password: 'asd'
-      }
-    })
-    .then(function (response) {
-      self.regionsList = response.data.payload;
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(async function () {
-    });
 
     // Axios call for adc
     this.axios.get(self.axiosURL+'api/adc/get-all-adcs', {
@@ -174,12 +157,15 @@ export default {
       this.owner = adc[0].name;
       this.ownerContact = adc[0].mobileNumber1; 
 
-      // console.log(adc[0].name);
+      this.updateAccount({ adc: {id: adc[0].id}});
+      
     },
     selectedCity: function(newCity, oldCity) {
       let city = this.citiesList.filter((el, index, array) => {
         return (el.id == newCity);
       });
+
+      this.zipcode = city[0].zipCode;
     }
   }
 }
