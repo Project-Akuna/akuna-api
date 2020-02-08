@@ -44,7 +44,7 @@
 
         // Upline Information Buttons
         v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
-          v-btn(@click="changeStep(3)" depressed background-color="white") Back
+          v-btn(@click="changeStep(2)" depressed background-color="white") Back
           //- v-btn.signup__btn.ml-3(@click="$router.push('/dashboard')") Submit
           v-btn.signup__btn.ml-3(@click="submitAccount") Submit
 </template>
@@ -78,39 +78,57 @@ export default {
   methods: {
     submitAccount() {
       let self = this;
+
+      if (typeof this.$route.params.regID === 'undefined') { // Reg ID is present
+        self.updateAccount({ regCode: this.$route.params.regID })
+      } 
+
       self.updateAccount({isEnabled: 1});
       self.updateAccount({roles: [{id: 3}]});
 
-      console.log(self.signupAccount);
-      console.log("update");
-      
       // Axios post request for saving account
       this.axios.post(self.axiosURL+'api/user/save', {
         auth: {
           username: 'asd',
           password: 'asd'
         },
-    
       },
       {
         data : self.signupAccount
       })
-      .then((response) => {
+      .then( response => {
+        self.loginAccount();
+      })
+      .catch( response => {
+        this.$swal('Opssss! Something went wrong', response.data, 'error');
         console.log(response)
       })
-      .catch((error) => {
-        console.log(error);
+    },
+    loginAccount() {
+      let self = this;
+      this.axios({
+        method: 'post',
+        url: self.axiosURL+ 'api/login',
+        auth: {
+          username: self.signupAccount.username ,
+          password: self.signupAccount.password
+        }
       })
-      .then(() => {
-        
-      });
-    },
+      .then(response => {
+        if (response.status === 200) {
+          this.$session.start()
+          this.$session.set('session', response.payload);
+          this.$session.set('auth', {
+            username: self.signupAccount.username,
+            password: self.signupAccount.password
+          });
 
-    showAccount() {
-      console.log(this.signupAccount);
-    },
-    checkVal(val) {
-      console.log(val);
+          this.$router.replace('/dashboard');
+        }
+      })
+      .catch(response => {
+        this.$swal('Opssss! Sorry you can\'t login', response.data, 'error');
+      });
     }
   },
 }

@@ -64,7 +64,7 @@
                         this.users = response.data.payload;
                     })
                     .catch(response => {
-                        this.$swal('Opssss! Something went wrong', response.data.message, 'error');
+                        this.$swal('Opssss! Something went wrong', response.data, 'error');
                     })
             }
         },
