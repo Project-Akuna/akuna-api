@@ -23,7 +23,7 @@
               :type="showPassword ? 'text' : 'password'"
               label="Password")
         v-col.pa-0.pr-3.login__forgot-container(cols="12")
-          a Forgot password? 
+          a.link Forgot password? 
 
       v-btn.mt-4.login__btn(block large) SIGN IN
 
@@ -81,10 +81,6 @@ export default {
 
   .login__register-container {
     font-size: 12px;
-
-    a {
-      text-decoration: none;
-    }
   }
 }
 </style>

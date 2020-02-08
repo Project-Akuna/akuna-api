@@ -1,6 +1,6 @@
 <template lang="pug">
   div.d-inline-block
-    a(@click.stop="signupDialog = true") Register here.
+    a.link(@click.stop="signupDialog = true") Register here.
     v-dialog(v-model="signupDialog" max-width="500")
       v-card.pa-7
         h3.font-weight-black.grey--text.text--darken-2 Do you have Registration ID?

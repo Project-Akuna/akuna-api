@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
+import Adc from '../views/Adc.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     name: 'signupWithRegID',
     component: Signup
   },
+  {
+    path: '/adc',
+    name: 'adc',
+    component: Adc
+  }
 ]
 
 const router = new VueRouter({

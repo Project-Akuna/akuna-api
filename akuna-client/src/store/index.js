@@ -11,7 +11,8 @@ export default new Vuex.Store({
       "Two",
       "Three"
     ],
-    isNavShown: false
+    isNavShown: false,
+    axiosURL: 'http://localhost:3000/'
   },
   mutations: {
     signupChangeStep(state, nextStep) {

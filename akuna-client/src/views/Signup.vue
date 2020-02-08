@@ -5,7 +5,7 @@
       signup-stepper.signup__stepper
       div.signup__login-container.text-center.mt-7
         span.grey--text.text--darken-1.pr-1 Already have an account?
-        router-link(to="/login") Login here.
+        router-link.link(to="/login") Login here.
 </template>
 <script>
 import SignupStepper from '../components/signup/SignupStepper'

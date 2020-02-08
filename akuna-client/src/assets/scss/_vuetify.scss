@@ -1,0 +1,64 @@
+// Textfield
+.v-text-field {
+  .v-input__prepend-inner i {
+    padding-left: 10px;
+    transform: scale(0.8);
+  }
+  .v-input__append-inner i {
+    transform: scale(0.8);
+    padding-right: 10px;
+  }
+  input {
+    font-size: 14px;
+  }
+  label {
+    font-size: 14px;
+    padding-right: 10px;
+  }
+  &.v-text-field--enclosed .v-text-field__details {
+    margin-bottom: 0 !important;
+  }
+}
+
+// Stepper
+.v-stepper {
+  .v-stepper__header {
+    @include shadow-sm;
+  }
+  .v-stepper__label {
+    font-size: 12px;
+    text-align: center;
+  }
+  .v-stepper__content {
+    padding: 0;
+  }
+  .v-stepper__wrapper {
+    padding: 24px 12px 12px;
+  }
+}
+
+//Select
+.v-select {
+  .v-label {
+    background: white;
+  }
+
+  &.v-text-field.v-text-field--enclosed .v-text-field__details {
+    margin-bottom: 0;
+  }
+}
+
+// List item
+.v-list-item__title .v-icon {
+  line-height: 15px !important;
+} 
+
+// 640px+
+@media screen and (min-width: 40em) {
+  // Stepper
+  .v-stepper {
+    .v-stepper__wrapper {
+      padding: 24px;
+    }
+  }
+}

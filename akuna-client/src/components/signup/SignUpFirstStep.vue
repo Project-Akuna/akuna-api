@@ -7,7 +7,6 @@
           h4.font-weight-medium.grey--text.text--darken-3.pb-3.pl-3 ADC Information
         // Region Select
         v-col.signup__input-container(cols="12")
-          <!--base-select.signup__region-select(:selectItems="regionsList" selectLabel="Region" )-->
           v-select.signup__region-select(
             v-model="selectedRegion"
             :items="regionsList"
@@ -20,7 +19,6 @@
 
         // City Select
         v-col.signup__input-container(cols="8" )
-          <!--base-select.signup__city-select(:selectItems="items" selectLabel="City")-->
           v-select.signup__city-select(
             v-model="selectedCity"
             :items="citiesList"
@@ -32,19 +30,41 @@
 
         // Zipcode Textfield
         v-col.signup__input-container(cols="4" )
-          base-text-field.signup__zipcode-textfield(textFieldLabel="Zipcode" disabled)
+          v-text-field.signup__zipcode-textfield(
+            dense
+            v-model="zipcode"
+            disabled
+            label="Zipcode"
+          )
 
         // ADC Select
         v-col.signup__input-container(cols="12" )
-          base-select.signup__adc-select(:selectItems="items" selectLabel="ADC")
+          v-select.signup__adc-select(
+            v-model="selectedAdc"
+            :items="adcList"
+            item-text="name"
+            item-value="id"
+            label="ADC"
+            dense
+            )
 
         // Owner Textfield
         v-col.signup__input-container(cols="12" )
-          base-text-field.signup__owner-textfield(textFieldLabel="Owner's Name" disabled)
+          v-text-field.signup__owner-textfield(
+            dense
+            v-model="owner"
+            disabled
+            label="Owner's Name"
+          )
 
         // Owner Contact Textfield
         v-col.signup__input-container(cols="12" )
-          base-text-field.signup__owner-contact-textfield(textFieldLabel="Contact Number" disabled)
+          v-text-field.signup__owner-contact-textfield(
+            dense
+            v-model="ownerContact"
+            disabled
+            label="Contact Number"
+          )
 
         // Member Information Buttons
         v-col.signup__akuna-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
@@ -68,21 +88,32 @@ export default {
   data() {
     return {
       regionsList: [],
+      citiesList: [],
+      adcList: [],
       selectedRegion: '',
       selectedCity: '',
-      citiesList: []
+      selectedAdc: '',
+      owner: '',
+      ownerContact: '',
+      zipcode: ''
+      
     }
   },
   computed: {
     items() {
       return this.$store.state.items;
     },
+    axiosURL() {
+      return this.$store.state.axiosURL;
+    }
   },
   methods: {
     findCityFromRegion() {
       if(this.selectedRegion != '') {
         var self = this;
-        this.axios.get('http://localhost:3000/api/city/get-all-city/' + self.selectedRegion, {
+
+        // Axios call for getting city
+        this.axios.get(self.axiosURL+'api/city/get-all-city/' + self.selectedRegion, {
           auth: {
             username: 'asd',
             password: 'asd'
@@ -101,7 +132,9 @@ export default {
   },
   created(){
     var self = this;
-    this.axios.get('http://localhost:3000/api/region/get-all-regions', {
+
+    // Axios call for regions
+    this.axios.get(self.axiosURL+'api/region/get-all-regions', {
       auth: {
         username: 'asd',
         password: 'asd'
@@ -115,8 +148,40 @@ export default {
     })
     .then(async function () {
     });
-  }
 
+    // Axios call for adc
+    this.axios.get(self.axiosURL+'api/adc/get-all-adcs', {
+      auth: {
+        username: 'asd',
+        password: 'asd'
+      }
+    })
+    .then(function (response) {
+      self.adcList = response.data.payload;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(async function () {
+    });
+  },
+  watch: {
+    selectedAdc: function(newAdc, oldAdc) {
+      let adc = this.adcList.filter((el, index, array) => {
+        return (el.id == newAdc);
+      });
+
+      this.owner = adc[0].name;
+      this.ownerContact = adc[0].mobileNumber1; 
+
+      // console.log(adc[0].name);
+    },
+    selectedCity: function(newCity, oldCity) {
+      let city = this.citiesList.filter((el, index, array) => {
+        return (el.id == newCity);
+      });
+    }
+  }
 }
 </script>
 <style lang="scss">

@@ -8,9 +8,9 @@
       v-list(dense nav)
         
         // Home (Dashboard)
-        v-list-item(link dense) 
+        v-list-item(link dense to="dashboard") 
           v-list-item-action
-            v-icon mdi-home
+            v-icon mdi-view-dashboard
           v-list-item-content
             v-list-item-title Dashboard
 
@@ -25,7 +25,7 @@
         v-list-group(no-action)
           template(v-slot:activator)
             v-list-item-action
-              v-icon mdi-home
+              v-icon mdi-folder-text
             v-list-item-content
               v-list-item-title Master Files
 
@@ -49,7 +49,7 @@
         v-list-group(no-action)
           template(v-slot:activator)
             v-list-item-action
-              v-icon mdi-badminton
+              v-icon mdi-account-group
             v-list-item-content
               v-list-item-title Member's File
 
@@ -57,7 +57,7 @@
             v-list-item-content
               v-list-item-title Admin Accounts
 
-          v-list-item(link dense)
+          v-list-item(link dense to="adc")
             v-list-item-content
               v-list-item-title ADC
 
@@ -73,7 +73,7 @@
         v-list-group(no-action)
           template(v-slot:activator)
             v-list-item-action
-              v-icon mdi-badminton
+              v-icon mdi-newspaper-variant-multiple
             v-list-item-content
               v-list-item-title Transaction
 
@@ -97,11 +97,14 @@
           v-list-item(link dense)
             v-list-item-content
               //- v-list-item-title Run Income / Incentives
-              v-menu(top offset-x)
+              v-menu(top offset-x open-on-hover)
                 template(v-slot:activator="{ on }")
-                  v-list-item-title(v-on="on") Run Income / Incentives
+                  v-list-item-title(v-on="on") Run Income
+                    v-icon.float-right mdi-menu-right
+
+                  //- v-btn(v-on="on" text) Run Income / Incentives
                 
-                v-list
+                v-list(dense)
                   v-list-item
                     v-list-item-title Free Bottles Incentives
                   
@@ -118,7 +121,7 @@
         v-list-group(no-action)
           template(v-slot:activator)
             v-list-item-action
-              v-icon mdi-badminton
+              v-icon mdi-file-chart
             v-list-item-content
               v-list-item-title View/Listing/Reports
 
@@ -171,7 +174,7 @@
       color="green darken-2"
       )
       v-app-bar-nav-icon(@click.stop="drawer = !drawer")
-      v-toolbar-title Akuna
+      v-toolbar-title Wellness Connection
 </template>
 <script>
 export default {
