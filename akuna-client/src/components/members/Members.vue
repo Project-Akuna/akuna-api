@@ -1,10 +1,34 @@
 <template>
-    <v-data-table
-            :headers="headers"
-            :items="users"
-            multi-sort
-            class="elevation-1"
-    ></v-data-table>
+    <div>
+        <v-row>
+            <v-col cols="12">
+                <h2>Members</h2>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="12">
+                <v-data-table
+                        :headers="headers"
+                        :items="users"
+                        multi-sort
+                        class="elevation-1">
+                    <template v-slot:item.action="{ item }">
+                        <v-icon
+                                small
+                                class="mr-2"
+                        >
+                            edit
+                        </v-icon>
+                        <v-icon
+                                small
+                        >
+                            delete
+                        </v-icon>
+                    </template>
+                </v-data-table>
+            </v-col>
+        </v-row>
+    </div>
 </template>
 
 <script>
@@ -20,7 +44,8 @@
                     {
                         text: 'Username',
                         value: 'username',
-                    }
+                    },
+                    { text: 'Actions', value: 'action', sortable: false }
                 ],
                 users: [],
             }

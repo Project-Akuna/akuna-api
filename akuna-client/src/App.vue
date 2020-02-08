@@ -2,8 +2,7 @@
   v-app
     navbar(v-if="isNavShown")
     v-content
-      transition(name="fade" mode="out-in")
-        router-view(style="padding: 20px;")
+       router-view(style="padding: 20px;")
 </template>
 
 <script>

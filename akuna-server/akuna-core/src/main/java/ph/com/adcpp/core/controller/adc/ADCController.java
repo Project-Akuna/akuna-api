@@ -35,7 +35,7 @@ public class ADCController {
         }
     }
 
-    @GetMapping("/get-all-adcs")
+    @GetMapping("/get-all-adc")
     public BaseResponse getAllADCs() {
         return ResponseUtil.success(adcService.getAllADCs());
     }

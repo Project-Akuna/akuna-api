@@ -9,7 +9,6 @@ import ph.com.adcpp.models.service.UserService;
 import ph.com.adcpp.utils.ResponseUtil;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 /**
