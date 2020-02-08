@@ -78,10 +78,11 @@ router.afterEach((to, from) => {
 router.beforeEach((to, from, next) => {
   let session = Vue.prototype.$session;
 
-  if (!session.exists() && to.name != 'login' ) {
-    next('/login')
-  } else if(session.exists() && to.name == 'login'){
-    router.push('/dashboard');
+  if (!session.exists() && to.name != 'login') {
+    if (to.name != 'signup' && to.name != 'signupWithRegID') next('/login')
+    else next()
+  } else if(session.exists() && to.name == 'login' || to.name == 'signup' || to.name == 'signupWithRegID'){
+    router.replace('/dashboard');
   } else {
     next();
   }

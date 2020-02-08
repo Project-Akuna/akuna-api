@@ -38,7 +38,7 @@ export default {
           text: 'Please enter your Registration ID'
         });
       } else {
-        this.$router.push('signup/'+this.registrationID);
+        this.$router.replace('signup/'+this.registrationID);
         
       }
     }

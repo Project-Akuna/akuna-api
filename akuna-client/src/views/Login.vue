@@ -70,7 +70,7 @@ export default {
             password: self.password
           });
 
-          this.$router.push('/dashboard');
+          this.$router.replace('/dashboard');
         }
       })
       .catch(response => {

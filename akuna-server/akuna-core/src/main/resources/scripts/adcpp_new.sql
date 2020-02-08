@@ -1882,13 +1882,13 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `is_enabled`, `last_name`, `password`, `username`, `adc_id`, `direct_sponsor_id`, `immediate_upline_id`, `address`, `birthday`, `date_registered`, `marital_status`, `relationship`, `spouse`, `successor`, `city_id`, `tree_level`) VALUES
 (1, 'rcvgalima@gmail.com', 'Raymond Carlo', b'1', 'Galima', '$2a$10$FsJnuyrNumRr8PHmOe1KkejIZ1jf0FkFj3htinUp494jFxQiPSkTq', 'asd', 1, NULL, NULL, 'Sa bahay namen', '1997-09-30 23:43:09', '2019-12-01 23:43:01', 'SINGLE', NULL, NULL, NULL, 1369, NULL),
-(6, 'raymond13ize@gmail.com', 'Raymond Carlo', b'1', 'Galima', '$2a$10$IV41zFA3xPRhlGJy31mnFuaw/mLCN8wk3GvK/rsrNOCICkAymXIEa', 'zxc', 1, NULL, NULL, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-19 00:39:53', 'SINGLE', NULL, NULL, NULL, 1369, 0),
-(7, 'raymond13ize@gmail.com', 'Cashier', b'1', '1', '$2a$10$EElENsFmnaKY66xm0zeoJOL2pn2Y0xkOSQsBFSoychrd25dTTVQQK', 'cas', 1, NULL, NULL, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-19 00:41:39', 'SINGLE', NULL, NULL, NULL, 1369, NULL),
-(10, 'raymond13ize@gmail.com', NULL, b'1', NULL, '$2a$10$3wOspGp8xoJ6CSY6ssZo8uWshIOJ79/o/pZQJWQygZXMO18Ry6t0W', 'cal_adc', NULL, NULL, NULL, 'Dito lang po samin', NULL, '2019-12-19 16:33:43', NULL, NULL, NULL, NULL, 1369, NULL),
-(11, 'raymond13ize@gmail.com', 'qqq', b'1', 'qqq', '$2a$10$jb7LctwhXm9RM7DaM4Vup.oTRGf9LwmkWBnT8ZSTl6YJIjKkl/Js2', 'qqq', 1, 6, 6, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:06:13', 'SINGLE', NULL, NULL, NULL, 1369, 1),
-(12, 'raymond13ize@gmail.com', 'www', b'1', 'www', '$2a$10$6Q0wzBnXv8UAX6OmTfpfHuH2mJSMnUbVlbTDUWpizh6gBc6mMb1wu', 'www', 1, 6, 6, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:07:50', 'SINGLE', NULL, NULL, NULL, 1369, 1),
-(13, 'raymond13ize@gmail.com', 'eee', b'1', 'eee', '$2a$10$lXtvCoojrivUs2KmzXeppeFEmdMThJNKTA6zEezDH7ECTuJd/WQ6m', 'eee', 1, 6, 6, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:08:46', 'SINGLE', NULL, NULL, NULL, 1369, 1),
-(15, 'raymond13ize@gmail.com', 'rrr', b'1', 'rrr', '$2a$10$3lTUFuakA2KzbLlXkuwuZeZv6v2CF1Iftx6Gzhp.IkwyOqZOLCyPC', 'rrr', 1, 6, 11, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:12:21', 'SINGLE', NULL, NULL, NULL, 1369, 2);
+(2, 'raymond13ize@gmail.com', 'Raymond Carlo', b'1', 'Galima', '$2a$10$IV41zFA3xPRhlGJy31mnFuaw/mLCN8wk3GvK/rsrNOCICkAymXIEa', 'zxc', 1, NULL, NULL, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-19 00:39:53', 'SINGLE', NULL, NULL, NULL, 1369, 0),
+(3, 'raymond13ize@gmail.com', 'Cashier', b'1', '1', '$2a$10$EElENsFmnaKY66xm0zeoJOL2pn2Y0xkOSQsBFSoychrd25dTTVQQK', 'cas', 1, NULL, NULL, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-19 00:41:39', 'SINGLE', NULL, NULL, NULL, 1369, NULL),
+(4, 'raymond13ize@gmail.com', NULL, b'1', NULL, '$2a$10$3wOspGp8xoJ6CSY6ssZo8uWshIOJ79/o/pZQJWQygZXMO18Ry6t0W', 'cal_adc', NULL, NULL, NULL, 'Dito lang po samin', NULL, '2019-12-19 16:33:43', NULL, NULL, NULL, NULL, 1369, NULL),
+(5, 'raymond13ize@gmail.com', 'qqq', b'1', 'qqq', '$2a$10$jb7LctwhXm9RM7DaM4Vup.oTRGf9LwmkWBnT8ZSTl6YJIjKkl/Js2', 'qqq', 1, 6, 6, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:06:13', 'SINGLE', NULL, NULL, NULL, 1369, 1),
+(6, 'raymond13ize@gmail.com', 'www', b'1', 'www', '$2a$10$6Q0wzBnXv8UAX6OmTfpfHuH2mJSMnUbVlbTDUWpizh6gBc6mMb1wu', 'www', 1, 6, 6, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:07:50', 'SINGLE', NULL, NULL, NULL, 1369, 1),
+(7, 'raymond13ize@gmail.com', 'eee', b'1', 'eee', '$2a$10$lXtvCoojrivUs2KmzXeppeFEmdMThJNKTA6zEezDH7ECTuJd/WQ6m', 'eee', 1, 6, 6, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:08:46', 'SINGLE', NULL, NULL, NULL, 1369, 1),
+(8, 'raymond13ize@gmail.com', 'rrr', b'1', 'rrr', '$2a$10$3lTUFuakA2KzbLlXkuwuZeZv6v2CF1Iftx6Gzhp.IkwyOqZOLCyPC', 'rrr', 1, 6, 11, 'Sa bahay lang po namin', '1997-09-30 08:00:00', '2019-12-20 14:12:21', 'SINGLE', NULL, NULL, NULL, 1369, 2);
 
 -- --------------------------------------------------------
 
