@@ -99,6 +99,9 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "soldTo")
     private RegistrationCode registrationCode;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private List<RegistrationCode> ownCodes;
+
     public User() {
     }
 

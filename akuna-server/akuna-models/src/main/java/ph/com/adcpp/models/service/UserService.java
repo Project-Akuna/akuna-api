@@ -19,6 +19,7 @@ import ph.com.adcpp.commons.request.UserRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,11 @@ public class UserService {
     public User save(UserRequest request) {
 
         User user = convert(request);
-        user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode())); // set is_used to true
+        if (Objects.nonNull(request.getRegCode())) {
+            user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode()));
+        } else {
+            user.setAdc(codeService.findByCode(request.getRegCode()).getOwner().getAdc());
+        }
         user.setWallet(new Wallet(user));
 
         return userRepository.save(user);

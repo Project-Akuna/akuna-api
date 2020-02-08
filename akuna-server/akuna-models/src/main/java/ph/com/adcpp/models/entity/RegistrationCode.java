@@ -36,6 +36,10 @@ public class RegistrationCode {
     @JoinColumn(name = "ADDED_BY")
     private User addedBy;
 
+    @ManyToOne
+    @JoinColumn(name = "OWNER")
+    private User owner;
+
     private LocalDateTime dtimeCreated;
 
     private LocalDateTime dtimeUsed;
