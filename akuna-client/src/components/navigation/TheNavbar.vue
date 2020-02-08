@@ -169,6 +169,10 @@
       )
       v-app-bar-nav-icon(@click.stop="drawer = !drawer")
       v-toolbar-title Wellness Connection
+      v-spacer
+      v-btn.mr-2(icon large @click="logout")
+        v-avatar(size="32px" item)
+          v-img(src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" alt="Account")
 </template>
 <script>
 export default {
@@ -181,6 +185,12 @@ export default {
     items() {
       return this.$store.state.items;
     },
+  },
+  methods: {
+    logout() {
+      this.$session.destroy();
+      this.$router.push('/login');
+    }
   }
 }
 </script>
