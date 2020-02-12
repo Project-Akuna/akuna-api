@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="cashier views-container">
         <h3 class="pb-4 d-inline-block">Cashiers</h3>
         <v-breadcrumbs :items="breadcrumbItems" class="d-inline-block pa-0 float-right">
             <template v-slot:divider>

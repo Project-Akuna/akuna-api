@@ -53,6 +53,16 @@
   line-height: 15px !important;
 } 
 
+.v-card.views-container {
+  margin: 20px;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0, .12) !important;
+}
+.v-data-table th {
+  background-color: $c-lighter-gray;
+  color: black;
+}
+
 // 640px+
 @media screen and (min-width: 40em) {
   // Stepper
@@ -60,12 +70,5 @@
     .v-stepper__wrapper {
       padding: 24px;
     }
-  }
-  .v-card {
-    margin: 20px;
-  }
-  .v-data-table th {
-    background-color: #cbcbcb;
-    color: black;
   }
 }

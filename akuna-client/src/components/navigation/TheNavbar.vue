@@ -77,7 +77,7 @@
             v-list-item-content
               v-list-item-title Transaction
 
-          v-list-item(link dense)
+          v-list-item(link dense to="/sell-registration-code")
             v-list-item-content
               v-list-item-title Sell Registration Code
 

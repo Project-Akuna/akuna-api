@@ -27,7 +27,7 @@
 
             },
             getGenealogy() {
-                this.axios.get('http://localhost:3000/api/genealogy/get-genealogy/asd', {
+                this.axios.get('http://localhost:3000/api/genealogy/get-genealogy/rm1', {
                     auth: {
                         username: 'asd',
                         password: 'asd'

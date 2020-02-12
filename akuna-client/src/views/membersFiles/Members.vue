@@ -1,5 +1,5 @@
 <template>
-    <section class="members">
+    <v-card class="views-container members">
         <h3 class="pb-4 d-inline-block">Members</h3>
         <v-breadcrumbs :items="breadcrumbItems" class="d-inline-block pa-0 float-right">
             <template v-slot:divider>
@@ -12,7 +12,7 @@
             multi-sort
             class="elevation-1"
         ></v-data-table>
-    </section>
+    </v-card>
 </template>
 
 <script>

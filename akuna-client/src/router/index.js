@@ -1,18 +1,26 @@
 import Vue from 'vue';
-
 // Import session
 import VueSession from 'vue-session'
-
 import VueRouter from 'vue-router';
+
+// Base Views
 import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
+
+// Member's Files Views
 import Adc from '../views/membersFiles/Adc.vue';
-import Genealogy from "../views/genealogy/Genealogy";
 import Members from "../views/membersFiles/Members";
+
+// Transaction Views
+import SellRegistrationCode from '../views/transaction/SellRegistrationCode.vue'
+
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+
 import Cashier from "../views/membersFiles/Cashier";
+
+import Genealogy from "../views/genealogy/Genealogy";
 
 Vue.use(VueSession);
 Vue.use(VueRouter);
@@ -58,8 +66,15 @@ const routes = [
     path: '/cashiers',
     name: 'cashiers',
     component: Cashier
+  },
+  {
+    path: '/sell-registration-code',
+    name: 'sellRegistrationCode',
+    component: SellRegistrationCode
   }
 ];
+
+NProgress.configure({ easing: 'ease', speed: 500 });
 
 const router = new VueRouter({
   mode: 'history',

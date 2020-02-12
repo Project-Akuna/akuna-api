@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.adc
+  v-card.views-container.adc
     h3.pb-4.d-inline-block ADC
     v-breadcrumbs.d-inline-block.pa-0.float-right(:items="breadcrumbItems")
       template(v-slot:divider)

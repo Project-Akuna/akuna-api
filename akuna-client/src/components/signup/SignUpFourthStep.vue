@@ -84,7 +84,7 @@ export default {
       } 
 
       self.updateAccount({isEnabled: 1});
-      self.updateAccount({roles: [{id: 3}]});
+      self.updateAccount({roles: [{id: 2}]});
 
       // Axios post request for saving account
       this.axios.post(self.axiosURL+'api/user/save', {
