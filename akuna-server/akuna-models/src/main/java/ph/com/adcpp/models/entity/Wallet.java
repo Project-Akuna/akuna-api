@@ -1,5 +1,6 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,7 @@ public class Wallet {
 
     @OneToOne
     @JoinColumn(name = "USER_ID")
+    @JsonBackReference
     private User user;
 
     private BigDecimal amount = new BigDecimal(0);

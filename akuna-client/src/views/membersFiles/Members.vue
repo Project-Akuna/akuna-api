@@ -7,10 +7,10 @@
             </template>
         </v-breadcrumbs>
         <v-data-table
-            :headers="headers"
-            :items="users"
-            multi-sort
-            class="elevation-1"
+                :headers="headers"
+                :items="users"
+                multi-sort
+                class="elevation-1"
         ></v-data-table>
     </v-card>
 </template>

@@ -1,16 +1,11 @@
 <template lang="pug">
-
   v-card.views-container.sell-registration-code.ma-5
     v-breadcrumbs.d-inline-block.pa-0.float-right(:items="breadcrumbItems")
         template(v-slot:divider)
           v-icon mdi-chevron-right
     h3.pb-4.d-inline-block Sell Registration Code
     
-    v-data-table.elevation-1(
-      :headers="headers"
-      :items="regCodeList"
-      multi-sort
-    )
+
 </template>
 <script>
 import {mapState} from 'vuex'

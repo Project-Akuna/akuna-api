@@ -29,17 +29,17 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'dashboard',
+    name: 'Dashboard',
     component: Dashboard
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: Login
   },
   {
     path: '/signup',
-    name: 'signup',
+    name: 'Signup',
     component: Signup
   },
   {
@@ -49,17 +49,17 @@ const routes = [
   },
   {
     path: '/adc',
-    name: 'adc',
+    name: 'Adc',
     component: Adc
   },
   {
     path: '/genealogy',
-    name: 'genealogy',
+    name: 'Genealogy',
     component: Genealogy
   },
   {
     path: '/members',
-    name: 'members',
+    name: 'Members',
     component: Members
   },
   {
@@ -99,10 +99,10 @@ router.afterEach((to, from) => {
 router.beforeEach((to, from, next) => {
   let session = Vue.prototype.$session;
 
-  if (!session.exists() && to.name != 'login') {
-    if (to.name != 'signup' && to.name != 'signupWithRegID') next('/login')
+  if (!session.exists() && to.name !== 'Login') {
+    if (to.name !== 'Signup' && to.name !== 'signupWithRegID') next('/login')
     else next()
-  } else if(session.exists() && to.name == 'login' || to.name == 'signup' || to.name == 'signupWithRegID'){
+  } else if(session.exists() && to.name === 'Login' || to.name === 'Signup' || to.name === 'signupWithRegID'){
     router.replace('/dashboard');
   } else {
     next();

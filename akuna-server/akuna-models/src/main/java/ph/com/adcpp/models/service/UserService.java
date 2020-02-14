@@ -2,14 +2,13 @@ package ph.com.adcpp.models.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ph.com.adcpp.commons.request.PaginatedRequest;
 import ph.com.adcpp.commons.response.UserResponse;
 import ph.com.adcpp.models.builder.GenealogyBuilder;
+import ph.com.adcpp.models.builder.PaginationBuilder;
 import ph.com.adcpp.models.entity.RegistrationCode;
 import ph.com.adcpp.models.entity.User;
 import ph.com.adcpp.models.entity.Wallet;
@@ -37,6 +36,9 @@ public class UserService {
     private ObjectMapper mapper;
     private RegistrationCodeService codeService;
 
+    @Autowired
+    private PaginationBuilder pageBuilder;
+
     public UserService(UserRepository userRepository,
                        BCryptPasswordEncoder passwordEncoder,
                        ObjectMapper mapper, RegistrationCodeService codeService) {
@@ -56,15 +58,17 @@ public class UserService {
         return user;
     }
 
-    public User save(UserRequest request) {
+    public void save(UserRequest request) {
+        log.info("Saving new user [{}]", request.getUsername());
 
         User user = convert(request);
         if (Objects.nonNull(request.getRegCode())) {
             user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode()));
         }
         user.setWallet(new Wallet(user));
+        userRepository.save(user);
 
-        return userRepository.save(user);
+        log.info("User [{}] successfully saved.", user.getUsername());
     }
 
     public List<User> saveAll(List<UserRequest> userRequests) {
@@ -75,33 +79,36 @@ public class UserService {
     }
 
     private User convert(UserRequest request) {
-        log.info("Saving new user [{}]", request.getUsername());
 
         User user = mapper.convertValue(request, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         decideImmediateUpline(user);
 
-        log.info("User [{}] successfully saved.", user.getUsername());
         return user;
     }
 
     private void decideImmediateUpline(User user) {
-        User topLine = userRepository.findByAdcAndTreeLevel(user.getAdc(), 0).get(0);
+        List<User> users = userRepository.findByAdcAndTreeLevel(user.getAdc(), 0);
 
-        if (topLine.getDownlines().size() < 3) {
+        if (!users.isEmpty()) {
+            User topLine = users.get(0);
+            if (topLine.getDownlines().size() < 3) {
 
-            user.setUpline(topLine);
-            user.setTreeLevel(1);
-            topLine.getDownlines().add(user);
+                user.setUpline(topLine);
+                user.setTreeLevel(1);
+                topLine.getDownlines().add(user);
 
-            userRepository.save(user);
-            userRepository.save(topLine);
-        } else {
+                userRepository.save(user);
+                userRepository.save(topLine);
+            } else {
 
-            int currentTreeLevel = 1;
-            while (getUpline(user, currentTreeLevel)) {
-                currentTreeLevel++;
+                int currentTreeLevel = 1;
+                while (getUpline(user, currentTreeLevel)) {
+                    currentTreeLevel++;
+                }
             }
+        } else {
+            user.setTreeLevel(0);
         }
     }
 
@@ -147,20 +154,10 @@ public class UserService {
         return codeService.save(registrationCode);
     }
 
+    @SuppressWarnings("unchecked")
     public List<UserResponse> getAllUsers(PaginatedRequest request) {
         log.info("Getting users...");
-        Sort sort;
-
-        if (request.getSortValue().equals(Sort.Direction.DESC.name())) {
-            sort = Sort.by(request.getSortKey()).descending();
-        } else {
-            sort = Sort.by(request.getSortKey()).ascending();
-        }
-
-        Pageable pageRequest = PageRequest.of(request.getPageIndex(), request.getPageSize(), sort);
-        return userRepository.findAll(pageRequest).get()
-                .map(this::mapUser)
-                .collect(Collectors.toList());
+        return (List<UserResponse>) pageBuilder.buildPage(request, userRepository, UserResponse.class);
     }
 
     private UserResponse mapUser(User user) {

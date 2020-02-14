@@ -1,8 +1,10 @@
 package ph.com.adcpp.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import ph.com.adcpp.commons.constant.MaritalStatus;
 import ph.com.adcpp.commons.constant.Relationship;
 
@@ -23,7 +25,8 @@ import java.util.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "USER_ID")
     private Long id;
 
@@ -94,6 +97,7 @@ public class User {
     private Integer treeLevel;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
     private Wallet wallet;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "soldTo")
