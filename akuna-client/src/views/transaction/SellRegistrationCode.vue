@@ -1,15 +1,36 @@
 <template lang="pug">
-  v-card.views-container.sell-registration-code.ma-5
-    v-breadcrumbs.d-inline-block.pa-0.float-right(:items="breadcrumbItems")
-        template(v-slot:divider)
-          v-icon mdi-chevron-right
-    h3.pb-4.d-inline-block Sell Registration Code
+  section.sell-registration-code
+    //- v-breadcrumbs.d-inline-block.pa-0.float-right(:items="breadcrumbItems")
+    //-   template(v-slot:divider)
+    //-     v-icon mdi-chevron-right
+    //- h3.pb-4.d-inline-block Sell Registration Code
     
+    //- v-btn.float-right.primary(@click="") 
+    //-   v-icon.pr-1(small) mdi-plus
+    //-   Generate Registration Code
+    
+    sell-registration-dialog
 
+    h3.d-block Sell Registration Code
+    v-breadcrumbs.d-block.pa-0(:items="breadcrumbItems")
+      template(v-slot:divider)
+        v-icon mdi-chevron-right
+    v-card.views-container.sell-registration-code.ma-0.mt-5
+      .d-block.pa-4.table-title Registration Codes
+      v-data-table(
+        :headers="headers"
+        :items="regCodeList"
+        multi-sort
+      )
 </template>
 <script>
+import SellRegistrationDialog from '../../components/transaction/SellRegistrationDialog'
 import {mapState} from 'vuex'
+
 export default {
+  components: { 
+    SellRegistrationDialog 
+  },
   computed: mapState({
     axiosURL: 'axiosURL'
   }),
@@ -46,7 +67,6 @@ export default {
         auth: this.$session.get('auth')
       })
       .then(response => {
-        console.log(response.data)
         this.regCodeList = response.data.payload;
       })
       .catch(response => {

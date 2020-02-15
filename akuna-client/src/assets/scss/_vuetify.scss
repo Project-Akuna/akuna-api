@@ -58,9 +58,12 @@
   border-radius: 8px !important;
   box-shadow: 0 2px 8px 0 rgba(0,0,0, .12) !important;
 }
-.v-data-table th {
-  background-color: $c-lighter-gray;
-  color: black;
+.v-data-table {
+  th {
+    color: black !important;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
 }
 
 // 640px+
@@ -70,10 +73,5 @@
     .v-stepper__wrapper {
       padding: 24px;
     }
-  }
-
-  .v-data-table th {
-    background-color: #cbcbcb;
-    color: black;
   }
 }

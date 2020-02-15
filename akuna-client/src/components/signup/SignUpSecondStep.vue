@@ -55,9 +55,9 @@
             dense
             counter="100"
             label="Spouse Full Name"
+            @input="updateAccount({ spouse: $event })"
           )
-          //- @input="updateAccount({ firstname: $event })"
-
+          
         // Successor TextField
         v-col.signup__input-container(cols="12" )
           v-text-field(
@@ -65,9 +65,8 @@
             dense
             counter="100"
             label="Successor"
+            @input="updateAccount({ successor: $event })"
           )
-          //- @input="updateAccount({ successor: $event })"
-          
 
         // Relationship TextField
         v-col.signup__input-container(cols="12" )
@@ -76,18 +75,18 @@
             dense
             counter="100"
             label="Relationship to Member"
+            @input="updateAccount({ relationship: $event })"
           )
-          //- @input="updateAccount({ relationship: $event })"
 
         // TIN Number TextField
-        v-col.signup__input-container(cols="12" )
-          v-text-field(
-            clearable
-            dense
-            type="number"
-            counter="15"
-            label="TIN Number"
-          )
+        //- v-col.signup__input-container(cols="12" )
+        //-   v-text-field(
+        //-     clearable
+        //-     dense
+        //-     type="number"
+        //-     counter="15"
+        //-     label="TIN Number"
+        //-   )
           //- @input="updateAccount({ tinNumber: $event })"
 
 

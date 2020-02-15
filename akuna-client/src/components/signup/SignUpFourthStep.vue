@@ -117,7 +117,7 @@ export default {
       .then(response => {
         if (response.status === 200) {
           this.$session.start()
-          this.$session.set('session', response.payload);
+          this.$session.set('account', response.data.payload);
           this.$session.set('auth', {
             username: self.signupAccount.username,
             password: self.signupAccount.password

@@ -64,11 +64,11 @@ export default {
       .then(response => {
         if (response.status === 200) {
           this.$session.start()
-          this.$session.set('session', response.payload);
           this.$session.set('auth', {
             username: self.username,
             password: self.password
           });
+          this.$session.set('account', response.data.payload);
 
           this.$router.replace('/dashboard');
         }
