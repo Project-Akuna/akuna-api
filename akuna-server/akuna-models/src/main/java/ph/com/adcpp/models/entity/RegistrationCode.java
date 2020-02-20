@@ -44,6 +44,13 @@ public class RegistrationCode {
 
     private LocalDateTime dtimeUsed;
 
+    public RegistrationCode(String code) {
+        this.code = code;
+    }
+
+    public RegistrationCode() {
+    }
+
     @PrePersist
     protected void onCreate() {
         this.dtimeCreated = LocalDateTime.now();

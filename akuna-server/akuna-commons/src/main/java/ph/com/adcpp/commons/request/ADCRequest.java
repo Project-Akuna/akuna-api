@@ -50,4 +50,6 @@ public class ADCRequest {
 
     @NotNull
     private String password;
+
+    private String regCode;
 }

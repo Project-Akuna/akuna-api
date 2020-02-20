@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM user u JOIN user_role ur on u.user_id = ur.user_id" +
             " WHERE ur.role_id = ?1", nativeQuery = true)
     List<User> getUsersByRoleId(Long roleId);
+
+    List<User> findByTreeLevel(Integer treeLevel);
 }

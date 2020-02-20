@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ph.com.adcpp.commons.constant.RoleConstant;
 import ph.com.adcpp.commons.request.ADCRequest;
 import ph.com.adcpp.models.entity.ADC;
+import ph.com.adcpp.models.entity.RegistrationCode;
 import ph.com.adcpp.models.entity.Role;
 import ph.com.adcpp.models.entity.User;
 import ph.com.adcpp.models.repository.ADCRepository;
@@ -68,6 +69,7 @@ public class ADCService {
         user.setAddress(request.getOfficeAddress());
         user.setIsEnabled(true);
         user.setUsername(request.getName());
+        user.setRegistrationCode(new RegistrationCode(request.getRegCode()));
 
         return user;
     }

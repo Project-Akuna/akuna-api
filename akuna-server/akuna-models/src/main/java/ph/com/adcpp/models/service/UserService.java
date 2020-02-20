@@ -5,17 +5,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ph.com.adcpp.commons.constant.MaritalStatus;
+import ph.com.adcpp.commons.constant.RoleConstant;
 import ph.com.adcpp.commons.request.PaginatedRequest;
 import ph.com.adcpp.commons.response.UserResponse;
 import ph.com.adcpp.models.builder.GenealogyBuilder;
 import ph.com.adcpp.models.builder.PaginationBuilder;
-import ph.com.adcpp.models.entity.RegistrationCode;
-import ph.com.adcpp.models.entity.User;
-import ph.com.adcpp.models.entity.Wallet;
+import ph.com.adcpp.models.entity.*;
 import ph.com.adcpp.models.repository.UserRepository;
 import ph.com.adcpp.commons.request.UserRequest;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -52,6 +53,7 @@ public class UserService {
         log.info("Saving new user [{}]", user.getUsername());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setWallet(new Wallet(user));
         user = userRepository.save(user);
 
         log.info("User [{}] successfully saved.", user.getUsername());
@@ -71,6 +73,34 @@ public class UserService {
         log.info("User [{}] successfully saved.", user.getUsername());
     }
 
+    public void generateCompanyUsers() {
+        String username = "dina";
+        Integer userNumber = 2;
+
+        while (userNumber != 40) {
+
+            String name = username + userNumber;
+            User user = new User();
+            user.setUsername(name);
+            user.setPassword(passwordEncoder.encode("changeit"));
+            user.setFirstName(name);
+            user.setLastName(name);
+            user.setIsEnabled(true);
+            user.setEmail(name + "@gmail.com");
+            user.setBirthday(LocalDate.now());
+            user.setAdc(new ADC(1L));
+            user.setAddress("QC");
+            user.setMaritalStatus(MaritalStatus.SINGLE);
+            user.setCity(new City(1367L));
+            user.addRole(new Role(RoleConstant.MEMBER));
+            decideImmediateUpline(user);
+
+            userRepository.save(user);
+
+            userNumber++;
+        }
+    }
+
     public List<User> saveAll(List<UserRequest> userRequests) {
         List<User> users = new ArrayList<>();
 
@@ -82,39 +112,32 @@ public class UserService {
 
         User user = mapper.convertValue(request, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        decideImmediateUpline(user);
 
         return user;
     }
 
     private void decideImmediateUpline(User user) {
-        List<User> users = userRepository.findByAdcAndTreeLevel(user.getAdc(), 0);
+        User topLine = userRepository.findByTreeLevel(0).get(0);
 
-        if (!users.isEmpty()) {
-            User topLine = users.get(0);
-            if (topLine.getDownlines().size() < 3) {
+        if (topLine.getDownlines().size() < 3) {
 
-                user.setUpline(topLine);
-                user.setTreeLevel(1);
-                topLine.getDownlines().add(user);
+            user.setUpline(topLine);
+            user.setTreeLevel(1);
+            topLine.getDownlines().add(user);
 
-                userRepository.save(user);
-                userRepository.save(topLine);
-            } else {
-
-                int currentTreeLevel = 1;
-                while (getUpline(user, currentTreeLevel)) {
-                    currentTreeLevel++;
-                }
-            }
+            userRepository.save(user);
+            userRepository.save(topLine);
         } else {
-            user.setTreeLevel(0);
+
+            int currentTreeLevel = 1;
+            while (getUpline(user, currentTreeLevel)) {
+                currentTreeLevel++;
+            }
         }
     }
 
     private boolean getUpline(User user, int currentTreeLevel) {
-        List<User> membersInTreeLevel =
-                userRepository.findByAdcAndTreeLevel(user.getAdc(), currentTreeLevel);
+        List<User> membersInTreeLevel = userRepository.findByTreeLevel(currentTreeLevel);
 
         Optional<User> optional =
                 membersInTreeLevel.stream().filter(member -> member.getDownlines().size() < 3)
@@ -158,6 +181,10 @@ public class UserService {
     public List<UserResponse> getAllUsers(PaginatedRequest request) {
         log.info("Getting users...");
         return (List<UserResponse>) pageBuilder.buildPage(request, userRepository, UserResponse.class);
+    }
+
+    public List<UserResponse> findAll() {
+        return userRepository.findAll().stream().map(this::mapUser).collect(Collectors.toList());
     }
 
     private UserResponse mapUser(User user) {

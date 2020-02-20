@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ph.com.adcpp.models.entity.User;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,12 +23,14 @@ public class GenealogyBuilder {
     private Long pid;
     private String name;
     private String username;
+    private String date;
 
     public static GenealogyBuilder create(User user) {
         return GenealogyBuilder.builder().id(user.getId())
                 .pid((Objects.nonNull(user.getUpline()) ? user.getUpline().getId() : null))
                 .name(buildFullName(user))
                 .username(user.getUsername())
+                .date(user.getDateRegistered().format(DateTimeFormatter.BASIC_ISO_DATE))
                 .build();
     }
 

@@ -46,4 +46,15 @@ public class UserController {
     public BaseResponse test(@RequestBody PaginatedRequest request) {
         return ResponseUtil.success(userService.getAllUsers(request));
     }
+
+    @GetMapping("/get-all-users")
+    public BaseResponse getAllUsers() {
+        return ResponseUtil.success(userService.findAll());
+    }
+
+    @PostMapping("/build-initial-tree")
+    public BaseResponse buildInitialTree() {
+        userService.generateCompanyUsers();
+        return ResponseUtil.success();
+    }
 }

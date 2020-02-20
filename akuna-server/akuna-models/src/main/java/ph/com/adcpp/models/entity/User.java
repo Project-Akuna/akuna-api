@@ -91,7 +91,7 @@ public class User {
     @JoinTable(name = "DOWNLINES", joinColumns = @JoinColumn(name = "UPLINE_ID"),
     inverseJoinColumns = @JoinColumn(name = "DOWNLINE_ID"))
     @Size(max = 3)
-    private List<User> downlines;
+    private List<User> downlines = new ArrayList<>();
 
     @Column(nullable = false)
     private Integer treeLevel;

@@ -31,4 +31,10 @@ public class City {
     @ManyToOne
     @JoinColumn(name = "REG_ID")
     private Region region;
+
+    public City() {}
+
+    public City(Long id) {
+        this.id = id;
+    }
 }
