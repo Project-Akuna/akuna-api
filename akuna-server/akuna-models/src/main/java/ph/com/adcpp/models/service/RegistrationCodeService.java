@@ -79,7 +79,7 @@ public class RegistrationCodeService {
 
     private void updateInventory(RegistrationCodeRequest request) {
         Inventory inventory = inventoryService.findByOwner(new User(request.getOwner()));
-        inventory.setStock(inventory.getStock() - request.getQuantity());
+        inventory.setQuantity(inventory.getQuantity() - request.getQuantity());
         inventoryService.save(inventory);
     }
 

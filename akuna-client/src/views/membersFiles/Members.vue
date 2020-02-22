@@ -11,7 +11,19 @@
                 :items="users"
                 multi-sort
                 class="elevation-1"
-        ></v-data-table>
+        >
+            <template v-slot:item="row">
+                <tr>
+                    <td>{{row.item.username}}</td>
+                    <td>{{row.item.id}}</td>
+                    <td>
+                        <v-btn fab dark small @click="onButtonClick(row.item)">
+                            <v-icon dark>burger-menu</v-icon>
+                        </v-btn>
+                    </td>
+                </tr>
+            </template>
+        </v-data-table>
     </v-card>
 </template>
 
@@ -28,6 +40,10 @@
                     {
                         text: 'Username',
                         value: 'username',
+                    },
+                    {
+                        text: 'Action',
+                        value: '',
                     }
                 ],
                 users: [],
@@ -66,6 +82,9 @@
                     .catch(response => {
                         this.$swal('Opssss! Something went wrong', response.data, 'error');
                     })
+            },
+            onButtonClick(item) {
+                this.$router.push("/genealogy/" + item.username);
             }
         },
         mounted: function () {

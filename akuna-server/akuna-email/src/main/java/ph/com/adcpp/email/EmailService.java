@@ -1,6 +1,7 @@
 package ph.com.adcpp.email;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,12 @@ import ph.com.adcpp.commons.request.EmailRequest;
 @Service
 public class EmailService {
 
+    @Autowired
     private JavaMailSender sender;
 
-    public EmailService(JavaMailSender sender) {
-        this.sender = sender;
-    }
+//    public EmailService(JavaMailSender sender) {
+//        this.sender = sender;
+//    }
 
     public void sendEmail(EmailRequest request) {
         try {
@@ -34,6 +36,7 @@ public class EmailService {
 
             log.info("Email successfully sent to [{}]", request.getEmail());
         } catch (Exception ex) {
+            ex.printStackTrace();
             log.error("Error sending email to [{}].", request.getEmail());
         }
     }

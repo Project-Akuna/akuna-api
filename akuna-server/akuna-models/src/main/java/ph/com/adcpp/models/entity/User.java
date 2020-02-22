@@ -106,6 +106,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<RegistrationCode> ownCodes;
 
+    @OneToOne
+    @JoinColumn(name = "MEMBER_TYPE_ID")
+    private MemberType memberType;
+
     public User() {
     }
 
@@ -134,5 +138,8 @@ public class User {
     @PrePersist
     protected void onCreate() {
         this.dateRegistered = LocalDateTime.now();
+        this.firstName = this.firstName.toUpperCase();
+        this.lastName = this.lastName.toUpperCase();
+        this.middleName = this.middleName.toUpperCase();
     }
 }

@@ -63,6 +63,11 @@ const routes = [
     component: Genealogy
   },
   {
+    path: '/genealogy/:username',
+    name: 'GenealogyWithUsername',
+    component: Genealogy
+  },
+  {
     path: '/members',
     name: 'Members',
     component: Members

@@ -37,8 +37,11 @@ public class Product {
     @Column(name = "DATE")
     private LocalDateTime dtimeCreated;
 
+    private String flavor;
+
     @PrePersist
     protected void onCreate() {
         dtimeCreated = LocalDateTime.now();
+        flavor = flavor.toUpperCase();
     }
 }

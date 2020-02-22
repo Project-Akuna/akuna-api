@@ -28,7 +28,7 @@
                     {
                         text: 'Members',
                         disabled: false,
-                        href: '',
+                        to: '/members',
                     },
                     {
                         text: 'Genealogy',
@@ -52,7 +52,8 @@
 
             },
             getGenealogy() {
-                this.axios.get('http://localhost:3000/api/genealogy/get-genealogy/asd', {
+                let username = this.$route.params.username;
+                this.axios.get('http://localhost:3000/api/genealogy/get-genealogy/' + username, {
                     auth: {
                         username: 'asd',
                         password: 'asd'
