@@ -57,6 +57,10 @@
             v-list-item-content
               v-list-item-title Admin Accounts
 
+          v-list-item(link dense to="/depot")
+            v-list-item-content
+              v-list-item-title Depot
+
           v-list-item(link dense to="adc")
             v-list-item-content
               v-list-item-title ADC

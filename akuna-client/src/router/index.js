@@ -21,6 +21,7 @@ import 'nprogress/nprogress.css';
 import Cashier from "../views/membersFiles/Cashier";
 
 import Genealogy from "../views/genealogy/Genealogy";
+import Depot from "../views/membersFiles/Depot";
 
 Vue.use(VueSession);
 Vue.use(VueRouter);
@@ -71,6 +72,11 @@ const routes = [
     path: '/sell-registration-code',
     name: 'sellRegistrationCode',
     component: SellRegistrationCode
+  },
+  {
+    path: '/depot',
+    name: 'depot',
+    component: Depot
   }
 ];
 

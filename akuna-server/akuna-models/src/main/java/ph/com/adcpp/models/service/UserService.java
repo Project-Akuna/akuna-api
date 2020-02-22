@@ -196,4 +196,12 @@ public class UserService {
         return userRepository.getUsersByRoleId(roleId)
                 .stream().map(this::mapUser).collect(Collectors.toList());
     }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public BCryptPasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
 }

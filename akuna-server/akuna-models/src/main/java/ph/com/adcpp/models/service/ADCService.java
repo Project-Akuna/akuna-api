@@ -69,7 +69,8 @@ public class ADCService {
         user.setAddress(request.getOfficeAddress());
         user.setIsEnabled(true);
         user.setUsername(request.getName());
-        user.setRegistrationCode(new RegistrationCode(request.getRegCode()));
+        user.setPassword(userService.getPasswordEncoder().encode(request.getPassword()));
+        user.setTreeLevel(null);
 
         return user;
     }

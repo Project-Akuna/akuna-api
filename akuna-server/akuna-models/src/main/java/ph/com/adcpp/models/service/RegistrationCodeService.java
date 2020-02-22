@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ph.com.adcpp.commons.request.RegistrationCodeRequest;
 import ph.com.adcpp.commons.response.RegistrationCodeResponse;
 import ph.com.adcpp.models.entity.ADC;
+import ph.com.adcpp.models.entity.Inventory;
 import ph.com.adcpp.models.entity.RegistrationCode;
 import ph.com.adcpp.models.repository.RegistrationCodeRepository;
 import ph.com.adcpp.models.entity.User;
@@ -24,11 +25,12 @@ public class RegistrationCodeService {
 
     private RegistrationCodeRepository codeRepository;
     private ObjectMapper mapper;
+    private InventoryService inventoryService;
 
-    public RegistrationCodeService(RegistrationCodeRepository codeRepository,
-                                    ObjectMapper mapper) {
+    public RegistrationCodeService(RegistrationCodeRepository codeRepository, ObjectMapper mapper, InventoryService inventoryService) {
         this.codeRepository = codeRepository;
         this.mapper = mapper;
+        this.inventoryService = inventoryService;
     }
 
     public List<RegistrationCode> findAll() {
@@ -70,8 +72,15 @@ public class RegistrationCodeService {
             registrationCodes.add(registrationCode);
         }
 
+        updateInventory(request);
         log.info("Successfully generated [{}] codes", request.getQuantity());
         return codeRepository.saveAll(registrationCodes);
+    }
+
+    private void updateInventory(RegistrationCodeRequest request) {
+        Inventory inventory = inventoryService.findByOwner(new User(request.getOwner()));
+        inventory.setStock(inventory.getStock() - request.getQuantity());
+        inventoryService.save(inventory);
     }
 
     public RegistrationCode findByCode(String code) {
