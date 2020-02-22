@@ -157,6 +157,11 @@ export default {
           rolesVisible: [1,3,4],
           groupItems: [
             {
+              title: 'Warehousing',
+              link: '/warehousing',
+              rolesVisible: [1]
+            },
+            {
               title: 'Sell Registration Code',
               link: '/sell-registration-code',
               rolesVisible: [1,3,4],

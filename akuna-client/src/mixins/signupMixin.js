@@ -6,6 +6,9 @@ export default {
     updateAccount(item) {
       this.$store.commit('updateAccount',item)
     },
+    clearAccount() {
+      this.$store.commit('clearAccount')
+    }
   },
   computed: {
     signupStep() {

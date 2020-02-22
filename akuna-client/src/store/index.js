@@ -28,6 +28,9 @@ export default new Vuex.Store({
     },
     updateRegions(state, regionsList) {
       state.regionsList = regionsList
+    },
+    clearAccount(state) {
+      state.signupAccount = {}
     }
   },
   actions: {

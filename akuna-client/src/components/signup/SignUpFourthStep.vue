@@ -51,8 +51,7 @@
 
           // Upline Information Buttons
           v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
-            v-btn(@click="changeStep(2)" depressed background-color="white") Back
-            //- v-btn.signup__btn.ml-3(@click="$router.push('/dashboard')") Submit
+            v-btn(@click="changeStep(3)" depressed background-color="white") Back
             v-btn.signup__btn.ml-3(@click="submitAccount") Submit
 </template>
 <script>
@@ -142,6 +141,8 @@ export default {
             username: self.signupAccount.username,
             password: self.signupAccount.password
           });
+
+          self.clearAccount();
 
           this.$router.replace('/dashboard');
         }

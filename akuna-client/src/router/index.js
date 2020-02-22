@@ -11,17 +11,21 @@ import Signup from '../views/Signup.vue';
 // Member's Files Views
 import Adc from '../views/membersFiles/Adc.vue';
 import Members from "../views/membersFiles/Members";
+import Cashier from "../views/membersFiles/Cashier";
+import Depot from "../views/membersFiles/Depot";
 
 // Transaction Views
 import SellRegistrationCode from '../views/transaction/SellRegistrationCode.vue'
+import Warehousing from '../views/transaction/Warehousing.vue'
+import WarehousingAddDelivery from '../views/transaction/WarehousingAddDelivery.vue'
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-import Cashier from "../views/membersFiles/Cashier";
+
 
 import Genealogy from "../views/genealogy/Genealogy";
-import Depot from "../views/membersFiles/Depot";
+
 
 Vue.use(VueSession);
 Vue.use(VueRouter);
@@ -77,7 +81,17 @@ const routes = [
     path: '/depot',
     name: 'depot',
     component: Depot
-  }
+  },
+  {
+    path: '/warehousing',
+    name: 'warehousing',
+    component: Warehousing
+  },
+  {
+    path: '/warehousing/add',
+    name: 'addWarehousingDelivery',
+    component: WarehousingAddDelivery
+  },
 ];
 
 NProgress.configure({ easing: 'ease', speed: 500 });

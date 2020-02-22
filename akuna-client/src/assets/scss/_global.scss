@@ -16,11 +16,13 @@
 
 // Typography
 .table-title {
+  display: block;
   border-bottom: 1px solid $c-lighter-gray;
   font-size: 16px;
   margin-bottom: 0;
   font-weight: 600;
   color: $c-text;
   opacity: 0.8;
+  padding: 16px;
 }
 

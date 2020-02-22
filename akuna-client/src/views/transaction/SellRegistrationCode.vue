@@ -16,7 +16,7 @@
       template(v-slot:divider)
         v-icon mdi-chevron-right
     v-card.views-container.sell-registration-code.ma-0.mt-5
-      .d-block.pa-4.table-title Registration Codes
+      h3.table-title Registration Codes
       v-data-table(
         :headers="headers"
         :items="regCodeList"

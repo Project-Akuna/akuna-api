@@ -66,6 +66,18 @@
   }
 }
 
+//Breadcrumbs
+.v-breadcrumbs {
+  li a {
+    color: $c-gray;
+  }
+
+  &>:last-child .v-breadcrumbs__item{
+    color: $c-primary;
+    font-weight: 500;
+  }
+}
+
 // 640px+
 @media screen and (min-width: 40em) {
   // Stepper
