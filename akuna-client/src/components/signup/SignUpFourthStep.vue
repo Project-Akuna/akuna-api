@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-stepper-content(step="3")
+  v-stepper-content(step="4")
     v-container.pt-0
       v-form(ref="signupFourthStepForm" v-model="valid" lazy-validation)
         v-row
@@ -102,6 +102,8 @@ export default {
 
         delete self.accountInfo.confirmPassword;
         self.updateAccount(self.accountInfo)
+
+        console.log(self.signupAccount);
 
         // Axios post request for saving account
         this.axios.post(self.axiosURL+'api/user/save', {

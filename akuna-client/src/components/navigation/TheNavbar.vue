@@ -6,164 +6,55 @@
       app
       )
       v-list(dense nav)
+
+        // Plain List item
+        v-list-item(v-for="item in navItems" link dense :to="item.link" v-if="checkRole(item.rolesVisible)")
+          v-list-item-action
+            v-icon {{item.icon}}
+          v-list-item-content
+            v-list-item-title {{item.title}}
+
         
-        // Home (Dashboard)
-        v-list-item(link dense to="dashboard") 
-          v-list-item-action
-            v-icon mdi-view-dashboard
-          v-list-item-content
-            v-list-item-title Dashboard
-
-        // Admin Profile
-        v-list-item(link dense) 
-          v-list-item-action
-            v-icon mdi-account
-          v-list-item-content
-            v-list-item-title Admin Account
-
         // Master Files List Group
-        v-list-group(no-action)
+        v-list-group(no-action v-for="mainItem in navGroupItems" v-if="checkRole(mainItem.rolesVisible)")
           template(v-slot:activator)
             v-list-item-action
-              v-icon mdi-folder-text
+              v-icon {{mainItem.icon}}
             v-list-item-content
-              v-list-item-title Master Files
+              v-list-item-title {{mainItem.title}}
 
-          v-list-item(link dense)
+          // List item link only
+          v-list-item(
+            link 
+            dense 
+            v-for="groupItem in mainItem.groupItems" 
+            :to="groupItem.link" 
+            v-if="checkRole(groupItem.rolesVisible) && !groupItem.hasOwnProperty('subItems')")
             v-list-item-content
-              v-list-item-title Paylite Member Type
+              v-list-item-title {{groupItem.title}}
 
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Member Package
+          // List item with dropdown
+          v-list-item(
+            link 
+            dense
+            v-for="groupItem in mainItem.groupItems" 
+            :to="groupItem.link" 
+            v-if="checkRole(groupItem.rolesVisible) && groupItem.hasOwnProperty('subItems')")
 
-          v-list-item(link dense)
             v-list-item-content
-              v-list-item-title Product Information
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Alveo Inventory
-
-        // Member's Files List Group
-        v-list-group(no-action)
-          template(v-slot:activator)
-            v-list-item-action
-              v-icon mdi-account-group
-            v-list-item-content
-              v-list-item-title Member's File
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Admin Accounts
-
-          v-list-item(link dense to="/depot")
-            v-list-item-content
-              v-list-item-title Depot
-
-          v-list-item(link dense to="adc")
-            v-list-item-content
-              v-list-item-title ADC
-
-          v-list-item(link dense to="cashiers")
-            v-list-item-content
-              v-list-item-title Cashier
-
-          v-list-item(link dense to="/members")
-            v-list-item-content
-              v-list-item-title Member
-
-        // Transaction List Group
-        v-list-group(no-action)
-          template(v-slot:activator)
-            v-list-item-action
-              v-icon mdi-newspaper-variant-multiple
-            v-list-item-content
-              v-list-item-title Transaction
-
-          v-list-item(link dense to="/sell-registration-code")
-            v-list-item-content
-              v-list-item-title Sell Registration Code
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title ADC Free Bottles
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Replenish
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Qualifier / PLA
-
-          //- Run Income Incentives Dropdown
-          v-list-item(link dense)
-            v-list-item-content
-              //- v-list-item-title Run Income / Incentives
-              v-menu(top offset-x open-on-hover)
+              v-menu(top offset-x open-on-hover v-if="groupItem.hasOwnProperty('subItems')")
                 template(v-slot:activator="{ on }")
-                  v-list-item-title(v-on="on") Run Income/Incentives
+                  v-list-item-title(v-on="on") {{groupItem.title}}
                     v-icon.float-right mdi-menu-right
-
-                  //- v-btn(v-on="on" text) Run Income / Incentives
                 
-                v-list(dense)
-                  v-list-item
-                    v-list-item-title Free Bottles Incentives
-                  
-                  v-list-item
-                    v-list-item-title Free Bedcodes
-
-                  v-list-item
-                    v-list-item-title DRI
-
-                  v-list-item
-                    v-list-item-title PLA
-
-        // View / Listing / Reports List Group
-        v-list-group(no-action)
-          template(v-slot:activator)
-            v-list-item-action
-              v-icon mdi-file-chart
-            v-list-item-content
-              v-list-item-title Reports
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Acknowledgement Receipts
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Transactions
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title DRI Daily Incentives
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title PLA Incentives
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title ADC Free Bottles Inventory
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title ADC Free Bedcode
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Free Bottles Incentive
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Bedcode Inventory
-
-          v-list-item(link dense)
-            v-list-item-content
-              v-list-item-title Daily Payout Report
+                v-list
+                  v-list-item(
+                    dense 
+                    v-for="subItem in groupItem.subItems" 
+                    :to="subItem.link"
+                    v-if="checkRole(subItem.rolesVisible)"
+                    )
+                    v-list-item-title {{subItem.title}}
 
     v-app-bar(
       :clipped-left="$vuetify.breakpoint.lgAndUp"
@@ -182,7 +73,243 @@
 export default {
   data() {
     return {
-      drawer: null
+      drawer: null,
+      navGroupItems: [
+        {
+          icon: 'mdi-account',
+          title: 'Member Profile',
+          rolesVisible: [2],
+          groupItems: [
+            {
+              title: 'Genealogy',
+              link: '/genealogy',
+              rolesVisible: [2]
+            }
+          ]
+        },
+        {
+          icon: 'mdi-folder-text',
+          title: 'Master Files',
+          rolesVisible: [1],
+          groupItems: [
+            {
+              title: 'Paylite Member Type',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Member Package',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Product Information',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Alveo Inventory',
+              link: '',
+              rolesVisible: [1],
+            },
+          ]
+        },
+        {
+          icon: 'mdi-account-group',
+          title: "Member's File",
+          rolesVisible: [1,3,4],
+          groupItems: [
+            {
+              title: 'Admin Accounts',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'ADC Admin Accounts',
+              link: '',
+              rolesVisible: [4],
+            },
+            {
+              title: 'Depot',
+              link: '/depot',
+              rolesVisible: [1],
+            },
+            {
+              title: 'ADC',
+              link: '/adc',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Cashier',
+              link: '/cashiers',
+              rolesVisible: [1,3,4],
+            },
+            {
+              title: 'Member',
+              link: '/members',
+              rolesVisible: [1,3,4],
+            },
+          ]
+        },
+        {
+          icon: 'mdi-newspaper-variant-multiple',
+          title: 'Transaction',
+          rolesVisible: [1,3,4],
+          groupItems: [
+            {
+              title: 'Sell Registration Code',
+              link: '/sell-registration-code',
+              rolesVisible: [1,3,4],
+            },
+            {
+              title: 'ADC Free Bottles',
+              link: '',
+              rolesVisible: [1,4],
+            },
+            {
+              title: 'Replenish',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Qualifier / PLA',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Claim Incentives',
+              rolesVisible: [3,4],
+              subItems: [
+                {
+                  title: 'Claim Free Bottles',
+                  link: '',
+                  rolesVisible: [3,4]
+                },
+                {
+                  title: 'Claim Bed Session',
+                  link: '',
+                  rolesVisible: [3,4]
+                },
+              ]
+            },
+            {
+              title: 'Run Incentive',
+              rolesVisible: [1],
+              subItems: [
+                {
+                  title: 'Free Bottles Incentives',
+                  link: '',
+                  rolesVisible: [1]
+                },
+                {
+                  title: 'Free Bedcodes',
+                  link: '',
+                  rolesVisible: [1]
+                },
+                {
+                  title: 'DRI',
+                  link: '',
+                  rolesVisible: [1]
+                },
+                {
+                  title: 'PLA',
+                  link: '',
+                  rolesVisible: [1]
+                }
+              ]
+            },
+          ]
+        },
+        {
+          icon: 'mdi-file-chart',
+          title: 'Reports',
+          rolesVisible: [1,2,3,4],
+          groupItems: [
+            {
+              title: 'Acknowledgement Receipts',
+              link: '',
+              rolesVisible: [1,2,3,4],
+            },
+            {
+              title: 'Transactions',
+              link: '',
+              rolesVisible: [1,4],
+            },
+            {
+              title: 'DRI Daily Incentives',
+              link: '',
+              rolesVisible: [1,2,3],
+            },
+            {
+              title: 'PLA Incentives',
+              link: '',
+              rolesVisible: [1,2,3],
+            },
+            {
+              title: 'ADC Free Bottles Inventory',
+              link: '',
+              rolesVisible: [1,2,3,4],
+            },
+            {
+              title: 'ADC Free Bedcode',
+              link: '',
+              rolesVisible: [1,2,3,4],
+            },
+            {
+              title: 'Free Bottles Incentive',
+              link: '',
+              rolesVisible: [1,2,3,4],
+            },
+            {
+              title: 'Bedcode Inventory',
+              link: '',
+              rolesVisible: [1,2,3,4],
+            },
+            {
+              title: 'Daily Payout Report',
+              link: '',
+              rolesVisible: [1],
+            },
+            {
+              title: 'Wallets',
+              rolesVisible: [2],
+              subItems: [
+                {
+                  title: 'Incentive Wallets',
+                  link: '',
+                  rolesVisible: [2]
+                }
+              ]
+            }
+          ]
+        },
+      ],
+      navItems: [
+        {
+          icon: 'mdi-view-dashboard',
+          title: 'Dashboard',
+          link: 'dashboard',
+          rolesVisible: [1,2,3,4,5]
+        },
+        {
+          icon: 'mdi-account',
+          title: 'Admin Profile',
+          link: '',
+          rolesVisible: [1]
+        },
+        {
+          icon: 'mdi-account',
+          title: 'ADC Profile',
+          link: '',
+          rolesVisible: [4]
+        },
+        {
+          icon: 'mdi-account',
+          title: 'Cashier Profile',
+          link: '',
+          rolesVisible: [3]
+        },
+      ]
     }
   },
   computed: {
@@ -194,6 +321,16 @@ export default {
     logout() {
       this.$session.destroy();
       this.$router.push('/login');
+    },
+    checkRole(navItemRole) {
+      if (navItemRole) {
+        let isVisible = false
+        this.$session.get('account').roles.forEach( (accountRole) => {
+          // 1
+          if (navItemRole.includes(accountRole.id)) isVisible = true
+        })
+        return isVisible
+      }
     }
   }
 }

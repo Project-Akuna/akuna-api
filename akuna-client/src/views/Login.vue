@@ -26,6 +26,7 @@
                 :type="showPassword ? 'text' : 'password'"
                 label="Password"
                 :rules="customRules('Password',{ required: true, counter: 100 })"
+                @keyup.enter="signin"
                 )
           v-col.pa-0.pr-3.login__forgot-container(cols="12")
             a.link Forgot password? 
