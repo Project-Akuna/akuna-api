@@ -77,7 +77,7 @@ public class UserService {
         String username = "dina";
         Integer userNumber = 2;
 
-        while (userNumber != 40) {
+        while (userNumber != 41) {
 
             String name = username + userNumber;
             User user = new User();
@@ -112,6 +112,7 @@ public class UserService {
 
         User user = mapper.convertValue(request, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setTreeLevel(user.getUpline().getTreeLevel() + 1);
 
         return user;
     }
@@ -184,7 +185,9 @@ public class UserService {
     }
 
     public List<UserResponse> findAll() {
-        return userRepository.findAll().stream().map(this::mapUser).collect(Collectors.toList());
+        return userRepository.findAll().stream()
+                .filter(user -> user.getDownlines().size() < 3)
+                .map(this::mapUser).collect(Collectors.toList());
     }
 
     private UserResponse mapUser(User user) {
