@@ -88,11 +88,11 @@ export default {
   methods: {
     nextSignupStep () {
       if (this.$refs.signupThirdStepForm.validate()) {
-        // this.updateAccount({
-        //   directSponsor: { id: this.uplineInfo.directSponsor },
-        //   upline: { id: this.uplineInfo.upline }
-        // });
-        this.updateAccount(this.uplineInfo)
+        this.updateAccount({
+          directSponsor: { id: this.uplineInfo.directSponsor },
+          upline: { id: this.uplineInfo.upline }
+        });
+        // this.updateAccount(this.uplineInfo)
 
         this.changeStep(4);
       }

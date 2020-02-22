@@ -112,7 +112,7 @@ public class UserService {
 
         User user = mapper.convertValue(request, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setTreeLevel(user.getUpline().getTreeLevel() + 1);
+        user.setTreeLevel(userRepository.getOne(request.getUpline().getId()).getTreeLevel() + 1);
 
         return user;
     }
