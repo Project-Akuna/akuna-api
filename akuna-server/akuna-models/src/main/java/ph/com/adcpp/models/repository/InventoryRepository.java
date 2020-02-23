@@ -7,10 +7,12 @@ import ph.com.adcpp.models.entity.Depot;
 import ph.com.adcpp.models.entity.Inventory;
 import ph.com.adcpp.models.entity.User;
 
+import java.util.List;
+
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
-    Inventory findByOwnerUser(User user);
-    Inventory findByOwnerDepot(Depot depot);
-    Inventory findByOwnerAdc(ADC adc);
+    List<Inventory> findByOwnerUser_Username(String username);
+    List<Inventory> findByOwnerDepot_Name(String name);
+    List<Inventory> findByOwnerAdc_Id(String id);
 }

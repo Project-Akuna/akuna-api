@@ -1,5 +1,7 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,7 @@ public class RegistrationCode {
 
     @OneToOne
     @JoinColumn(name = "SOLD_TO")
+    @JsonManagedReference
     private User soldTo;
 
     @ManyToOne
@@ -38,6 +41,7 @@ public class RegistrationCode {
 
     @ManyToOne
     @JoinColumn(name = "OWNER")
+    @JsonBackReference
     private User owner;
 
     private LocalDateTime dtimeCreated;

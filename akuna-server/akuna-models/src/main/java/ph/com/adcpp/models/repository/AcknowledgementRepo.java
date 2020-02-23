@@ -2,14 +2,13 @@ package ph.com.adcpp.models.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ph.com.adcpp.models.entity.ADC;
+import ph.com.adcpp.models.entity.AcknowledgementReceipt;
 
 /**
  * @author Choy
- * @date 12/12/2019.
+ * @date 2/24/2020.
  */
 
 @Repository
-public interface ADCRepository extends JpaRepository<ADC, Long>{
-    ADC findByName(String name);
+public interface AcknowledgementRepo extends JpaRepository<AcknowledgementReceipt, Long> {
 }

@@ -23,7 +23,6 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
 
-
 import Genealogy from "../views/genealogy/Genealogy";
 
 
@@ -32,106 +31,111 @@ Vue.use(VueRouter);
 
 
 const routes = [
-  {
-    path: '/',
-    name: 'Dashboard',
-    component: Dashboard
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/signup',
-    name: 'Signup',
-    component: Signup
-  },
-  {
-    path: '/signup/:regID',
-    name: 'signupWithRegID',
-    component: Signup
-  },
-  {
-    path: '/adc',
-    name: 'Adc',
-    component: Adc
-  },
-  {
-    path: '/genealogy',
-    name: 'Genealogy',
-    component: Genealogy
-  },
-  {
-    path: '/genealogy/:username',
-    name: 'GenealogyWithUsername',
-    component: Genealogy
-  },
-  {
-    path: '/members',
-    name: 'Members',
-    component: Members
-  },
-  {
-    path: '/cashiers',
-    name: 'cashiers',
-    component: Cashier
-  },
-  {
-    path: '/sell-registration-code',
-    name: 'sellRegistrationCode',
-    component: SellRegistrationCode
-  },
-  {
-    path: '/depot',
-    name: 'depot',
-    component: Depot
-  },
-  {
-    path: '/warehousing',
-    name: 'warehousing',
-    component: Warehousing
-  },
-  {
-    path: '/warehousing/add',
-    name: 'addWarehousingDelivery',
-    component: WarehousingAddDelivery
-  },
+    {
+        path: '/',
+        name: 'Dashboard',
+        component: Dashboard
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/signup',
+        name: 'Signup',
+        component: Signup
+    },
+    {
+        path: '/signup/:regID',
+        name: 'signupWithRegID',
+        component: Signup
+    },
+    {
+        path: '/adc',
+        name: 'Adc',
+        component: Adc
+    },
+    {
+        path: '/genealogy',
+        name: 'Genealogy',
+        component: Genealogy
+    },
+    {
+        path: '/genealogy/:username',
+        name: 'GenealogyWithUsername',
+        component: Genealogy
+    },
+    {
+        path: '/members',
+        name: 'Members',
+        component: Members
+    },
+    {
+        path: '/cashiers',
+        name: 'cashiers',
+        component: Cashier
+    },
+    {
+        path: '/sell-registration-code',
+        name: 'sellRegistrationCode',
+        component: SellRegistrationCode
+    },
+    {
+        path: '/depot',
+        name: 'depot',
+        component: Depot
+    },
+    {
+        path: '/warehousing',
+        name: 'warehousing',
+        component: Warehousing
+    },
+    {
+        path: '/warehousing/:username',
+        name: 'warehousingWithUsername',
+        component: Warehousing
+    },
+    {
+        path: '/warehousing/add',
+        name: 'addWarehousingDelivery',
+        component: WarehousingAddDelivery
+    },
 ];
 
-NProgress.configure({ easing: 'ease', speed: 500 });
+NProgress.configure({easing: 'ease', speed: 500});
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 });
 
 router.beforeResolve((to, from, next) => {
-  // If this isn't an initial page load.
-  if (to.name) {
-    // Start the route progress bar.
-    NProgress.start()
-  }
-  next()
+    // If this isn't an initial page load.
+    if (to.name) {
+        // Start the route progress bar.
+        NProgress.start()
+    }
+    next()
 });
 
 router.afterEach((to, from) => {
-  // Complete the animation of the route progress bar.
-  NProgress.done()
+    // Complete the animation of the route progress bar.
+    NProgress.done()
 });
 
 router.beforeEach((to, from, next) => {
-  let session = Vue.prototype.$session;
+    let session = Vue.prototype.$session;
 
-  if (!session.exists() && to.name !== 'Login') {
-    if (to.name !== 'Signup' && to.name !== 'signupWithRegID') next('/login')
-    else next()
-  } else if(session.exists() && to.name === 'Login' || to.name === 'Signup' || to.name === 'signupWithRegID'){
-    router.replace('/dashboard');
-  } else {
-    next();
-  }
+    if (!session.exists() && to.name !== 'Login') {
+        if (to.name !== 'Signup' && to.name !== 'signupWithRegID') next('/login')
+        else next()
+    } else if (session.exists() && to.name === 'Login' || to.name === 'Signup' || to.name === 'signupWithRegID') {
+        router.replace('/dashboard');
+    } else {
+        next();
+    }
 })
 
 export default router

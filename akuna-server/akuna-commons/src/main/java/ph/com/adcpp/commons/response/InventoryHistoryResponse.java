@@ -1,24 +1,26 @@
-package ph.com.adcpp.commons.request;
+package ph.com.adcpp.commons.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import ph.com.adcpp.commons.constant.InventoryType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * @author Choy
+ * @date 2/23/2020.
+ */
+
 @Getter
 @Setter
-public class UpdateInventoryRequest {
+public class InventoryHistoryResponse {
 
     private LocalDateTime deliveryDate;
     private String deliveryCode;
     private Integer deliveryQuantity;
     private BigDecimal deliveryPrice;
-    private String soldTo;
     private Integer quantitySold;
     private BigDecimal sellingPrice;
-    private InventoryType inventoryType;
-    private ProductRequest product;
-    private String soldBy;
+    private Integer beginningQuantity;
+    private Integer endingQuantity;
 }

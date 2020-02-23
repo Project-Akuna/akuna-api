@@ -8,10 +8,19 @@
     </v-breadcrumbs>
     <v-card class="views-container ma-0 mt-5">
       <h3 class="table-title">Enter Warehousing Delivery Details</h3>
-      <v-form ref="warehousingAddDeliveryForm" v-model="valid" lazy-validation>
+      <v-form ref="warehousingAddDeliveryForm">
         <v-row>
           <v-col cols="12" md="6">
-            
+            <v-text-field
+                    v-model="name"
+                    label="Name"
+                    required
+            ></v-text-field>
+            <v-text-field
+                    v-model="email"
+                    label="E-mail"
+                    required
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-form>
@@ -19,7 +28,9 @@
   </section>
 </template>
 <script>
+
 export default {
+    name : "addWarehousingDelivery",
   data() {
     return {
       breadcrumbItems: [

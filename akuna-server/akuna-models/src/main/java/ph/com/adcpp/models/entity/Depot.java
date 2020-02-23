@@ -12,7 +12,7 @@ public class Depot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ADC_ID")
+    @Column(name = "DEPOT_ID")
     private Long id;
 
     @Column(unique = true, nullable = false)

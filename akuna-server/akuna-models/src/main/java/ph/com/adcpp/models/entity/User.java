@@ -1,5 +1,6 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -101,6 +102,7 @@ public class User {
     private Wallet wallet;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "soldTo")
+    @JsonBackReference
     private RegistrationCode registrationCode;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")

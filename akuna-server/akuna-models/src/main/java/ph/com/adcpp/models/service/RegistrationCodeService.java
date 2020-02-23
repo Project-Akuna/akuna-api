@@ -72,16 +72,16 @@ public class RegistrationCodeService {
             registrationCodes.add(registrationCode);
         }
 
-        updateInventory(request);
+//        updateInventory(request);
         log.info("Successfully generated [{}] codes", request.getQuantity());
         return codeRepository.saveAll(registrationCodes);
     }
 
-    private void updateInventory(RegistrationCodeRequest request) {
-        Inventory inventory = inventoryService.findByOwner(new User(request.getOwner()));
-        inventory.setQuantity(inventory.getQuantity() - request.getQuantity());
-        inventoryService.save(inventory);
-    }
+//    private void updateInventory(RegistrationCodeRequest request) {
+//        Inventory inventory = inventoryService.findByOwner(new User(request.getOwner()));
+//        inventory.setQuantity(inventory.getQuantity() - request.getQuantity());
+//        inventoryService.save(inventory);
+//    }
 
     public RegistrationCode findByCode(String code) {
         return codeRepository.findByCode(code);

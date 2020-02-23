@@ -39,6 +39,10 @@ public class Inventory {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventory")
     private List<InventoryHistory> history = new ArrayList<>();
 
+    @OneToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "INVENTORY_ID"), inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    private List<Product> products;
+
     private LocalDateTime dtimeCreated;
     private LocalDateTime dtimeUpdated;
 
