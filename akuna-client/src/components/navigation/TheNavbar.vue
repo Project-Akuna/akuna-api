@@ -60,7 +60,7 @@
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
       dark
-      color="green darken-2"
+      color="primary"
       )
       v-app-bar-nav-icon(@click.stop="drawer = !drawer")
       v-toolbar-title Wellness Connection

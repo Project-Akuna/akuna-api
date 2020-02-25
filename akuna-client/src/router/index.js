@@ -92,11 +92,6 @@ const routes = [
         component: Warehousing
     },
     {
-        path: '/warehousing/:username',
-        name: 'warehousingWithUsername',
-        component: Warehousing
-    },
-    {
         path: '/warehousing/add',
         name: 'addWarehousingDelivery',
         component: WarehousingAddDelivery

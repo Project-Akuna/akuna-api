@@ -1,6 +1,6 @@
 <template>
     <section class="warehousing">
-        <v-btn class="float-right primary" to="/warehousing/add"><v-icon class="pr-1" small>mdi-plus</v-icon>Add Warehousing Delivery</v-btn>
+        <v-btn class="float-right primary" to="warehousing/add"><v-icon class="pr-1" small>mdi-plus</v-icon>Add Warehousing Delivery</v-btn>
         <h3 class="d-block">Warehousing</h3>
         <v-breadcrumbs class="d-block pa-0" :items="breadcrumbItems">
             <template v-slot:divider>
@@ -30,7 +30,11 @@
     </section>
 </template>
 <script>
+    import { mapState } from 'vuex';
     export default {
+        computed: mapState({
+            axiosURL: 'axiosURL'
+        }),
         data() {
             return {
                 breadcrumbItems: [
@@ -46,9 +50,7 @@
                     },
                 ],
                 inventories : [],
-                history : [
-
-                ],
+                history : [],
                 headers : [
                     {
                         text: 'ID',
@@ -71,19 +73,14 @@
                         value: ''
                     }
                 ],
-                warehousingList : [
-
-                ]
+                warehousingList : []
             }
         },
         methods : {
             getInventory() {
-                let username = this.$route.params.username;
-                this.axios.get('http://localhost:3000/api/inventory/get-user-inventory/' + username, {
-                    auth: {
-                        username: 'asd',
-                        password: 'asd'
-                    }
+                let self = this
+                this.axios.get(this.axiosURL + 'api/inventory/get-user-inventory/' + this.$session.get('account').username, {
+                    auth: self.$session.get('auth')
                 })
                     .then(response => {
                         this.inventories = response.data.payload;
@@ -94,12 +91,9 @@
                     });
             },
             getHistory() {
-                let username = this.$route.params.username;
-                this.axios.get('http://localhost:3000/api/inventory/get-history/' + username, {
-                    auth: {
-                        username: 'asd',
-                        password: 'asd'
-                    }
+                let self = this
+                this.axios.get(this.axiosURL + 'api/inventory/get-history/' + this.$session.get('account').username, {
+                    auth: self.$session.get('auth')
                 }).then(response => {
                     this.history = response.data.payload;
                 })
