@@ -27,6 +27,16 @@ public class Wallet {
     @JsonBackReference
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "OWNER_DEPOT")
+    @JsonBackReference
+    private Depot ownerDepot;
+
+    @OneToOne
+    @JoinColumn(name = "OWNER_ADC")
+    @JsonBackReference
+    private ADC ownerAdc;
+
     private BigDecimal amount = new BigDecimal(0);
 
     private LocalDateTime dtimeCreated;
@@ -34,6 +44,14 @@ public class Wallet {
 
     public Wallet(User user) {
         this.user = user;
+    }
+
+    public Wallet(Depot ownerDepot) {
+        this.ownerDepot = ownerDepot;
+    }
+
+    public Wallet(ADC ownerAdc) {
+        this.ownerAdc = ownerAdc;
     }
 
     public Wallet() {}

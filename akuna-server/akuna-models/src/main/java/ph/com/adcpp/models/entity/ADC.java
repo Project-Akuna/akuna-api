@@ -1,5 +1,6 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,6 +51,14 @@ public class ADC {
 
     @Column(nullable = false)
     private Boolean isSelling;
+
+    @ManyToOne
+    @JoinColumn(name = "OWNER_ID")
+    private User owner;
+
+    @OneToOne(mappedBy = "ownerAdc", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Wallet wallet;
 
     public ADC(Long id) {
         this.id = id;

@@ -36,6 +36,13 @@ public class MemberType {
 
     private LocalDateTime dateAdded;
 
+    public MemberType() {
+    }
+
+    public MemberType(Long id) {
+        this.id = id;
+    }
+
     @PrePersist
     protected void onCreate() {
         dateAdded = LocalDateTime.now();

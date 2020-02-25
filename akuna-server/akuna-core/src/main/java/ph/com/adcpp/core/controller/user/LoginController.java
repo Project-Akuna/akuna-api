@@ -1,11 +1,13 @@
 package ph.com.adcpp.core.controller.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ph.com.adcpp.commons.response.BaseResponse;
 import ph.com.adcpp.commons.response.LoginResponse;
+import ph.com.adcpp.models.service.InitialService;
 import ph.com.adcpp.utils.ResponseUtil;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,9 @@ import java.util.ArrayList;
 @RequestMapping("/api")
 public class LoginController {
 
+    @Autowired
+    private InitialService initialService;
+
     @PostMapping("/login")
     public BaseResponse login(Principal principal, HttpSession session, Authentication authentication) {
 
@@ -30,5 +35,11 @@ public class LoginController {
         response.setRoles(new ArrayList<>(authentication.getAuthorities()));
 
         return ResponseUtil.success(response);
+    }
+
+    @PostMapping("/build-initial-data")
+    public BaseResponse buildInitialData() {
+        initialService.buildInitialData();
+        return ResponseUtil.success();
     }
 }

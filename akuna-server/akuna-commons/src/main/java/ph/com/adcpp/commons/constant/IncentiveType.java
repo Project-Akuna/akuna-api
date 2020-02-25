@@ -8,7 +8,8 @@ public enum IncentiveType {
 
     Q1("Qualifier 1"),
     Q2("Qualifier 2"),
-    Q3("Qualifier 3");
+    Q3("Qualifier 3"),
+    DRI("Direct Referral Incentive");
 
     private String description;
 

@@ -12,4 +12,11 @@ import lombok.Setter;
 public class CityRequest {
 
     private Long id;
+
+    public CityRequest(Long id) {
+        this.id = id;
+    }
+
+    public CityRequest() {
+    }
 }

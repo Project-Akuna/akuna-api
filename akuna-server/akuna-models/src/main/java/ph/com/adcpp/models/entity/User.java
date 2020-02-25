@@ -94,7 +94,6 @@ public class User {
     @Size(max = 3)
     private List<User> downlines = new ArrayList<>();
 
-    @Column(nullable = false)
     private Integer treeLevel;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
@@ -140,8 +139,8 @@ public class User {
     @PrePersist
     protected void onCreate() {
         this.dateRegistered = LocalDateTime.now();
-        this.firstName = this.firstName.toUpperCase();
-        this.lastName = this.lastName.toUpperCase();
-        this.middleName = this.middleName.toUpperCase();
+        this.firstName = (Objects.nonNull(this.firstName)) ? this.firstName.toUpperCase() : null;
+        this.lastName = (Objects.nonNull(this.lastName) ? this.lastName.toUpperCase() : null);
+        this.middleName = (Objects.nonNull(this.middleName) ? this.middleName.toUpperCase() : null);
     }
 }

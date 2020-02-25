@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ph.com.adcpp.commons.constant.IncentiveStatus;
+import ph.com.adcpp.commons.constant.IncentiveType;
 import ph.com.adcpp.commons.constant.MaritalStatus;
 import ph.com.adcpp.commons.constant.RoleConstant;
 import ph.com.adcpp.commons.request.PaginatedRequest;
@@ -12,6 +14,7 @@ import ph.com.adcpp.commons.response.UserResponse;
 import ph.com.adcpp.models.builder.GenealogyBuilder;
 import ph.com.adcpp.models.builder.PaginationBuilder;
 import ph.com.adcpp.models.entity.*;
+import ph.com.adcpp.models.repository.IncentiveRepository;
 import ph.com.adcpp.models.repository.UserRepository;
 import ph.com.adcpp.commons.request.UserRequest;
 
@@ -38,6 +41,9 @@ public class UserService {
     private RegistrationCodeService codeService;
 
     @Autowired
+    private IncentiveRepository incentiveRepository;
+
+    @Autowired
     private PaginationBuilder pageBuilder;
 
     public UserService(UserRepository userRepository,
@@ -53,7 +59,6 @@ public class UserService {
         log.info("Saving new user [{}]", user.getUsername());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setWallet(new Wallet(user));
         user = userRepository.save(user);
 
         log.info("User [{}] successfully saved.", user.getUsername());
@@ -70,12 +75,13 @@ public class UserService {
         user.setWallet(new Wallet(user));
         userRepository.save(user);
 
+        addUserToDRI(user.getDirectSponsor());
         log.info("User [{}] successfully saved.", user.getUsername());
     }
 
     public void generateCompanyUsers() {
-        String username = "dina";
-        Integer userNumber = 2;
+        String username = "wc_";
+        Integer userNumber = 1;
 
         while (userNumber != 41) {
 
@@ -83,17 +89,18 @@ public class UserService {
             User user = new User();
             user.setUsername(name);
             user.setPassword(passwordEncoder.encode("changeit"));
-            user.setFirstName(name);
-            user.setLastName(name);
+            user.setFirstName("Wellness");
+            user.setLastName("Connection");
             user.setIsEnabled(true);
             user.setEmail(name + "@gmail.com");
             user.setBirthday(LocalDate.now());
-            user.setAdc(new ADC(1L));
             user.setAddress("QC");
             user.setMaritalStatus(MaritalStatus.SINGLE);
             user.setCity(new City(1367L));
             user.addRole(new Role(RoleConstant.MEMBER));
+            user.setWallet(new Wallet(user));
             decideImmediateUpline(user);
+            user.setMemberType(new MemberType(1L));
 
             userRepository.save(user);
 
@@ -118,10 +125,13 @@ public class UserService {
     }
 
     private void decideImmediateUpline(User user) {
-        User topLine = userRepository.findByTreeLevel(0).get(0);
+        Optional<User> optional = userRepository.findByTreeLevel(0).stream().findAny();
 
-        if (topLine.getDownlines().size() < 3) {
-
+        if (!optional.isPresent()) {
+            user.setTreeLevel(0);
+        }
+        else if (optional.get().getDownlines().size() < 3) {
+            User topLine = optional.get();
             user.setUpline(topLine);
             user.setTreeLevel(1);
             topLine.getDownlines().add(user);
@@ -206,5 +216,11 @@ public class UserService {
 
     public BCryptPasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
+    }
+
+    private void addUserToDRI(User user) {
+        Incentive incentive = incentiveRepository.findByIncentiveTypeAndIncentiveStatus(IncentiveType.DRI, IncentiveStatus.ACTIVE);
+        incentive.addUser(user);
+        incentiveRepository.save(incentive);
     }
 }
