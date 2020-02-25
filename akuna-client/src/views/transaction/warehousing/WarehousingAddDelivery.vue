@@ -148,7 +148,7 @@
   </section>
 </template>
 <script>
-import FormMixin from '../../mixins/formMixin'
+import FormMixin from '../../../mixins/formMixin'
 
 import { mapState } from 'vuex'
 

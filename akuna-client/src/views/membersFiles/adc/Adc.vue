@@ -1,6 +1,6 @@
 <template>
     <section class="adc-view">
-        <v-btn class="float-right primary" to=""><v-icon class="pr-1" small>mdi-plus</v-icon>Add ADC</v-btn>
+        <v-btn class="float-right primary" to="/adc/add"><v-icon class="pr-1" small>mdi-plus</v-icon>Add ADC</v-btn>
         <h3 class="d-block">ADC</h3>
         <v-breadcrumbs :items="breadcrumbItems" class="d-block pa-0">
             <template v-slot:divider>

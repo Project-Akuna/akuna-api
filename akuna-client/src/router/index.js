@@ -9,15 +9,17 @@ import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 
 // Member's Files Views
-import Adc from '../views/membersFiles/Adc.vue';
-import Members from "../views/membersFiles/Members";
-import Cashier from "../views/membersFiles/Cashier";
-import Depot from "../views/membersFiles/Depot";
+import Adc from '../views/membersFiles/adc/Adc.vue';
+import AddAdc from '../views/membersFiles/adc/AddAdc.vue'
+import Members from "../views/membersFiles/members/Members";
+import Cashier from "../views/membersFiles/cashier/Cashier";
+import AddCashier from '../views/membersFiles/cashier/AddCashier.vue'
+import Depot from "../views/membersFiles/depot/Depot";
 
 // Transaction Views
-import SellRegistrationCode from '../views/transaction/SellRegistrationCode.vue'
-import Warehousing from '../views/transaction/Warehousing.vue'
-import WarehousingAddDelivery from '../views/transaction/WarehousingAddDelivery.vue'
+import SellRegistrationCode from '../views/transaction/sellRegistrationCode/SellRegistrationCode.vue'
+import Warehousing from '../views/transaction/warehousing/Warehousing.vue'
+import WarehousingAddDelivery from '../views/transaction/warehousing/WarehousingAddDelivery.vue'
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -57,6 +59,11 @@ const routes = [
         component: Adc
     },
     {
+        path: '/adc/add',
+        name: 'addAdc',
+        component: AddAdc
+    },
+    {
         path: '/genealogy',
         name: 'Genealogy',
         component: Genealogy
@@ -75,6 +82,11 @@ const routes = [
         path: '/cashiers',
         name: 'cashiers',
         component: Cashier
+    },
+    {
+        path: '/cashiers/add',
+        name: 'addCashier',
+        component: AddCashier
     },
     {
         path: '/sell-registration-code',

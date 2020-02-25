@@ -14,7 +14,7 @@
       )
 </template>
 <script>
-import SellRegistrationDialog from '../../components/transaction/SellRegistrationDialog'
+import SellRegistrationDialog from '../../../components/transaction/SellRegistrationDialog'
 import {mapState} from 'vuex'
 
 export default {

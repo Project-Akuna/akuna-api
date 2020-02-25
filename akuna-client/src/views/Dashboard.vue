@@ -1,6 +1,6 @@
 <template>
   <section class="dashboard">
-    <v-row align="center" justify="center" v-if="checkRoleExists([1])">
+    <v-row align="center" justify="center" v-if="checkRoleExists([1,2])">
       <v-col cols="12" md="4">
         <v-card  class="views-container dashboard-wallet">
           <v-card dark class="views-container dashboard-wallet-inner">
@@ -16,20 +16,16 @@
 
 <script>
 import {mapState} from 'vuex'
+
+import rolesMixin from '../mixins/rolesMixin'
 export default {
+  mixins: [rolesMixin],
   computed: mapState({
     axiosURL: 'axiosURL'
   }),
   components: {
   },
   methods: {
-    checkRoleExists(roles) {
-      let hasRole = false
-      roles.forEach( (role) => {
-        if (this.$session.get('account').roles.some((v)=>{ return v.id == role })) hasRole = true
-      })
-      return hasRole
-    },
   },
   mounted() {
     // this.axios.get(this.axiosURL + 'api/product/get-all-products', {

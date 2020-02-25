@@ -1,6 +1,6 @@
 <template>
     <section class="cashier-view">
-        <v-btn class="float-right primary" to=""><v-icon class="pr-1" small>mdi-plus</v-icon>Add Cashier</v-btn>
+        <v-btn class="float-right primary" to="/cashiers/add"><v-icon class="pr-1" small>mdi-plus</v-icon>Add Cashier</v-btn>
         <h3 class="d-block">Cashier</h3>
         <v-breadcrumbs :items="breadcrumbItems" class="d-block pa-0">
             <template v-slot:divider>
