@@ -47,6 +47,16 @@
                         field_0: "name",
                         field_1: "username",
                         field_2: "date"
+                    },
+                    tags:{
+                        Available:{
+                            nodeMenu:{
+                                add: {
+                                    text: "<text style='font-family: Century Gothic;' fill='#ffffff'>Register Here</text>",
+                                    icon: "<span class='fa fa-plus'></span>"
+                                }
+                            }
+                        }
                     }
                 });
 

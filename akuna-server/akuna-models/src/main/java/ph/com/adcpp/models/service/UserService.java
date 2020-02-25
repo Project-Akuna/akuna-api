@@ -222,5 +222,27 @@ public class UserService {
         Incentive incentive = incentiveRepository.findByIncentiveTypeAndIncentiveStatus(IncentiveType.DRI, IncentiveStatus.ACTIVE);
         incentive.addUser(user);
         incentiveRepository.save(incentive);
+
+        addToQualifiers(incentiveRepository.save(incentive), user);
+    }
+
+    private void addToQualifiers(Incentive incentive, User user) {
+        Incentive q1 = incentiveRepository.findByIncentiveTypeAndIncentiveStatus(IncentiveType.Q1, IncentiveStatus.ACTIVE);
+        Incentive q2 = incentiveRepository.findByIncentiveTypeAndIncentiveStatus(IncentiveType.Q2, IncentiveStatus.ACTIVE);
+        Incentive q3 = incentiveRepository.findByIncentiveTypeAndIncentiveStatus(IncentiveType.Q3, IncentiveStatus.ACTIVE);
+
+        long count = incentive.getUsers().stream().filter(user1 -> user1.getUsername().equals(user.getUsername()))
+                .count();
+
+        if(count > 2) {
+            q1.addUser(user);
+            incentiveRepository.save(q1);
+        } else if (count == 2) {
+            q2.addUser(user);
+            incentiveRepository.save(q2);
+        } else {
+            q3.addUser(user);
+            incentiveRepository.save(q3);
+        }
     }
 }
