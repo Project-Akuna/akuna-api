@@ -39,6 +39,9 @@ public class Product {
 
     private String flavor;
 
+    @Column(name = "PRODUCT_NAME")
+    private String name;
+
     @PrePersist
     protected void onCreate() {
         dtimeCreated = LocalDateTime.now();
