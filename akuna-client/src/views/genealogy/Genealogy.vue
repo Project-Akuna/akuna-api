@@ -40,13 +40,15 @@
         },
         methods: {
             oc: function (domEl, x) {
+                let self = this;
                 this.chart = new OrgChart(domEl, {
                     template : 'polina',
                     nodes: x,
                     nodeBinding: {
                         field_0: "name",
                         field_1: "username",
-                        field_2: "date"
+                        field_2: "date",
+                        field_3: '<button class="genealogy-add-member-btn">Add Member</button>'
                     },
                     tags:{
                         Available:{
@@ -58,6 +60,15 @@
                             }
                         }
                     }
+                });
+
+                this.chart.on('click', function (sender, node) {
+                    setTimeout(function() {
+                        document.getElementsByClassName('genealogy-add-member-btn').item(0).addEventListener("click", function() {
+                            self.$router.replace('/signup')
+                        })
+                    }, 500)
+                    
                 });
 
             },
@@ -75,14 +86,25 @@
                     .catch(function (error) {
 
                     })
+            },
+            addMember() {
+                console.log("Add")
             }
         },
         mounted() {
             this.getGenealogy();
+            // console.log(document.getElementsByClassName('genealogy-add-member-btn'))
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+.genealogy-add-member-btn {
+    color: white !important;
+    border-radius: 8px;
+    padding: 8px 20px;
+    text-decoration: none;
+    background-color: $c-primary;
 
+}
 </style>

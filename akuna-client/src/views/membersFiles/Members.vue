@@ -1,30 +1,31 @@
 <template>
-    <v-card class="views-container members">
-        <h3 class="pb-4 d-inline-block">Members</h3>
-        <v-breadcrumbs :items="breadcrumbItems" class="d-inline-block pa-0 float-right">
+    <section class="members">
+        <h3 class="d-block">Members</h3>
+        <v-breadcrumbs :items="breadcrumbItems" class="d-block pa-0">
             <template v-slot:divider>
                 <v-icon>mdi-chevron-right</v-icon>
             </template>
         </v-breadcrumbs>
-        <v-data-table
+        <v-card class="views-container ma-0 mt-5">
+            <v-data-table
                 :headers="headers"
                 :items="users"
                 multi-sort
-                class="elevation-1"
-        >
-            <template v-slot:item="row">
-                <tr>
-                    <td>{{row.item.username}}</td>
-                    <td>{{row.item.id}}</td>
-                    <td>
-                        <v-btn fab dark small @click="onButtonClick(row.item)">
-                            <v-icon dark>burger-menu</v-icon>
-                        </v-btn>
-                    </td>
-                </tr>
-            </template>
-        </v-data-table>
-    </v-card>
+            >
+                <template v-slot:item="row">
+                    <tr>
+                        <td>{{row.item.username}}</td>
+                        <td>{{row.item.id}}</td>
+                        <td>
+                            <v-btn fab depressed small color="transparent" @click="onButtonClick(row.item)">
+                                <v-icon color="grey darken-2">mdi-dots-vertical</v-icon>
+                            </v-btn>
+                        </td>
+                    </tr>
+                </template>
+            </v-data-table>
+        </v-card>
+    </section>
 </template>
 
 <script>

@@ -1,18 +1,24 @@
-<template lang="pug">
-
-  v-card.views-container.adc
-    h3.pb-4.d-inline-block ADC
-    v-breadcrumbs.d-inline-block.pa-0.float-right(:items="breadcrumbItems")
-      template(v-slot:divider)
-        v-icon mdi-chevron-right
-    v-data-table.elevation-1(
-      :headers="headers"
-      :items="adcList"
-      multi-sort
-    )
-      template(v-slot:item.isSelling="{ item }")
-        span {{ checkIfSelling(item.isSelling) }}
-
+<template>
+    <section class="adc-view">
+        <v-btn class="float-right primary" to=""><v-icon class="pr-1" small>mdi-plus</v-icon>Add ADC</v-btn>
+        <h3 class="d-block">ADC</h3>
+        <v-breadcrumbs :items="breadcrumbItems" class="d-block pa-0">
+            <template v-slot:divider>
+                <v-icon>mdi-chevron-right</v-icon>
+            </template>
+        </v-breadcrumbs>
+        <v-card class="views-container ma-0 mt-5">
+            <v-data-table
+                :headers="headers"
+                :items="adcList"
+                multi-sort
+            >
+                <template v-slot:item.isSelling="{ item } ">
+                    <span>{{ checkIfSelling(item.isSelling) }}</span>
+                </template>
+            </v-data-table>
+        </v-card>
+    </section>
 </template>
 <script>
     import {mapState} from 'vuex'

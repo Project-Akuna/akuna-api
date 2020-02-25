@@ -1,16 +1,6 @@
 <template lang="pug">
   section.sell-registration-code
-    //- v-breadcrumbs.d-inline-block.pa-0.float-right(:items="breadcrumbItems")
-    //-   template(v-slot:divider)
-    //-     v-icon mdi-chevron-right
-    //- h3.pb-4.d-inline-block Sell Registration Code
-    
-    //- v-btn.float-right.primary(@click="") 
-    //-   v-icon.pr-1(small) mdi-plus
-    //-   Generate Registration Code
-    
     sell-registration-dialog
-
     h3.d-block Sell Registration Code
     v-breadcrumbs.d-block.pa-0(:items="breadcrumbItems")
       template(v-slot:divider)

@@ -1,20 +1,22 @@
 <template>
-    <v-card class="cashier views-container">
-        <h3 class="pb-4 d-inline-block">Cashiers</h3>
-        <v-breadcrumbs :items="breadcrumbItems" class="d-inline-block pa-0 float-right">
+    <section class="cashier-view">
+        <v-btn class="float-right primary" to=""><v-icon class="pr-1" small>mdi-plus</v-icon>Add Cashier</v-btn>
+        <h3 class="d-block">Cashier</h3>
+        <v-breadcrumbs :items="breadcrumbItems" class="d-block pa-0">
             <template v-slot:divider>
                 <v-icon>mdi-chevron-right</v-icon>
             </template>
         </v-breadcrumbs>
-        <v-spacer></v-spacer>
-        <v-data-table
+        <v-card class="views-container ma-0 mt-5">
+            <v-data-table
                 :headers="headers"
                 :items="cashiers"
                 multi-sort
-                class="elevation-1"
                 :search="search"
-        ></v-data-table>
-    </v-card>
+            ></v-data-table>
+        </v-card>
+        
+    </section>
 </template>
 
 <script>
