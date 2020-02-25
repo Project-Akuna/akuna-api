@@ -117,8 +117,19 @@ public class UserService {
 
     private User convert(UserRequest request) {
 
-        User user = mapper.convertValue(request, User.class);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setAdc(new ADC(request.getAdc().getId()));
+        user.setAddress(request.getAddress());
+        user.setBirthday(request.getBirthday());
+        user.setCity(new City(request.getCity().getId()));
+        user.setEmail(request.getEmail());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setMaritalStatus(request.getMaritalStatus());
+        user.setIsEnabled(true);
+        request.getRoles().forEach(roleRequest -> user.addRole(mapper.convertValue(roleRequest, Role.class)));
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setTreeLevel(userRepository.getOne(request.getUpline().getId()).getTreeLevel() + 1);
 
         return user;

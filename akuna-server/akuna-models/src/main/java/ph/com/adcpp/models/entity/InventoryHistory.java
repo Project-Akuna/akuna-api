@@ -1,5 +1,6 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,9 +30,11 @@ public class InventoryHistory {
 
     @OneToOne
     @JoinColumn(name = "PRODUCT_ID")
+    @JsonBackReference
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "INVENTORY_ID")
+    @JsonBackReference
     private Inventory inventory;
 }

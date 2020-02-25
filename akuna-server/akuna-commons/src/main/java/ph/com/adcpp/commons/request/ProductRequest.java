@@ -17,12 +17,12 @@ public class ProductRequest {
 
     @NotNull
     private Long id;
-    @NotNull
+//    @NotNull
     private BigDecimal codePrice;
-    @NotNull
+//    @NotNull
     private BigDecimal price;
-    @NotNull
+//    @NotNull
     private BigDecimal adcFee;
-    @NotNull
+//    @NotNull
     private BigDecimal driFee;
 }

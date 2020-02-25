@@ -1,5 +1,7 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import ph.com.adcpp.commons.constant.InventoryType;
@@ -37,10 +39,12 @@ public class Inventory {
     private ADC ownerAdc;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventory")
+    @JsonManagedReference
     private List<InventoryHistory> history = new ArrayList<>();
 
     @OneToMany
     @JoinTable(joinColumns = @JoinColumn(name = "INVENTORY_ID"), inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    @JsonManagedReference
     private List<Product> products;
 
     private LocalDateTime dtimeCreated;

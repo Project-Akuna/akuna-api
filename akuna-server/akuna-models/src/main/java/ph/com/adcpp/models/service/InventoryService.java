@@ -55,7 +55,7 @@ public class InventoryService {
     public void updateInventorySysAdmin(UpdateInventoryRequest request) {
         log.info("Updating inventory of SysAdmin...");
         inventoryRepository.findByOwnerUser_Username(request.getSoldTo())
-                .stream().filter(inventory -> inventory.getInventoryType() == request.getInventoryType())
+                .parallelStream().filter(inventory -> inventory.getInventoryType() == request.getInventoryType())
                 .forEach(inventory -> {
                     update(request, inventory, inventory.getQuantity() + request.getDeliveryQuantity());
                     createAcknowledgementReceipt(request);
@@ -66,7 +66,7 @@ public class InventoryService {
     public void updateInventoryOfDepot(UpdateInventoryRequest request) {
         log.info("Updating inventory of Depot: {}", request.getSoldTo());
         inventoryRepository.findByOwnerDepot_Name(request.getSoldTo())
-                .stream().filter(inventory -> inventory.getInventoryType() == request.getInventoryType())
+                .parallelStream().filter(inventory -> inventory.getInventoryType() == request.getInventoryType())
                 .forEach(inventory -> {
                     inventoryRepository.findByOwnerUser_Username("asd")
                             .stream().filter(inventory1 -> inventory1.getInventoryType() == request.getInventoryType())
@@ -85,7 +85,7 @@ public class InventoryService {
         Arrays.stream(InventoryType.values()).forEach(inventoryType -> {
             Inventory inventory = new Inventory();
             inventory.setInventoryType(inventoryType);
-            inventory.setOwnerUser(new User(1L));
+            inventory.setOwnerUser(new User(2L));
             inventory.setPrice(new BigDecimal(750));
             inventory.setQuantity(0);
             inventoryRepository.save(inventory);
@@ -100,11 +100,15 @@ public class InventoryService {
 
     private void update(UpdateInventoryRequest request, Inventory inventory, Integer endingQuantity) {
 
-        InventoryHistory history = mapper.convertValue(request, InventoryHistory.class);
+        InventoryHistory history = new InventoryHistory();
         history.setBeginningQuantity(inventory.getQuantity());
         history.setEndingQuantity(endingQuantity);
-        history.setProduct(mapper.convertValue(request.getProduct(), Product.class));
+        history.setProduct(new Product(request.getProduct().getId()));
+        history.setDeliveryCode(request.getDeliveryCode());
         history.setInventory(inventory);
+        history.setQuantitySold(request.getQuantitySold());
+        history.setSellingPrice(request.getSellingPrice());
+        history.setDeliveryQuantity(request.getDeliveryQuantity());
 
         inventory.setQuantity(endingQuantity);
         inventory.getHistory().add(history);

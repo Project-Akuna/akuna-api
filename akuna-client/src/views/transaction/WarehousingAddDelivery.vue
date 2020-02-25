@@ -10,39 +10,29 @@
       <h3 class="table-title">Enter Warehousing Delivery Details</h3>
       <v-form ref="warehousingAddDeliveryForm" v-model="valid" lazy-validation>
         <v-row class="py-6">
-          <!-- Text field -->
-          <!-- <v-col class="px-8 mr-8" cols="12" md="6">
-            <v-text-field
-              v-model="deliveryDetails.date"
-              clearable
-              :counter="100"
-              label="First Name"
-            ></v-text-field>
-          </v-col> -->
-
           <!-- Delivery Date Time Picker -->
           <v-col class="delivery-form__input-container" cols="12" md="6">
             <v-dialog
               ref="deliveryDateModalRef"
               v-model="deliveryDateModal"
-              :return-value.sync="deliveryDetails.date"
+              :return-value.sync="deliveryDetails.deliveryDate"
               persistent
               width="290px"
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
                   dense
-                  v-model="deliveryDetails.date"
+                  v-model="deliveryDetails.deliveryDate"
                   label="Delivery Date"
                   readonly
                   v-on="on"
                   :rules="customRules('Delivery Date',{ required: true })"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="deliveryDetails.date" scrollable>
+              <v-date-picker v-model="deliveryDetails.deliveryDate" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="deliveryDateModal = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.deliveryDateModalRef.save(deliveryDetails.date)">OK</v-btn>
+                <v-btn text color="primary" @click="$refs.deliveryDateModalRef.save(deliveryDetails.deliveryDate)">OK</v-btn>
               </v-date-picker>
             </v-dialog>
           </v-col>
@@ -51,7 +41,7 @@
           <v-col class="delivery-form__input-container" cols="12" md="6">
             <v-text-field
               dense
-              v-model="deliveryDetails.code"
+              v-model="deliveryDetails.deliveryCode"
               clearable
               :counter="100"
               label="Delivery Code"
@@ -59,49 +49,70 @@
             ></v-text-field>
           </v-col>
 
-          <!-- Beginning -->
+          <!-- Inventory Type -->
           <v-col class="delivery-form__input-container" cols="12" md="6">
+            <v-select
+              v-model="deliveryDetails.inventoryType"
+              dense
+              label="Inventory Type"
+              :items="inventoryTypeList"
+              item-text="name"
+              item-value="value"
+              :rules="customRules('Inventory Type',{ required: true })"
+            ></v-select>
+          </v-col>
+
+          <!-- Beginning -->
+          <!-- <v-col class="delivery-form__input-container" cols="12" md="6">
             <v-text-field
               dense
               v-model="deliveryDetails.beginning"
               disabled
               label="Beginning"
             ></v-text-field>
-          </v-col>
+          </v-col> -->
 
           <!-- Ending -->
-          <v-col class="delivery-form__input-container" cols="12" md="6">
+          <!-- <v-col class="delivery-form__input-container" cols="12" md="6">
             <v-text-field
               dense
               v-model="deliveryDetails.ending"
               disabled
               label="Ending"
             ></v-text-field>
-          </v-col>
+          </v-col> -->
 
           <!-- Products heading -->
           <v-col class="delivery-form__input-container" cols="12" md="6">
             <h4 class="d-inline font-weight-medium grey--text text--darken-3 pb-3 pt-5">Products</h4>
-            <v-btn class="d-inline ml-5 primary" @click="productsCounter++">Add Product</v-btn>
+            <v-btn class="d-inline ml-5 primary" @click="productsCounter.push(0)">Add Product</v-btn>
           </v-col>
 
           <!-- Products -->
           <v-col class="delivery-form__input-container pt-5" cols="12" md="6">
             <v-card 
               class="products-card"
-              v-for="(item,i) in productsCounter"
+              v-for="(item,i) in productsCounter.length"
               :key="i"
             >
+              <v-btn v-if="false" class="delete-product-btn" @click="deleteProduct(i)" color="red lighten-1" fab x-small dark>
+                {{i}}<v-icon>mdi-delete</v-icon>
+              </v-btn>
+
               <v-select
+                class="py-1"
                 ref="productName"
                 dense
                 label="Product"
                 :items="productsList"
+                item-text="flavor"
+                item-value="id"
                 :rules="customRules('Product',{ required: true })"
               ></v-select>
 
               <!-- Price -->
               <v-text-field
+                class="py-1"
                 ref="productPrice"
                 type="number"
                 value=""
@@ -113,6 +124,7 @@
 
               <!-- Quantity -->
               <v-text-field
+                class="py-1"
                 ref="productQuantity"
                 type="number"
                 value=""
@@ -120,7 +132,6 @@
                 clearable
                 label="Quantity"
                 :rules="customRules('Quantity',{ required: true })"
-                @input="computeEnding"
               ></v-text-field>
             </v-card>
           </v-col>
@@ -128,7 +139,7 @@
           <!-- Form Buttons -->
           <v-col class="delivery-form__input-container pt-5 text-right" cols="12" md="6">
             <v-btn class="mr-4" depressed color="white">Cancel</v-btn>
-            <v-btn class="primary" @click="showProducts">Submit</v-btn>
+            <v-btn class="primary" @click="addDelivery">Add Delivery</v-btn>
           </v-col>
 
         </v-row>
@@ -139,8 +150,13 @@
 <script>
 import FormMixin from '../../mixins/formMixin'
 
+import { mapState } from 'vuex'
+
 export default {
   mixins: [ FormMixin ],
+  computed: mapState({
+    axiosURL: 'axiosURL'
+  }),
   data() {
     return {
       breadcrumbItems: [
@@ -160,59 +176,123 @@ export default {
           href: '',
         },
       ],
-      productsList: ['Grape','Mint'],
+      inventoryTypeList: [
+        {
+          name: 'Kit',
+          value: 'KIT' 
+        },
+        {
+          name: 'Incentive',
+          value: 'INCENTIVE' 
+        },
+        {
+          name: 'Repeat Purchase',
+          value: 'REPEAT_PURCHASE' 
+        },
+      ],
+      productsList: [],
       deliveryDetails: {
-        date: new Date().toISOString().substr(0, 10),
-        beginning: 750,
-        ending: 1000
+        deliveryDate: new Date().toISOString().substr(0, 10),
       },
       valid: false,
       deliveryDateModal: false,
-      productsCounter: 1
+      productsCounter: [0]
 
     }
   },
   methods: {
-    showProducts() {
-      let productsArray = [];
+    async addDelivery() {
+      let self = this;
+      if (this.$refs.warehousingAddDeliveryForm.validate()) {
+        // Convert date to ISO date format
+        let selectedDate = new Date(self.deliveryDetails.deliveryDate)
+        selectedDate.setHours(new Date().getHours())
+        selectedDate.setMinutes(new Date().getMinutes())
+        selectedDate.setSeconds(new Date().getSeconds())
 
-      this.$refs.productName.forEach( (productName, index) => {
-        productsArray.push({ 
-          id: index,
-          productPrice: this.$refs.productPrice[index].lazyValue,
-          productQuantity: this.$refs.productQuantity[index].lazyValue,
-          productName:  productName.selectedItems[0] 
-          })
+        let index = 0
+
+        for (let productName of this.$refs.productName) {
+          let tempDetails = { ...self.deliveryDetails };
+
+          tempDetails.deliveryDate = selectedDate.toISOString();
+          tempDetails.soldTo = self.$session.get('account').username;
+
+          // Add other details to temporary variable
+          Object.assign(tempDetails, {
+            sellingPrice: this.$refs.productPrice[index].lazyValue,
+            deliveryQuantity: this.$refs.productQuantity[index].lazyValue,
+            product:  { id: productName.selectedItems[0].id }
+          });
+
+          // Push object to array
+          await self.uploadDeliveryDetails(tempDetails)
+
+          index++;
+        }
+
+        self.$router.push('/warehousing')
+      }
+    },
+    uploadDeliveryDetails(details) {
+      let self = this;
+
+      this.axios.post(this.axiosURL + 'api/inventory/update-sysadmin', {
+        auth: self.$session.get('auth')
+      }, 
+      {
+        data: details
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(function (error) { 
+        self.$swal('Opssss! Something went wrong', error.data, 'error');
       });
-
-      console.log(productsArray);
     },
     computeEnding() {
       let ending = 0;
       this.$refs.productName.forEach( (productName, index) => {
         ending = ending + parseInt(this.$refs.productQuantity[index].lazyValue);
       });
-
-      console.log(ending)
+    },
+    getProducts() {
+      let self = this;
+      this.axios.get(this.axiosURL + 'api/product/get-all-products', {
+        auth: self.$session.get('auth')
+      })
+      .then(response => {
+        self.productsList = response.data.payload;
+      })
+      .catch(function (error) { });
     }
+  },
+  created() {
+    this.getProducts();
   }
 }
 </script>
 <style lang="scss">
 .warehousing-add-delivery {
   .delivery-form__input-container {
-    padding: 4px 32px 0 !important;
+    padding: 8px 32px 0 !important;
     margin: 0 30px 0 0;
   }
 
   .products-card {
-     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
-     padding: 14px 18px 10px;
-     margin-top: 18px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
+    padding: 14px 18px 10px;
+    margin-top: 18px;
 
-     &:first-of-type {
-       margin-top: 0;
-     }
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    .delete-product-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+    }
   }
 }
 

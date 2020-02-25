@@ -42,6 +42,13 @@ public class Product {
     @Column(name = "PRODUCT_NAME")
     private String name;
 
+    public Product(Long id) {
+        this.id = id;
+    }
+
+    public Product() {
+    }
+
     @PrePersist
     protected void onCreate() {
         dtimeCreated = LocalDateTime.now();

@@ -33,6 +33,7 @@ public class Incentive {
             inverseJoinColumns = @JoinColumn(name = "USER_ID"))
     private List<User> users = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private IncentiveStatus incentiveStatus;
 
     private LocalDateTime dtimeCreated;

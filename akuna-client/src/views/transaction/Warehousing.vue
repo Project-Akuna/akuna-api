@@ -22,7 +22,7 @@
             <h3 class="table-title">Warehousing History</h3>
             <v-data-table
                     :headers="headers"
-                    :items="warehousingList"
+                    :items="history"
                     multi-sort
             >
             </v-data-table>
@@ -84,7 +84,6 @@
                 })
                     .then(response => {
                         this.inventories = response.data.payload;
-                        console.log(response.data.payload);
                     })
                     .catch(function (error) {
 
@@ -96,11 +95,15 @@
                     auth: self.$session.get('auth')
                 }).then(response => {
                     this.history = response.data.payload;
-                })
+                    console.log(response.data.payload)
+                }).catch(function (error) {
+                    console.log(error)
+                });
             }
         },
         mounted () {
             this.getInventory();
+            this.getHistory()
         }
     }
 </script>

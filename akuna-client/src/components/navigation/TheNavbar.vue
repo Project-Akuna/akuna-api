@@ -293,7 +293,7 @@ export default {
         {
           icon: 'mdi-view-dashboard',
           title: 'Dashboard',
-          link: 'dashboard',
+          link: '/dashboard',
           rolesVisible: [1,2,3,4,5]
         },
         {
