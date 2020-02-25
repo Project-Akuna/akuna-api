@@ -20,10 +20,7 @@ import ph.com.adcpp.commons.request.UserRequest;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -74,6 +71,10 @@ public class UserService {
         }
         user.setWallet(new Wallet(user));
         userRepository.save(user);
+
+        User upline = userRepository.getOne(user.getUpline().getId());
+        upline.getDownlines().add(user);
+        userRepository.save(upline);
 
         addUserToDRI(user.getDirectSponsor());
         log.info("User [{}] successfully saved.", user.getUsername());
@@ -127,8 +128,11 @@ public class UserService {
         user.setLastName(request.getLastName());
         user.setMaritalStatus(request.getMaritalStatus());
         user.setIsEnabled(true);
-        request.getRoles().forEach(roleRequest -> user.addRole(mapper.convertValue(roleRequest, Role.class)));
+        Role role = new Role(request.getRoles().stream().findAny().get().getId());
+        user.addRole(role);
         user.setUsername(request.getUsername());
+        user.setUpline(new User(request.getUpline().getId()));
+        user.setDirectSponsor(new User(request.getDirectSponsor().getId()));
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setTreeLevel(userRepository.getOne(request.getUpline().getId()).getTreeLevel() + 1);
 
