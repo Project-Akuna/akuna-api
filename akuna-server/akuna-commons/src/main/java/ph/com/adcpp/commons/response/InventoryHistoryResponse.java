@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 public class InventoryHistoryResponse {
 
+    private Long id;
     private LocalDateTime deliveryDate;
     private String deliveryCode;
     private Integer deliveryQuantity;

@@ -1,6 +1,7 @@
 package ph.com.adcpp.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,6 @@ public class RegistrationCode {
     private String code;
 
     private BigDecimal amount;
-
-    @ManyToOne
-    @JoinColumn(name = "ADC_ID")
-    private ADC adc;
-
     private Boolean isUsed;
 
     @OneToOne
@@ -40,9 +36,19 @@ public class RegistrationCode {
     private User addedBy;
 
     @ManyToOne
-    @JoinColumn(name = "OWNER")
+    @JoinColumn(name = "OWNER_USER")
     @JsonBackReference
     private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "OWNER_DEPOT")
+    @JsonIgnore
+    private Depot ownerDepot;
+
+    @ManyToOne
+    @JoinColumn(name = "OWNER_ADC")
+    @JsonIgnore
+    private ADC ownerAdc;
 
     private LocalDateTime dtimeCreated;
 
@@ -58,10 +64,5 @@ public class RegistrationCode {
     @PrePersist
     protected void onCreate() {
         this.dtimeCreated = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.dtimeUsed = LocalDateTime.now();
     }
 }

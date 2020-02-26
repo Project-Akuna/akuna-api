@@ -1,10 +1,13 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -51,7 +54,22 @@ public class Depot {
     @JoinColumn(name = "OWNER_ID")
     private User owner;
 
+    @OneToOne(mappedBy = "ownerDepot")
+    @JsonIgnore
+    private Inventory inventory;
+
     @OneToOne(mappedBy = "ownerDepot", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Wallet wallet;
+
+    @OneToMany(mappedBy = "ownerDepot")
+    @JsonIgnore
+    private List<RegistrationCode> registrationCodes = new ArrayList<>();
+
+    public Depot(Long id) {
+        this.id = id;
+    }
+
+    public Depot() {
+    }
 }
