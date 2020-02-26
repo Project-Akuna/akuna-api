@@ -11,7 +11,7 @@
       <v-form ref="warehousingAddDeliveryForm" v-model="valid" lazy-validation>
         <v-row class="py-6">
           <!-- Delivery Date Time Picker -->
-          <v-col class="delivery-form__input-container" cols="12" md="6">
+          <v-col class="add-form__input-container" cols="12" md="6">
             <v-dialog
               ref="deliveryDateModalRef"
               v-model="deliveryDateModal"
@@ -38,7 +38,7 @@
           </v-col>
 
           <!-- Delivery Code -->
-          <v-col class="delivery-form__input-container" cols="12" md="6">
+          <v-col class="add-form__input-container" cols="12" md="6">
             <v-text-field
               dense
               v-model="deliveryDetails.deliveryCode"
@@ -50,7 +50,7 @@
           </v-col>
 
           <!-- Inventory Type -->
-          <v-col class="delivery-form__input-container" cols="12" md="6">
+          <v-col class="add-form__input-container" cols="12" md="6">
             <v-select
               v-model="deliveryDetails.inventoryType"
               dense
@@ -63,7 +63,7 @@
           </v-col>
 
           <!-- Beginning -->
-          <!-- <v-col class="delivery-form__input-container" cols="12" md="6">
+          <!-- <v-col class="add-form__input-container" cols="12" md="6">
             <v-text-field
               dense
               v-model="deliveryDetails.beginning"
@@ -73,7 +73,7 @@
           </v-col> -->
 
           <!-- Ending -->
-          <!-- <v-col class="delivery-form__input-container" cols="12" md="6">
+          <!-- <v-col class="add-form__input-container" cols="12" md="6">
             <v-text-field
               dense
               v-model="deliveryDetails.ending"
@@ -83,13 +83,13 @@
           </v-col> -->
 
           <!-- Products heading -->
-          <v-col class="delivery-form__input-container" cols="12" md="6">
+          <v-col class="add-form__input-container" cols="12" md="6">
             <h4 class="d-inline font-weight-medium grey--text text--darken-3 pb-3 pt-5">Products</h4>
             <v-btn class="d-inline ml-5 primary" @click="productsCounter.push(0)">Add Product</v-btn>
           </v-col>
 
           <!-- Products -->
-          <v-col class="delivery-form__input-container pt-5" cols="12" md="6">
+          <v-col class="add-form__input-container pt-5" cols="12" md="6">
             <v-card 
               class="products-card"
               v-for="(item,i) in productsCounter.length"
@@ -137,7 +137,7 @@
           </v-col>
 
           <!-- Form Buttons -->
-          <v-col class="delivery-form__input-container pt-5 text-right" cols="12" md="6">
+          <v-col class="add-form__input-container pt-5 text-right" cols="12" md="6">
             <v-btn class="mr-4" depressed color="white">Cancel</v-btn>
             <v-btn class="primary" @click="addDelivery">Add Delivery</v-btn>
           </v-col>
@@ -264,7 +264,7 @@ export default {
       .then(response => {
         self.productsList = response.data.payload;
       })
-      .catch(function (error) { });
+      .catch(function (error) { self.$swal('Opssss! Something went wrong', error.data, 'error'); });
     }
   },
   created() {
@@ -274,11 +274,6 @@ export default {
 </script>
 <style lang="scss">
 .warehousing-add-delivery {
-  .delivery-form__input-container {
-    padding: 8px 32px 0 !important;
-    margin: 0 30px 0 0;
-  }
-
   .products-card {
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
     padding: 14px 18px 10px;
