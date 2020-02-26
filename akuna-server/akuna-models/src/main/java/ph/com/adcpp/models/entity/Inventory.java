@@ -20,7 +20,7 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer quantity;
+    private Integer quantity = 0;
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
@@ -42,16 +42,24 @@ public class Inventory {
     @JsonManagedReference
     private List<InventoryHistory> history = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "INVENTORY_ID"), inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
     @JsonManagedReference
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     private LocalDateTime dtimeCreated;
     private LocalDateTime dtimeUpdated;
 
     public Inventory(User user) {
         this.ownerUser = user;
+    }
+
+    public Inventory(Product product) {
+        this.products.add(product);
+    }
+
+    public Inventory(InventoryType inventoryType) {
+        this.inventoryType = inventoryType;
     }
 
     public Inventory(Depot ownerDepot) {

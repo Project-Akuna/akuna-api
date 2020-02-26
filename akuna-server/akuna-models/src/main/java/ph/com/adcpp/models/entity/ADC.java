@@ -1,10 +1,13 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Choy
@@ -59,6 +62,10 @@ public class ADC {
     @OneToOne(mappedBy = "ownerAdc", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Wallet wallet;
+
+    @OneToMany(mappedBy = "ownerAdc")
+    @JsonIgnore
+    private List<Inventory> inventories = new ArrayList<>();
 
     public ADC(Long id) {
         this.id = id;

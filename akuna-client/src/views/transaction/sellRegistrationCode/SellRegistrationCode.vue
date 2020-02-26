@@ -1,6 +1,6 @@
 <template lang="pug">
   section.sell-registration-code
-    sell-registration-dialog
+    <v-btn class="float-right primary" to="sell-registration-code/add"><v-icon class="pr-1" small>mdi-plus</v-icon>Sell</v-btn>
     h3.d-block Sell Registration Code
     v-breadcrumbs.d-block.pa-0(:items="breadcrumbItems")
       template(v-slot:divider)
@@ -14,13 +14,9 @@
       )
 </template>
 <script>
-import SellRegistrationDialog from '../../../components/transaction/SellRegistrationDialog'
 import {mapState} from 'vuex'
 
 export default {
-  components: { 
-    SellRegistrationDialog 
-  },
   computed: mapState({
     axiosURL: 'axiosURL'
   }),

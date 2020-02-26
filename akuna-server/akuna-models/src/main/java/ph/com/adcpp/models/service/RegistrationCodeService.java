@@ -2,15 +2,19 @@ package ph.com.adcpp.models.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ph.com.adcpp.commons.request.ProductRequest;
 import ph.com.adcpp.commons.request.RegistrationCodeRequest;
+import ph.com.adcpp.commons.request.SellDepotCodeRequest;
+import ph.com.adcpp.commons.request.UpdateInventoryRequest;
 import ph.com.adcpp.commons.response.RegistrationCodeResponse;
-import ph.com.adcpp.models.entity.ADC;
-import ph.com.adcpp.models.entity.Inventory;
-import ph.com.adcpp.models.entity.RegistrationCode;
+import ph.com.adcpp.models.entity.*;
+import ph.com.adcpp.models.repository.DepotRepository;
+import ph.com.adcpp.models.repository.ProductRepository;
 import ph.com.adcpp.models.repository.RegistrationCodeRepository;
-import ph.com.adcpp.models.entity.User;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +30,11 @@ public class RegistrationCodeService {
     private RegistrationCodeRepository codeRepository;
     private ObjectMapper mapper;
     private InventoryService inventoryService;
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private DepotRepository depotRepository;
 
     public RegistrationCodeService(RegistrationCodeRepository codeRepository, ObjectMapper mapper, InventoryService inventoryService) {
         this.codeRepository = codeRepository;
@@ -55,25 +64,19 @@ public class RegistrationCodeService {
         return responses;
     }
 
-    public List<RegistrationCode> generateCodes(RegistrationCodeRequest request) {
-        log.info("Generating [{}] new codes...", request.getQuantity());
+    public List<RegistrationCode> generateCodes(Integer quantity) {
+        log.info("Generating [{}] new codes...", quantity);
 
         List<RegistrationCode> registrationCodes = new ArrayList<>();
 
-        for(int ctr = 0; ctr < request.getQuantity(); ctr++) {
+        for(int ctr = 0; ctr < quantity; ctr++) {
 
             RegistrationCode registrationCode = new RegistrationCode();
             registrationCode.setCode(UUID.randomUUID().toString());
-            registrationCode.setAdc(new ADC(request.getAdcId()));
-            registrationCode.setAddedBy(new User(request.getAddedBy()));
-            registrationCode.setAmount(request.getAmount());
-            registrationCode.setOwner(new User(request.getOwner()));
-
             registrationCodes.add(registrationCode);
         }
 
-//        updateInventory(request);
-        log.info("Successfully generated [{}] codes", request.getQuantity());
+        log.info("Successfully generated [{}] codes", quantity);
         return codeRepository.saveAll(registrationCodes);
     }
 
@@ -85,5 +88,37 @@ public class RegistrationCodeService {
 
     public RegistrationCode findByCode(String code) {
         return codeRepository.findByCode(code);
+    }
+
+    public void sellDepotRegCode(SellDepotCodeRequest request) {
+        Depot depot = depotRepository.getOne(request.getDepotId());
+        Product product = productRepository.getOne(request.getProductId());
+
+        depot.setRegistrationCodes(generateCodes(request.getQuantity()));
+        depot.getRegistrationCodes().forEach(code -> code.setOwnerDepot(depot));
+
+        Inventory inventory = depot.getInventory();
+        Integer beginningQty = inventory.getQuantity();
+        inventory.setQuantity(inventory.getQuantity() + request.getQuantity());
+
+        depot.setInventory(inventory);
+        depotRepository.save(depot);
+
+        UpdateInventoryRequest inventoryRequest = new UpdateInventoryRequest();
+        inventoryRequest.setQuantitySold(request.getQuantity());
+        inventoryRequest.setSoldTo(depot.getName());
+        inventoryRequest.setQuantitySold(request.getQuantity());
+        inventoryRequest.setDeliveryQuantity(Math.negateExact(request.getQuantity()));
+
+        inventoryRequest.setSellingPrice(product.getCodePrice().multiply(new BigDecimal(request.getQuantity())));
+        inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
+        inventoryRequest.setSoldBy("asd");
+
+        inventoryService.updateInventorySysAdmin(inventoryRequest);
+        inventoryService.createHistory(inventoryRequest, inventory, beginningQty, inventory.getQuantity(),
+                mapper.convertValue(product, ProductRequest.class));
+
+        inventoryRequest.setDeliveryQuantity(Math.abs(inventoryRequest.getDeliveryQuantity()));
+        inventoryService.createAcknowledgementReceipt(inventoryRequest);
     }
 }

@@ -11,7 +11,7 @@
             <v-col v-for="(inventory, i) in inventories"
                    :key="i" class="mb-3" cols="12" md="4">
                 <v-card class="warehousing-card views-container">
-                    <h4 class="warehousing-card__title"> Remaining {{inventory.inventoryType}} Bottles</h4>
+                    <h4 class="warehousing-card__title"> Remaining Bottles</h4>
                     <p class="warehousing-card__description"><v-icon class="ml-0">mdi-square-small</v-icon>75 Mint bottles</p>
                     <p class="warehousing-card__description"><v-icon>mdi-square-small</v-icon>75 Grape bottles</p>
                     <v-card class="warehousing-card__value">{{inventory.quantity}} <span>pieces</span></v-card>
@@ -57,6 +57,10 @@
                         value: 'id'
                     },
                     {
+                        text: 'Delivery Date',
+                        value: 'deliveryDate'
+                    },
+                    {
                         text: 'Beginning Quantity',
                         value: 'beginningQuantity'
                     },
@@ -78,12 +82,12 @@
         },
         methods : {
             getInventory() {
-                let self = this
+                let self = this;
                 this.axios.get(this.axiosURL + 'api/inventory/get-user-inventory/' + this.$session.get('account').username, {
                     auth: self.$session.get('auth')
                 })
                     .then(response => {
-                        this.inventories = response.data.payload;
+                        this.inventories.push(response.data.payload);
                     })
                     .catch(function (error) {
 

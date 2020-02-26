@@ -3,16 +3,15 @@ package ph.com.adcpp.commons.request;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 /**
  * @author Choy
- * @date 12/17/2019.
+ * @date 2/26/2020.
  */
-
 @Getter
 @Setter
-public class RegistrationCodeRequest {
+public class SellDepotCodeRequest {
 
+    private Long depotId;
     private Integer quantity;
+    private Long productId;
 }
