@@ -63,7 +63,7 @@ public class DepotService {
         userRepository.save(user);
     }
 
-    public void createUser(Depot depot, String username, String password) {
+    public User createUser(Depot depot, String username, String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(userService.getPasswordEncoder().encode(password));
@@ -75,6 +75,6 @@ public class DepotService {
         user.setMaritalStatus(MaritalStatus.SINGLE);
         user.setMemberType(new MemberType(1L));
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

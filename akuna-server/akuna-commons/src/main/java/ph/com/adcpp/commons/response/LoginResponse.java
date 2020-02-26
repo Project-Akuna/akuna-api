@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 public class LoginResponse {
 
+    private Long id;
     private String username;
     private String sessionId;
     private List<GrantedAuthority> roles;

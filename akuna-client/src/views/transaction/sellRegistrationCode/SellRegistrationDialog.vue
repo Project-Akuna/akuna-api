@@ -13,7 +13,7 @@
                 <v-col cols="12" md="6">
                     <v-select
                             dense
-                            label="Depot"
+                            label="Select"
                             item-text="name"
                             :items="depotList"
                             item-value="id"
@@ -93,24 +93,33 @@
             getProducts() {
                 let self = this;
                 self.axios.get(self.axiosURL + 'api/product/get-all-products', {
-                        auth: {
-                            auth: self.$session.get('auth')
-                        }
-                    })
+                    auth: {
+                        auth: self.$session.get('auth')
+                    }
+                })
                     .then(function (response) {
                         self.products = response.data.payload;
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        self.$swal('Something Went Wrong', 'Contact your System Administrators', 'error');
                     })
             },
             generateRegCode() {
                 let self = this;
+                let auth = this.$session.get('account');
+                let url;
                 self.regCodeDetails.addedBy = self.$session.get('account').username;
                 self.regCodeDetails.amount = parseInt(self.regCodeDetails.quantity) * 1900;
+                self.regCodeDetails.soldBy = self.$session.get('account').username;
+
+                if (auth.roles[0].name == 'ROLE_SYSADMIN') {
+                    url = 'api/registration/generate-codes-depot';
+                } else if (auth.roles[0].name == 'ROLE_DEPOT') {
+                    url = 'api/registration/generate-codes-adc';
+                }
 
                 // Axios call for adc
-                self.axios.post(self.axiosURL + 'api/registration/generate-codes-depot', {
+                self.axios.post(self.axiosURL + url, {
                         auth: {
                             auth: self.$session.get('auth')
                         }
@@ -122,18 +131,27 @@
                         self.$swal('Success', 'Successfully sold Registration Codes', 'success');
                     })
                     .catch(function (error) {
-                        self.$swal('Something Went Wrong', 'Contact your System Administrators', 'Error');
+                        self.$swal('Something Went Wrong', 'Contact your System Administrators', 'error');
                     })
             },
             getAllDepot() {
                 let self = this;
-                self.axios.get(this.axiosURL + 'api/depot/get-all-depot', {
+                let auth = this.$session.get('account');
+                let url;
+
+                if (auth.roles[0].name == 'ROLE_SYSADMIN') {
+                    url = 'api/depot/get-all-depot';
+                } else if (auth.roles[0].name == 'ROLE_DEPOT') {
+                    url = 'api/adc/get-all-adc'
+                }
+
+                self.axios.get(this.axiosURL + url, {
                     auth: this.$session.get('auth')
                 }).then(response => {
                     self.depotList = response.data.payload
-            }).catch(response => {
-                    this.$swal('Opssss! Something went wrong', response.data, 'error');
-            })
+                }).catch(response => {
+                    self.$swal('Something Went Wrong', 'Contact your System Administrators', 'error');
+                })
             },
         }
     }

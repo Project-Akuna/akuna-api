@@ -230,8 +230,6 @@ export default {
 
           index++;
         }
-
-        self.$router.push('/warehousing')
       }
     },
     uploadDeliveryDetails(details) {
@@ -244,7 +242,8 @@ export default {
         data: details
       })
       .then(response => {
-        console.log(response);
+          self.$swal('Success', 'Successfully added bottles', 'success');
+          self.$router.push('/warehousing')
       })
       .catch(function (error) { 
         self.$swal('Opssss! Something went wrong', error.data, 'error');

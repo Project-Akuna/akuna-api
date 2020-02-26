@@ -101,7 +101,7 @@ public class UserService {
             user.addRole(new Role(RoleConstant.MEMBER));
             user.setWallet(new Wallet(user));
             decideImmediateUpline(user);
-            user.setMemberType(new MemberType(1L));
+            user.setMemberType(new MemberType(3L));
 
             userRepository.save(user);
 
@@ -204,9 +204,9 @@ public class UserService {
     }
 
     @SuppressWarnings("unchecked")
-    public List<UserResponse> getAllUsers(PaginatedRequest request) {
+    public List<UserResponse> getAllUsers() {
         log.info("Getting users...");
-        return (List<UserResponse>) pageBuilder.buildPage(request, userRepository, UserResponse.class);
+        return (List<UserResponse>) mapper.convertValue(userRepository.findAll(), List.class);
     }
 
     public List<UserResponse> findAll() {

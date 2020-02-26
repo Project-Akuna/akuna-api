@@ -7,4 +7,5 @@ import ph.com.adcpp.models.entity.Depot;
 @Repository
 public interface DepotRepository extends JpaRepository<Depot, Long> {
     Depot findByName(String name);
+    Depot findByLinkedAccount_Username(String username);
 }

@@ -10,14 +10,14 @@ import ph.com.adcpp.commons.request.SellDepotCodeRequest;
 import ph.com.adcpp.commons.request.UpdateInventoryRequest;
 import ph.com.adcpp.commons.response.RegistrationCodeResponse;
 import ph.com.adcpp.models.entity.*;
-import ph.com.adcpp.models.repository.DepotRepository;
-import ph.com.adcpp.models.repository.ProductRepository;
-import ph.com.adcpp.models.repository.RegistrationCodeRepository;
+import ph.com.adcpp.models.repository.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author Choy
@@ -35,6 +35,12 @@ public class RegistrationCodeService {
 
     @Autowired
     private DepotRepository depotRepository;
+
+    @Autowired
+    private ADCRepository adcRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public RegistrationCodeService(RegistrationCodeRepository codeRepository, ObjectMapper mapper, InventoryService inventoryService) {
         this.codeRepository = codeRepository;
@@ -80,12 +86,6 @@ public class RegistrationCodeService {
         return codeRepository.saveAll(registrationCodes);
     }
 
-//    private void updateInventory(RegistrationCodeRequest request) {
-//        Inventory inventory = inventoryService.findByOwner(new User(request.getOwner()));
-//        inventory.setQuantity(inventory.getQuantity() - request.getQuantity());
-//        inventoryService.save(inventory);
-//    }
-
     public RegistrationCode findByCode(String code) {
         return codeRepository.findByCode(code);
     }
@@ -112,9 +112,46 @@ public class RegistrationCodeService {
 
         inventoryRequest.setSellingPrice(product.getCodePrice().multiply(new BigDecimal(request.getQuantity())));
         inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
-        inventoryRequest.setSoldBy("asd");
+        inventoryRequest.setSoldBy(request.getSoldBy());
 
         inventoryService.updateInventorySysAdmin(inventoryRequest);
+        inventoryService.createHistory(inventoryRequest, inventory, beginningQty, inventory.getQuantity(),
+                mapper.convertValue(product, ProductRequest.class));
+
+        inventoryRequest.setDeliveryQuantity(Math.abs(inventoryRequest.getDeliveryQuantity()));
+        inventoryService.createAcknowledgementReceipt(inventoryRequest);
+    }
+
+    public void sellAdcRegCode(SellDepotCodeRequest request) {
+        ADC adc = adcRepository.getOne(request.getDepotId());
+
+        Product product = productRepository.getOne(request.getProductId());
+
+        Depot depot = depotRepository.findByLinkedAccount_Username(request.getSoldBy());
+        List<RegistrationCode> registrationCodes = depot.getRegistrationCodes()
+                .stream().filter(regcode -> Objects.isNull(regcode.getOwnerAdc())).collect(Collectors.toList());
+
+        adc.setRegistrationCodes(registrationCodes.subList(0, request.getQuantity()));
+        adc.getRegistrationCodes().forEach(code -> code.setOwnerAdc(adc));
+
+        Inventory inventory = adc.getInventory();
+        Integer beginningQty = inventory.getQuantity();
+        inventory.setQuantity(inventory.getQuantity() + request.getQuantity());
+
+        adc.setInventory(inventory);
+        adcRepository.save(adc);
+
+        UpdateInventoryRequest inventoryRequest = new UpdateInventoryRequest();
+        inventoryRequest.setQuantitySold(request.getQuantity());
+        inventoryRequest.setSoldTo(adc.getName());
+        inventoryRequest.setQuantitySold(request.getQuantity());
+        inventoryRequest.setDeliveryQuantity(Math.negateExact(request.getQuantity()));
+
+        inventoryRequest.setSellingPrice(product.getCodePrice().multiply(new BigDecimal(request.getQuantity())));
+        inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
+        inventoryRequest.setSoldBy(request.getSoldBy());
+        inventoryRequest.setDepotId(depot.getId());
+        inventoryService.updateInventoryDepot(inventoryRequest);
         inventoryService.createHistory(inventoryRequest, inventory, beginningQty, inventory.getQuantity(),
                 mapper.convertValue(product, ProductRequest.class));
 

@@ -76,7 +76,7 @@ public class ADCService {
         return user;
     }
 
-    public void createNewUserForADC(ADC adc, String username, String password) {
+    public User createNewUserForADC(ADC adc, String username, String password) {
 
         User user = new User();
         user.addRole(new Role(RoleConstant.ADC));
@@ -89,6 +89,6 @@ public class ADCService {
         user.setEmail(adc.getEmail());
         user.setMemberType(new MemberType(1L));
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     Inventory findByOwnerUser_Username(String username);
-    List<Inventory> findByOwnerDepot_Name(String name);
+    Inventory findByOwnerDepot_Id(Long name);
     List<Inventory> findByOwnerAdc_Id(String id);
 
 }

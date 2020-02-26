@@ -57,15 +57,24 @@ public class ADC {
 
     @ManyToOne
     @JoinColumn(name = "OWNER_ID")
+    @JsonIgnore
     private User owner;
+
+    @OneToOne
+    @JoinColumn(name = "LINKED_ACCOUNT_ID")
+    private User linkedAccount;
 
     @OneToOne(mappedBy = "ownerAdc", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Wallet wallet;
 
+    @OneToOne(mappedBy = "ownerAdc")
+    @JsonIgnore
+    private Inventory inventory;
+
     @OneToMany(mappedBy = "ownerAdc")
     @JsonIgnore
-    private List<Inventory> inventories = new ArrayList<>();
+    private List<RegistrationCode> registrationCodes = new ArrayList<>();
 
     public ADC(Long id) {
         this.id = id;

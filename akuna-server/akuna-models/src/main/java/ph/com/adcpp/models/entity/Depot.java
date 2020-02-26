@@ -54,6 +54,10 @@ public class Depot {
     @JoinColumn(name = "OWNER_ID")
     private User owner;
 
+    @OneToOne
+    @JoinColumn(name = "LINKED_ACCOUNT_ID")
+    private User linkedAccount;
+
     @OneToOne(mappedBy = "ownerDepot")
     @JsonIgnore
     private Inventory inventory;

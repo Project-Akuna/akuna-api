@@ -35,6 +35,12 @@ public class RegistrationController {
         return ResponseUtil.success();
     }
 
+    @PostMapping("/generate-codes-adc")
+    public BaseResponse generateCodeAdc(@RequestBody SellDepotCodeRequest request) {
+        codeService.sellAdcRegCode(request);
+        return ResponseUtil.success();
+    }
+
     @GetMapping("/all")
     public BaseResponse all() {
         return ResponseUtil.success(codeService.findAll());

@@ -13,11 +13,13 @@ import ph.com.adcpp.commons.response.InventoryResponse;
 import ph.com.adcpp.models.entity.*;
 import ph.com.adcpp.models.repository.*;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
 @Slf4j
 @Service
+@Transactional
 public class InventoryService {
 
     private InventoryRepository inventoryRepository;
@@ -55,7 +57,22 @@ public class InventoryService {
 
         Integer beginningQty = inventory.getQuantity();
         for (ProductRequest productRequest : request.getProduct()) {
-            createHistory(request, inventory, beginningQty, inventory.getQuantity() + request.getDeliveryQuantity(), productRequest);
+            createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), productRequest);
+            beginningQty += request.getDeliveryQuantity();
+        }
+        createAcknowledgementReceipt(request);
+
+        log.info("Inventory updated.");
+    }
+
+    public void updateInventoryDepot(UpdateInventoryRequest request) {
+        log.info("Updating inventory of depot[{}]...", request.getSoldBy());
+
+        Inventory inventory = inventoryRepository.findByOwnerDepot_Id(request.getDepotId());
+
+        Integer beginningQty = inventory.getQuantity();
+        for (ProductRequest productRequest : request.getProduct()) {
+            createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), productRequest);
             beginningQty += request.getDeliveryQuantity();
         }
         createAcknowledgementReceipt(request);

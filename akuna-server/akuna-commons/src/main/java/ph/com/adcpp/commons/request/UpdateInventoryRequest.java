@@ -23,4 +23,5 @@ public class UpdateInventoryRequest {
     private InventoryType inventoryType;
     private List<ProductRequest> product = new ArrayList<>();
     private String soldBy;
+    private Long depotId;
 }

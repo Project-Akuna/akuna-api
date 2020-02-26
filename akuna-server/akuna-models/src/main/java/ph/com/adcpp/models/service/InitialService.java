@@ -78,7 +78,7 @@ public class InitialService {
         depot.setCity(new City(1367L));
         depot.setWallet(new Wallet(depot));
 
-        depotService.createUser(depot, "qc_depot", "admin");
+        depot.setLinkedAccount(depotService.createUser(depot, "qc_depot", "admin"));
         createInventoryDepot(depot);
         depot = depotService.save(depot);
 
@@ -99,7 +99,7 @@ public class InitialService {
         adc.setCity(new City(1367L));
         adc.setName("QC ADC");
 
-        adcService.createNewUserForADC(adc, "qc_adc", "admin");
+        adc.setLinkedAccount(adcService.createNewUserForADC(adc, "qc_adc", "admin"));
         createInventoryAdc(adc);
         return adcService.save(adc);
     }

@@ -14,4 +14,5 @@ public class SellDepotCodeRequest {
     private Long depotId;
     private Integer quantity;
     private Long productId;
+    private String soldBy;
 }
