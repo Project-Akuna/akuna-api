@@ -15,6 +15,7 @@ import Members from "../views/membersFiles/members/Members";
 import Cashier from "../views/membersFiles/cashier/Cashier";
 import AddCashier from '../views/membersFiles/cashier/AddCashier.vue'
 import Depot from "../views/membersFiles/depot/Depot";
+import AddDepot from '../views/membersFiles/depot/AddDepot.vue'
 
 // Transaction Views
 import SellRegistrationCode from '../views/transaction/sellRegistrationCode/SellRegistrationCode.vue'
@@ -97,6 +98,11 @@ const routes = [
         path: '/depot',
         name: 'depot',
         component: Depot
+    },
+    {
+        path: '/depot/add',
+        name: 'AddDepot',
+        component: AddDepot
     },
     {
         path: '/warehousing',
