@@ -3,24 +3,23 @@ package ph.com.adcpp.models.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import ph.com.adcpp.commons.constant.InventoryType;
+import ph.com.adcpp.commons.request.ProductRequest;
 import ph.com.adcpp.commons.request.UpdateInventoryRequest;
 
+import ph.com.adcpp.commons.response.InventoryHistoryResponse;
 import ph.com.adcpp.commons.response.InventoryResponse;
 import ph.com.adcpp.models.entity.*;
 import ph.com.adcpp.models.repository.*;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Slf4j
 @Service
+@Transactional
 public class InventoryService {
 
     private InventoryRepository inventoryRepository;
@@ -38,14 +37,13 @@ public class InventoryService {
     @Autowired
     private AcknowledgementRepo acknowledgementRepo;
 
+    @Autowired
+    private InventoryHistoryRepository inventoryHistoryRepository;
+
 
     public InventoryService(InventoryRepository inventoryRepository, ObjectMapper mapper) {
         this.inventoryRepository = inventoryRepository;
         this.mapper = mapper;
-    }
-
-    public List<Inventory> findByOwner(String username) {
-        return inventoryRepository.findByOwnerUser_Username(username);
     }
 
     public void save(Inventory inventory) {
@@ -54,30 +52,31 @@ public class InventoryService {
 
     public void updateInventorySysAdmin(UpdateInventoryRequest request) {
         log.info("Updating inventory of SysAdmin...");
-        inventoryRepository.findByOwnerUser_Username(request.getSoldTo())
-                .parallelStream().filter(inventory -> inventory.getInventoryType() == request.getInventoryType())
-                .forEach(inventory -> {
-                    update(request, inventory, inventory.getQuantity() + request.getDeliveryQuantity());
-                    createAcknowledgementReceipt(request);
-                });
+
+        Inventory inventory = inventoryRepository.findByOwnerUser_Username("asd");
+
+        Integer beginningQty = inventory.getQuantity();
+        for (ProductRequest productRequest : request.getProduct()) {
+            createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), productRequest);
+            beginningQty += request.getDeliveryQuantity();
+        }
+        createAcknowledgementReceipt(request);
+
         log.info("Inventory updated.");
     }
 
-    public void updateInventoryOfDepot(UpdateInventoryRequest request) {
-        log.info("Updating inventory of Depot: {}", request.getSoldTo());
-        inventoryRepository.findByOwnerDepot_Name(request.getSoldTo())
-                .parallelStream().filter(inventory -> inventory.getInventoryType() == request.getInventoryType())
-                .forEach(inventory -> {
-                    inventoryRepository.findByOwnerUser_Username("asd")
-                            .stream().filter(inventory1 -> inventory1.getInventoryType() == request.getInventoryType())
-                            .forEach(inventory1 -> {
-                                update(request, inventory1, inventory1.getQuantity() - request.getQuantitySold());
-                            });
+    public void updateInventoryDepot(UpdateInventoryRequest request) {
+        log.info("Updating inventory of depot[{}]...", request.getSoldBy());
 
-                    inventory.setQuantity(inventory.getQuantity() + request.getQuantitySold());
-                    inventoryRepository.save(inventory);
-                    createAcknowledgementReceipt(request);
-                });
+        Inventory inventory = inventoryRepository.findByOwnerDepot_Id(request.getDepotId());
+
+        Integer beginningQty = inventory.getQuantity();
+        for (ProductRequest productRequest : request.getProduct()) {
+            createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), productRequest);
+            beginningQty += request.getDeliveryQuantity();
+        }
+        createAcknowledgementReceipt(request);
+
         log.info("Inventory updated.");
     }
 
@@ -92,23 +91,23 @@ public class InventoryService {
         });
     }
 
-    public List<InventoryResponse> getInventoryOfUser(String username) {
-        return findByOwner(username)
-                .stream().map(inventory -> mapper.convertValue(inventory, InventoryResponse.class))
-                .collect(Collectors.toList());
+    public InventoryResponse getInventoryOfUser(String username) {
+        return mapper.convertValue(inventoryRepository.findByOwnerUser_Username(username), InventoryResponse.class);
     }
 
-    private void update(UpdateInventoryRequest request, Inventory inventory, Integer endingQuantity) {
+    public void createHistory(UpdateInventoryRequest request, Inventory inventory, Integer beginningQty, Integer endingQuantity, ProductRequest productRequest) {
 
         InventoryHistory history = new InventoryHistory();
-        history.setBeginningQuantity(inventory.getQuantity());
+        history.setBeginningQuantity(beginningQty);
         history.setEndingQuantity(endingQuantity);
-        history.setProduct(new Product(request.getProduct().getId()));
+        history.setProduct(mapper.convertValue(productRequest, Product.class));
         history.setDeliveryCode(request.getDeliveryCode());
         history.setInventory(inventory);
         history.setQuantitySold(request.getQuantitySold());
         history.setSellingPrice(request.getSellingPrice());
-        history.setDeliveryQuantity(request.getDeliveryQuantity());
+        history.setSoldTo(request.getSoldTo());
+        history.setDeliveryQuantity((request.getDeliveryQuantity() < 0) ? null : request.getDeliveryQuantity());
+        history = inventoryHistoryRepository.save(history);
 
         inventory.setQuantity(endingQuantity);
         inventory.getHistory().add(history);
@@ -116,7 +115,7 @@ public class InventoryService {
         inventoryRepository.save(inventory);
     }
 
-    private void createAcknowledgementReceipt(UpdateInventoryRequest request) {
+    public void createAcknowledgementReceipt(UpdateInventoryRequest request) {
         AcknowledgementReceipt receipt = new AcknowledgementReceipt();
         receipt.setQuantity((Objects.nonNull(request.getDeliveryQuantity()) ? request.getDeliveryQuantity() : request.getQuantitySold()));
         receipt.setSoldTo(request.getSoldTo());
@@ -144,5 +143,16 @@ public class InventoryService {
             receipt.setEmail(adc.getEmail());
             receipt.setFirstName(adc.getName());
         }
+    }
+
+    public List<InventoryHistoryResponse> findHistory(String username) {
+        log.info("Getting histories for user [{}]", username);
+
+        User user = userRepository.findByUsername(username);
+        List<InventoryHistoryResponse> histories = new ArrayList<>();
+        user.getInventory().getHistory().forEach(history -> histories.add(mapper.convertValue(history, InventoryHistoryResponse.class)));
+
+        log.info("Retrieved [{}] histories for user [{}]", histories.size(), username);
+        return histories;
     }
 }

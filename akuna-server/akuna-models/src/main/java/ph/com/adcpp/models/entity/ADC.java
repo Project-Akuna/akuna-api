@@ -1,10 +1,13 @@
 package ph.com.adcpp.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Choy
@@ -54,11 +57,24 @@ public class ADC {
 
     @ManyToOne
     @JoinColumn(name = "OWNER_ID")
+    @JsonIgnore
     private User owner;
+
+    @OneToOne
+    @JoinColumn(name = "LINKED_ACCOUNT_ID")
+    private User linkedAccount;
 
     @OneToOne(mappedBy = "ownerAdc", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Wallet wallet;
+
+    @OneToOne(mappedBy = "ownerAdc")
+    @JsonIgnore
+    private Inventory inventory;
+
+    @OneToMany(mappedBy = "ownerAdc")
+    @JsonIgnore
+    private List<RegistrationCode> registrationCodes = new ArrayList<>();
 
     public ADC(Long id) {
         this.id = id;

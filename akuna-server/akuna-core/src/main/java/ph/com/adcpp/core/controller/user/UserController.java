@@ -42,12 +42,12 @@ public class UserController {
         return ResponseUtil.success();
     }
 
-    @PostMapping("/get-users")
-    public BaseResponse test(@RequestBody PaginatedRequest request) {
-        return ResponseUtil.success(userService.getAllUsers(request));
-    }
+//    @PostMapping("/get-users")
+//    public BaseResponse test() {
+//        return ResponseUtil.success(userService.getAllUsers());
+//    }
 
-    @GetMapping("/get-all-users")
+    @PostMapping("/get-users")
     public BaseResponse getAllUsers() {
         return ResponseUtil.success(userService.findAll());
     }

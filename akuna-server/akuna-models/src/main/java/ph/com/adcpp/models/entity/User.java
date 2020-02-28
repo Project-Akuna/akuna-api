@@ -111,6 +111,11 @@ public class User {
     @JoinColumn(name = "MEMBER_TYPE_ID")
     private MemberType memberType;
 
+    @OneToOne(mappedBy = "ownerUser")
+    @JsonIgnore
+    private Inventory inventory;
+
+
     public User() {
     }
 

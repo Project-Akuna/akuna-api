@@ -9,7 +9,7 @@
     <v-card class="views-container ma-0 mt-5">
       <h3 class="table-title">Enter Warehousing Delivery Details</h3>
       <v-form ref="warehousingAddDeliveryForm" v-model="valid" lazy-validation>
-        <v-row class="py-6">
+        <v-row class="py-6" >
           <!-- Delivery Date Time Picker -->
           <v-col class="add-form__input-container" cols="12" md="6">
             <v-dialog
@@ -222,7 +222,7 @@ export default {
           Object.assign(tempDetails, {
             sellingPrice: this.$refs.productPrice[index].lazyValue,
             deliveryQuantity: this.$refs.productQuantity[index].lazyValue,
-            product:  { id: productName.selectedItems[0].id }
+            product: [{id: productName.selectedItems[0].id}]
           });
 
           // Push object to array
@@ -230,8 +230,6 @@ export default {
 
           index++;
         }
-
-        self.$router.push('/warehousing')
       }
     },
     uploadDeliveryDetails(details) {
@@ -244,7 +242,8 @@ export default {
         data: details
       })
       .then(response => {
-        console.log(response);
+          self.$swal('Success', 'Successfully added bottles', 'success');
+          self.$router.push('/warehousing')
       })
       .catch(function (error) { 
         self.$swal('Opssss! Something went wrong', error.data, 'error');

@@ -19,6 +19,7 @@ import AddDepot from '../views/membersFiles/depot/AddDepot.vue'
 
 // Transaction Views
 import SellRegistrationCode from '../views/transaction/sellRegistrationCode/SellRegistrationCode.vue'
+import SellRegistrationCodeDialog from '../views/transaction/sellRegistrationCode/SellRegistrationDialog.vue'
 import Warehousing from '../views/transaction/warehousing/Warehousing.vue'
 import WarehousingAddDelivery from '../views/transaction/warehousing/WarehousingAddDelivery.vue'
 
@@ -93,6 +94,11 @@ const routes = [
         path: '/sell-registration-code',
         name: 'sellRegistrationCode',
         component: SellRegistrationCode
+    },
+    {
+        path: '/sell-registration-code/add',
+        name: 'sellRegistrationCodeAdd',
+        component: SellRegistrationCodeDialog
     },
     {
         path: '/depot',

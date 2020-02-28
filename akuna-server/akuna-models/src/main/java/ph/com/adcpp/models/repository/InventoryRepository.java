@@ -12,7 +12,8 @@ import java.util.List;
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
-    List<Inventory> findByOwnerUser_Username(String username);
-    List<Inventory> findByOwnerDepot_Name(String name);
+    Inventory findByOwnerUser_Username(String username);
+    Inventory findByOwnerDepot_Id(Long name);
     List<Inventory> findByOwnerAdc_Id(String id);
+
 }
