@@ -10,15 +10,15 @@
       v-divider
       v-stepper-step(color="green darken-2" :complete="signupStep > 2" step="2") Member Information
       v-divider
-      v-stepper-step(color="green darken-2" :complete="signupStep > 3" step="3") Upline Information
+      v-stepper-step(color="green darken-2" :complete="signupStep > 3" step="3" v-if="getRouteName() != 'addCashier'") Upline Information
       v-divider
-      v-stepper-step(color="green darken-2" step="4") Account Information
+      v-stepper-step(color="green darken-2" :step="getRouteName() == 'addCashier' ? '3': '4'") Account Information
      
     // Stepper Contents
     v-stepper-items
       sign-up-first-step
       sign-up-second-step
-      sign-up-third-step
+      sign-up-third-step(v-if="getRouteName() != 'addCashier'")
       sign-up-fourth-step
 </template>
 <script>
@@ -32,7 +32,15 @@ import SignUpSecondStep from '../signup/SignUpSecondStep'
 import SignUpThirdStep from '../signup/SignUpThirdStep'
 import SignUpFourthStep from '../signup/SignUpFourthStep'
 
+import { mapState } from 'vuex'
+import SignupMixin from '@/mixins/signupMixin.js'
+
 export default {
+  computed: mapState({
+    axiosURL: 'axiosURL',
+    signupStep: 'signupStep'
+  }),
+  mixins: [ SignupMixin],
   components: {
     BaseSelect,
     BaseTextField,
@@ -46,17 +54,31 @@ export default {
   },
   data() {
     return {
-      items: [
-        "One",
-        "Two",
-        "Three"
-      ]
     }
   },
-  computed: {
-    signupStep() {
-      return this.$store.state.signupStep;
+  methods: {
+    updateRegions() {
+      var self = this;
+
+      // Axios call for regions
+      this.axios.get(self.axiosURL+'api/region/get-all-regions', {
+        auth: {
+          username: 'asd',
+          password: 'asd'
+        }
+      })
+      .then(function (response) {
+        self.$store.commit('updateRegions', response.data.payload)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(async function () {
+      });
     }
+  },
+  created() {
+    this.updateRegions();
   }
 }
 </script>

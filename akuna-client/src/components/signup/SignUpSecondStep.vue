@@ -192,8 +192,7 @@
 
           // Member Information Buttons
           v-col.signup__personal-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
-            v-btn(@click="changeStep(1)" depressed background="red") Back
-            //- v-btn.signup__btn.ml-3(@click="changeStep(3)") Next
+            v-btn(@click="prevStep()" depressed background="red") Back
             v-btn.signup__btn.ml-3(@click="nextSignupStep") Next
 </template>
 <script>
@@ -264,7 +263,7 @@ export default {
         
         this.updateAccount( this.localSignupAccount )
 
-        this.changeStep(3)
+        this.nextStep()
       }
     },
   },

@@ -136,7 +136,7 @@ export default {
       
       if (this.$refs.signupFirstStepForm.validate()) {
         this.updateAccount({ adc: {id: this.selectedAdc }});
-        this.changeStep(2)
+        this.nextStep()
       }
     }
   },

@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-stepper-content(step="3")
+  v-stepper-content(:step="getRouteName == 'addCashier' ? '' : '3'")
     v-container.pt-0
       v-form(ref="signupThirdStepForm" v-model="valid" lazy-validation)
         v-row
@@ -102,7 +102,7 @@ export default {
     let self = this
 
     // Axios get request for getting all users
-    this.axios.get(self.axiosURL+'api/user/get-all-users', {
+    this.axios.post(self.axiosURL+'api/user/get-users', {
       auth: {
         username: 'asd',
         password: 'asd'

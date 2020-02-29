@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-stepper-content(step="4")
+  v-stepper-content(:step="getRouteName() == 'addCashier' ? '3' : '4'")
     v-container.pt-0
       v-form(ref="signupFourthStepForm" v-model="valid" lazy-validation)
         v-row
@@ -97,7 +97,7 @@ export default {
         } 
 
         self.updateAccount({isEnabled: 1});
-        self.updateAccount({roles: [{id: 2}]});
+        self.updateAccount({roles: [{id: self.getRouteName() == 'addCashier' ? 3 : 2}]});
 
         delete self.accountInfo.confirmPassword;
         self.updateAccount(self.accountInfo)

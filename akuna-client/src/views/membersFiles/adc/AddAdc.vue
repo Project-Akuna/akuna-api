@@ -185,7 +185,7 @@ export default {
   methods: {
     getUsers() {
       let self = this;
-      this.axios.get(this.axiosURL + 'api/user/get-all-users', {
+      this.axios.post(this.axiosURL + 'api/user/get-users', {
         auth: self.$session.get('auth')
       })
       .then(response => {
