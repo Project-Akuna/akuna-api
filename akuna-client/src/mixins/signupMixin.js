@@ -21,6 +21,9 @@ export default {
     },
     getRouteName() {
       return this.$route.name;
+    },
+    removeSignupProperty(property) {
+      this.$store.commit('removeSignupProperty', property);
     }
   },
   computed: {

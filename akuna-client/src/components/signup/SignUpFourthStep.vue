@@ -91,36 +91,67 @@ export default {
       let self = this;
 
       if (this.$refs.signupFourthStepForm.validate()) {
+        // Remove number of account in the signupAccount variable
+        let noOfAccount = self.signupAccount.noOfAccount;
+        self.removeSignupProperty('noOfAccount');
 
+        // Check Reg ID
         if (typeof this.$route.params.regID !== 'undefined') { // Reg ID is present
           self.updateAccount({ regCode: this.$route.params.regID })
         } 
 
+        // Update is enabled and roles
         self.updateAccount({isEnabled: 1});
         self.updateAccount({roles: [{id: self.getRouteName() == 'addCashier' ? 3 : 2}]});
 
+        // Remove confirm password and update signup Account
         delete self.accountInfo.confirmPassword;
         self.updateAccount(self.accountInfo)
 
-        console.log(self.signupAccount);
-
-        // Axios post request for saving account
-        this.axios.post(self.axiosURL+'api/user/save', {
-          auth: {
-            username: 'asd',
-            password: 'asd'
+        if ( noOfAccount  == 1 ) {
+          // Axios post request for saving account
+          this.axios.post(self.axiosURL+'api/user/save', {
+            auth: {
+              username: 'asd',
+              password: 'asd'
+            },
           },
-        },
-        {
-          data : self.signupAccount
-        })
-        .then( response => {
-          self.loginAccount();
-        })
-        .catch( response => {
-          this.$swal('Opssss! Something went wrong', response.data, 'error');
-          console.log(response)
-        })
+          {
+            data : self.signupAccount
+          })
+          .then( response => {
+            self.loginAccount();
+          })
+          .catch( response => {
+            this.$swal('Opssss! Something went wrong', response.data, 'error');
+            console.log(response)
+          })
+        } else if ( noOfAccount == 4 || noOfAccount == 13 ) {
+          let userArray = new Array()
+          for (let ctr = 0; ctr < noOfAccount; ctr++) {
+            userArray.push(self.signupAccount);
+          }
+
+          console.log(userArray);
+
+          // Axios post request for saving multipleaccount
+          this.axios.post(self.axiosURL+'api/user/save-multiple-users', {
+            auth: {
+              username: 'asd',
+              password: 'asd'
+            },
+          },
+          {
+            data : userArray
+          })
+          .then( response => {
+            self.loginAccount();
+          })
+          .catch( response => {
+            this.$swal('Opssss! Something went wrong', response.data, 'error');
+            console.log(response)
+          })
+        }
       }
     },
     loginAccount() {

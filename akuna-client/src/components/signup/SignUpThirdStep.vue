@@ -19,6 +19,16 @@
           v-col.pa-0(cols="12")
             h4.font-weight-medium.grey--text.text--darken-3.pb-3.pl-3.pt-3 Upline Information
 
+          // Number of accounts Select
+          v-col.signup__input-container(cols="12" )
+            v-select(
+              v-model="uplineInfo.noOfAccount"
+              :items="accountsNumberList"
+              label="Number of Accounts"
+              dense
+              :rules="customRules('Number of Accounts',{ required: true })"
+              )
+
           // Direct Sponsor Select
           v-col.signup__input-container(cols="12" )
             v-select(
@@ -72,7 +82,8 @@ export default {
     return {
       valid: false,
       usersList: [],
-      uplineInfo: {}
+      uplineInfo: {},
+      accountsNumberList: [1,4,13]
     }
   },
   components: {
@@ -90,7 +101,8 @@ export default {
       if (this.$refs.signupThirdStepForm.validate()) {
         this.updateAccount({
           directSponsor: { id: this.uplineInfo.directSponsor },
-          upline: { id: this.uplineInfo.upline }
+          upline: { id: this.uplineInfo.upline },
+          noOfAccount: this.uplineInfo.noOfAccount
         });
         // this.updateAccount(this.uplineInfo)
 

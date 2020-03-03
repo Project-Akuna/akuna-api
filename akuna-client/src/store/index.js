@@ -31,6 +31,9 @@ export default new Vuex.Store({
     },
     clearAccount(state) {
       state.signupAccount = {}
+    },
+    removeSignupProperty(state, property) {
+      if (property == 'noOfAccount') delete state.signupAccount.noOfAccount
     }
   },
   actions: {
