@@ -22,7 +22,7 @@
           // Number of accounts Select
           v-col.signup__input-container(cols="12" )
             v-select(
-              v-model="uplineInfo.noOfAccount"
+              v-model="uplineInfo.numberOfAccount"
               :items="accountsNumberList"
               label="Number of Accounts"
               dense
@@ -102,7 +102,7 @@ export default {
         this.updateAccount({
           directSponsor: { id: this.uplineInfo.directSponsor },
           upline: { id: this.uplineInfo.upline },
-          noOfAccount: this.uplineInfo.noOfAccount
+          numberOfAccount: this.uplineInfo.numberOfAccount
         });
         // this.updateAccount(this.uplineInfo)
 

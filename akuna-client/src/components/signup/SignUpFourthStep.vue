@@ -91,10 +91,6 @@ export default {
       let self = this;
 
       if (this.$refs.signupFourthStepForm.validate()) {
-        // Remove number of account in the signupAccount variable
-        let noOfAccount = self.signupAccount.noOfAccount;
-        self.removeSignupProperty('noOfAccount');
-
         // Check Reg ID
         if (typeof this.$route.params.regID !== 'undefined') { // Reg ID is present
           self.updateAccount({ regCode: this.$route.params.regID })
@@ -108,50 +104,25 @@ export default {
         delete self.accountInfo.confirmPassword;
         self.updateAccount(self.accountInfo)
 
-        if ( noOfAccount  == 1 ) {
-          // Axios post request for saving account
-          this.axios.post(self.axiosURL+'api/user/save', {
-            auth: {
-              username: 'asd',
-              password: 'asd'
-            },
-          },
-          {
-            data : self.signupAccount
-          })
-          .then( response => {
-            self.loginAccount();
-          })
-          .catch( response => {
-            this.$swal('Opssss! Something went wrong', response.data, 'error');
-            console.log(response)
-          })
-        } else if ( noOfAccount == 4 || noOfAccount == 13 ) {
-          let userArray = new Array()
-          for (let ctr = 0; ctr < noOfAccount; ctr++) {
-            userArray.push(self.signupAccount);
-          }
+        console.log(self.signupAccount)
 
-          console.log(userArray);
-
-          // Axios post request for saving multipleaccount
-          this.axios.post(self.axiosURL+'api/user/save-multiple-users', {
-            auth: {
-              username: 'asd',
-              password: 'asd'
-            },
+        // Axios post request for saving account
+        this.axios.post(self.axiosURL+'api/user/save', {
+          auth: {
+            username: 'asd',
+            password: 'asd'
           },
-          {
-            data : userArray
-          })
-          .then( response => {
-            self.loginAccount();
-          })
-          .catch( response => {
-            this.$swal('Opssss! Something went wrong', response.data, 'error');
-            console.log(response)
-          })
-        }
+        },
+        {
+          data : self.signupAccount
+        })
+        .then( response => {
+          self.loginAccount();
+        })
+        .catch( response => {
+          this.$swal('Opssss! Something went wrong', response.data, 'error');
+          console.log(response)
+        })
       }
     },
     loginAccount() {
