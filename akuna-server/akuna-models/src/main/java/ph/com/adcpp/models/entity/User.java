@@ -115,6 +115,7 @@ public class User {
     @JsonIgnore
     private Inventory inventory;
 
+    private Boolean isVisible;
 
     public User() {
     }

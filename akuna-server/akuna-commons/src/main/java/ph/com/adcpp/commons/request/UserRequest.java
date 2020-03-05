@@ -69,4 +69,6 @@ public class UserRequest {
     private Set<RoleRequest> roles;
 
     private String regCode;
+
+    private Integer numberOfAccounts;
 }

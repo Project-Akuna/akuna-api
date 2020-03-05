@@ -52,6 +52,11 @@ public class UserController {
         return ResponseUtil.success(userService.findAll());
     }
 
+    @GetMapping("/get-user/{username}")
+    public BaseResponse findByUsername(@PathVariable String username) {
+        return ResponseUtil.success(userService.findByUsername(username));
+    }
+
     @PostMapping("/build-initial-tree")
     public BaseResponse buildInitialTree() {
         userService.generateCompanyUsers();

@@ -211,7 +211,7 @@ public class UserService {
 
     public List<UserResponse> findAll() {
         return userRepository.findAll().stream()
-                .filter(user -> user.getDownlines().size() < 3)
+                .filter(user -> user.getDownlines().size() < 3 && user.getIsVisible())
                 .map(this::mapUser).collect(Collectors.toList());
     }
 
