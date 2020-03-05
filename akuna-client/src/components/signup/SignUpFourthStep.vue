@@ -96,8 +96,9 @@ export default {
           self.updateAccount({ regCode: this.$route.params.regID })
         } 
 
-        // Update is enabled and roles
+        // Update is enabled,roles, and isVisible
         self.updateAccount({isEnabled: 1});
+        self.updateAccount({isVisible: 1});
         self.updateAccount({roles: [{id: self.getRouteName() == 'addCashier' ? 3 : 2}]});
 
         // Remove confirm password and update signup Account
@@ -117,7 +118,8 @@ export default {
           data : self.signupAccount
         })
         .then( response => {
-          self.loginAccount();
+          if (self.$route.name == 'AddMemberFromGenealogy') self.$router.replace('/genealogy/'+self.$session.get('account').username)
+          else self.loginAccount()
         })
         .catch( response => {
           this.$swal('Opssss! Something went wrong', response.data, 'error');
@@ -137,16 +139,16 @@ export default {
       })
       .then(response => {
         if (response.status === 200) {
-          this.$session.start()
-          this.$session.set('account', response.data.payload);
-          this.$session.set('auth', {
+          self.$session.start()
+          self.$session.set('account', response.data.payload);
+          self.$session.set('auth', {
             username: self.signupAccount.username,
             password: self.signupAccount.password
           });
 
           self.clearAccount();
 
-          this.$router.replace('/dashboard');
+          self.$router.replace('/dashboard');
         }
       })
       .catch(response => {

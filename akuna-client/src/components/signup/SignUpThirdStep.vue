@@ -3,18 +3,6 @@
     v-container.pt-0
       v-form(ref="signupThirdStepForm" v-model="valid" lazy-validation)
         v-row
-          //- //HEADING - MyAkuna Information
-          //- v-col.pa-0(cols="12")
-          //-   h4.font-weight-medium.grey--text.text--darken-3.pb-3.pl-3 MyAkuna Information
-
-          //- // Registration Code TextField
-          //- v-col.signup__input-container(cols="12" )
-          //-   base-text-field.signup__registration-code-textfield(textFieldLabel="Registration Code" counter="10")
-
-          //- v-col.signup__input-container(cols="12" )
-          //-   p.signup__radio-group-label Number of Accounts
-          //-   base-radio-group.signup__accounts-radio-group(:radioGroupItems="items")
-
           //HEADING - Upline Information
           v-col.pa-0(cols="12")
             h4.font-weight-medium.grey--text.text--darken-3.pb-3.pl-3.pt-3 Upline Information
@@ -32,6 +20,7 @@
           // Direct Sponsor Select
           v-col.signup__input-container(cols="12" )
             v-select(
+              :disabled="isGenealogy"
               v-model="uplineInfo.directSponsor"
               :items="usersList"
               item-text="username"
@@ -48,6 +37,7 @@
           // Immediate Upline Select
           v-col.signup__input-container(cols="12" )
             v-select(
+              :disabled="isGenealogy"
               v-model="uplineInfo.upline"
               :items="usersList"
               item-text="username"
@@ -83,7 +73,9 @@ export default {
       valid: false,
       usersList: [],
       uplineInfo: {},
-      accountsNumberList: [1,4,13]
+      accountsNumberList: [1,4,13],
+      isGenealogy: false,
+      genealogySponsorAccount: {}
     }
   },
   components: {
@@ -108,25 +100,64 @@ export default {
 
         this.changeStep(4);
       }
+    },
+    getAllUsers() {
+      let self = this
+
+      // Axios get request for getting all users
+      this.axios.post(self.axiosURL+'api/user/get-users', {
+        auth: {
+          username: 'asd',
+          password: 'asd'
+        },
+      })
+      .then( response => {
+        self.usersList = response.data.payload;
+        self.checkGenealogy();
+      })
+      .catch( response => {
+        this.$swal('Opssss! Something went wrong', response.data, 'error');
+        console.log(response)
+      })
+    },
+    getUserByUsername(callback) {
+      let self = this
+      // Axios get request for getting user by username
+      this.axios.get(self.axiosURL+'api/user/get-user/'+self.$session.get('account').username, {
+        auth: {
+          username: 'asd',
+          password: 'asd'
+        },
+      })
+      .then( response => {
+        self.genealogySponsorAccount = response.data.payload
+        callback();
+      })
+      .catch( response => {
+        this.$swal('Opssss! Something went wrong', response.data, 'error');
+      })
+    },
+    checkGenealogy() {
+      if (this.$route.name == 'AddMemberFromGenealogy' && typeof this.$route.params.id !== 'undefined') {
+        this.isGenealogy = true;
+        this.uplineInfo.upline = parseInt(this.$route.params.id)
+        // this.uplineInfo.directSponsor = currentUser[0].id;
+        // console.log(this.getUserByUsername())
+        
+        this.getUserByUsername(() => {
+          this.usersList.push({
+            id: this.genealogySponsorAccount.id,
+            username: this.genealogySponsorAccount.username
+          })
+          this.uplineInfo.directSponsor = this.genealogySponsorAccount.id
+        });
+        
+      }
     }
   },
-  created() {
-    let self = this
-
-    // Axios get request for getting all users
-    this.axios.post(self.axiosURL+'api/user/get-users', {
-      auth: {
-        username: 'asd',
-        password: 'asd'
-      },
-    })
-    .then( response => {
-      self.usersList = response.data.payload;
-    })
-    .catch( response => {
-      this.$swal('Opssss! Something went wrong', response.data, 'error');
-      console.log(response)
-    })
+  mounted() {
+    this.getAllUsers();
+    
   }
 }
 </script>

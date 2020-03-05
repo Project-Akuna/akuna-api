@@ -26,8 +26,9 @@ import WarehousingAddDelivery from '../views/transaction/warehousing/Warehousing
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-
+// Member Profile
 import Genealogy from "../views/genealogy/Genealogy";
+import AddMember from "../views/genealogy/AddMember.vue"
 
 
 Vue.use(VueSession);
@@ -74,6 +75,11 @@ const routes = [
         path: '/genealogy/:username',
         name: 'GenealogyWithUsername',
         component: Genealogy
+    },
+    {
+        path: '/genealogy/add/:id',
+        name: 'AddMemberFromGenealogy',
+        component: AddMember
     },
     {
         path: '/members',

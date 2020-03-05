@@ -1,7 +1,7 @@
 <template>
   <v-list dense nav>
     <!-- Dashboard -->
-    <v-list-item link to="/dashboard">
+    <v-list-item link to="/dashboard" color="primary"> 
       <v-list-item-action>
         <v-icon>mdi-view-dashboard</v-icon>
       </v-list-item-action>
@@ -11,7 +11,7 @@
     </v-list-item>
 
     <!-- Member Profile -->
-    <v-list-group no-action>
+    <v-list-group no-action color="primary">
       <template v-slot:activator>
         <v-list-item-action>
           <v-icon>mdi-account</v-icon>
@@ -22,7 +22,7 @@
       </template>
 
       
-      <v-list-item link :to="'genealogy/'+$session.get('account').username">
+      <v-list-item link :to="'/genealogy/'+$session.get('account').username">
         <v-list-item-content>
           <v-list-item-title>Genealogy</v-list-item-title>
         </v-list-item-content>

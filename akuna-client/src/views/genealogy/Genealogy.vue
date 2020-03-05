@@ -1,12 +1,12 @@
 <template>
     <section>
-        <h3 class="pb-4 d-inline-block">Genealogy</h3>
-        <v-breadcrumbs :items="breadcrumbItems" class="d-inline-block pa-0 float-right">
+        <h3 class="d-block">Genealogy</h3>
+        <v-breadcrumbs :items="breadcrumbItems" class="d-block pa-0">
             <template v-slot:divider>
                 <v-icon>mdi-chevron-right</v-icon>
             </template>
         </v-breadcrumbs>
-        <v-card>
+        <v-card class="views-container ma-0 mt-5">
             <div id="tree" ref="tree"></div>
         </v-card>
     </section>
@@ -64,10 +64,18 @@
 
                 this.chart.on('click', function (sender, node) {
                     setTimeout(function() {
-                        document.getElementsByClassName('genealogy-add-member-btn').item(0).addEventListener("click", function() {
-                            self.$router.replace('/signup')
-                        })
-                    }, 500)
+                        // let level = node.parent.level;
+                        // let parentArray = Object.keys(sender.nodes).filter( node => ( sender.nodes[node].level == level ))
+                        // console.log(parentArray);
+                        if (node.children.length < 3 ) {
+                            document.getElementsByClassName('genealogy-add-member-btn').item(0).addEventListener("click", function() {
+                                self.$router.replace("/genealogy/add/"+node.id)
+                            })
+                        } else {
+                            document.getElementsByClassName('genealogy-add-member-btn').item(0).style.display = 'none'
+                        }
+                        
+                    }, 100)
                     
                 });
 
@@ -93,7 +101,6 @@
         },
         mounted() {
             this.getGenealogy();
-            // console.log(document.getElementsByClassName('genealogy-add-member-btn'))
         }
     }
 </script>
