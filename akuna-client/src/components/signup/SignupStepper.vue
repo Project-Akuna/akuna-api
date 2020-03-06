@@ -77,8 +77,9 @@ export default {
       });
     }
   },
-  created() {
+  mounted() {
     this.updateRegions();
+    this.resetSignupStep();
   }
 }
 </script>

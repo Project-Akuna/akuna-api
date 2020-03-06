@@ -10,8 +10,8 @@ export default {
     prevStep() {
       this.$store.commit('signupChangeStep', this.signupStep - 1)
     },
-    changeStep(step) {
-      this.$store.commit('signupChangeStep', step)
+    resetSignupStep() {
+      this.$store.commit('resetSignupStep')
     },
     updateAccount(item) {
       this.$store.commit('updateAccount',item)

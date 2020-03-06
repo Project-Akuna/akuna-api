@@ -64,17 +64,19 @@
 
                 this.chart.on('click', function (sender, node) {
                     setTimeout(function() {
-                        // let level = node.parent.level;
-                        // let parentArray = Object.keys(sender.nodes).filter( node => ( sender.nodes[node].level == level ))
-                        // console.log(parentArray);
-                        if (node.children.length < 3 ) {
-                            document.getElementsByClassName('genealogy-add-member-btn').item(0).addEventListener("click", function() {
-                                self.$router.replace("/genealogy/add/"+node.id)
-                            })
-                        } else {
-                            document.getElementsByClassName('genealogy-add-member-btn').item(0).style.display = 'none'
+                        if(node.level > 0) {
+                            let level = node.parent.level;
+                            let parentArray = Object.keys(sender.nodes).filter( node => ( sender.nodes[node].level == level ))
+                            
+                            // check if node has less than 3 children and check parent level if every node has less than 3 children
+                            if (node.children.length < 3 && !parentArray.some( id => ( sender.nodes[id].children.length < 3 ))) {
+                                console.log("pumasok")
+                                document.getElementsByClassName('genealogy-add-member-btn').item(0).style.display = 'block'
+                                document.getElementsByClassName('genealogy-add-member-btn').item(0).addEventListener("click", function() {
+                                    self.$router.replace("/genealogy/add/"+node.id)
+                                })
+                            } 
                         }
-                        
                     }, 100)
                     
                 });
@@ -92,7 +94,7 @@
                         this.oc(this.$refs.tree, response.data.payload)
                     })
                     .catch(function (error) {
-
+                        this.$swal('Opssss! Something went wrong', error.data, 'error');
                     })
             },
             addMember() {
@@ -112,6 +114,6 @@
     padding: 8px 20px;
     text-decoration: none;
     background-color: $c-primary;
-
+    display: none;
 }
 </style>

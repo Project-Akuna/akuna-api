@@ -20,6 +20,9 @@ export default new Vuex.Store({
     signupChangeStep(state, nextStep) {
       state.signupStep = nextStep;
     },
+    resetSignupStep(state) {
+      state.signupStep = 1;
+    },
     toggleNav(state, visibility) {
       state.isNavShown = visibility;
     },

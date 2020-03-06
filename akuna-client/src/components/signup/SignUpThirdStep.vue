@@ -98,7 +98,7 @@ export default {
         });
         // this.updateAccount(this.uplineInfo)
 
-        this.changeStep(4);
+        this.nextStep()
       }
     },
     getAllUsers() {
