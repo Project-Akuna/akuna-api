@@ -14,6 +14,7 @@
 
 <script>
     import OrgChart from '@balkangraph/orgchart.js/orgchart';
+    import { mapState } from 'vuex';
 
     export default {
         name: "Genealogy",
@@ -32,12 +33,16 @@
                     },
                     {
                         text: 'Genealogy',
-                        disabled: false,
-                        href: '',
+                        disabled: true,
+                        to: ''
                     },
                 ]
             }
         },
+        computed: mapState({
+            axiosURL: 'axiosURL'
+
+        }),
         methods: {
             oc: function (domEl, x) {
                 let self = this;
@@ -84,7 +89,8 @@
             },
             getGenealogy() {
                 let username = this.$route.params.username;
-                this.axios.get('http://localhost:3000/api/genealogy/get-genealogy/' + username, {
+                let self = this;
+                this.axios.get(self.axiosURL + 'api/genealogy/get-genealogy/' + username, {
                     auth: {
                         username: 'asd',
                         password: 'asd'

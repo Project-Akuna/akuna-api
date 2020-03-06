@@ -115,7 +115,7 @@ public class User {
     @JsonIgnore
     private Inventory inventory;
 
-    private Boolean isVisible;
+    private Boolean isVisible = true;
 
     public User() {
     }
@@ -133,6 +133,10 @@ public class User {
 
     public User(Long id) {
         this.id = id;
+    }
+
+    public User(String username) {
+        this.username = username;
     }
 
     public void addRole(Role role) {

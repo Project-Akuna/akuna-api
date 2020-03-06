@@ -70,5 +70,5 @@ public class UserRequest {
 
     private String regCode;
 
-    private Integer numberOfAccounts;
+    private Integer numberOfAccount;
 }

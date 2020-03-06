@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     signupStep: 1,
     isNavShown: false,
-    axiosURL: 'http://localhost:3000/',
+    axiosURL: 'http://localhost:8080/',
+      // axiosURL: 'http://148.72.210.244:80/',
     items: [
       "One",
       "Two",

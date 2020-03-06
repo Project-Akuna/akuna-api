@@ -28,7 +28,7 @@ public class UserController {
 
     @PostMapping("/save")
     public BaseResponse saveUser(@RequestBody @Valid UserRequest request) {
-        userService.save(request);
+        userService.validate(request);
         return ResponseUtil.success();
     }
 

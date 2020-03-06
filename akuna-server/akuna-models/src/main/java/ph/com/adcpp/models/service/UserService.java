@@ -80,6 +80,21 @@ public class UserService {
         log.info("User [{}] successfully saved.", user.getUsername());
     }
 
+    public void validate(UserRequest request) {
+        save(request);
+        User directSponsor = userRepository.findByUsername(request.getUsername());
+        if (request.getNumberOfAccount() > 1) {
+            for (Integer i = 0; i < request.getNumberOfAccount() - 1; i++) {
+                String username = request.getUsername() + "_" + (i + 1);
+                request.setUsername(username);
+                request.setPassword("changeme");
+                request.setDirectSponsor(mapper.convertValue(directSponsor, UserRequest.class));
+                request.setUpline(mapper.convertValue(directSponsor, UserRequest.class));
+                save(request);
+            }
+        }
+    }
+
     public void generateCompanyUsers() {
         String username = "wc_";
         Integer userNumber = 1;
