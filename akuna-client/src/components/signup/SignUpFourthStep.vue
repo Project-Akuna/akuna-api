@@ -51,7 +51,7 @@
 
           // Upline Information Buttons
           v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
-            v-btn(@click="changeStep(3)" depressed background-color="white") Back
+            v-btn(@click="prevStep()" depressed background-color="white") Back
             v-btn.signup__btn.ml-3(@click="submitAccount") Submit
 </template>
 <script>
@@ -104,8 +104,6 @@ export default {
         // Remove confirm password and update signup Account
         delete self.accountInfo.confirmPassword;
         self.updateAccount(self.accountInfo)
-
-        console.log(self.signupAccount)
 
         // Axios post request for saving account
         this.axios.post(self.axiosURL+'api/user/save', {

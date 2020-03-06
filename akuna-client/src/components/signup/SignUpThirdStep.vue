@@ -53,7 +53,7 @@
 
           // Upline Information Buttons
           v-col.signup__upline-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
-            v-btn(@click="changeStep(2)" depressed background-color="white") Back
+            v-btn(@click="prevStep()" depressed background-color="white") Back
             v-btn.signup__btn.ml-3(@click="nextSignupStep") Next
 </template>
 <script>
