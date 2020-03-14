@@ -130,6 +130,14 @@
                     })
                     .then(function (response) {
                         self.$swal('Success', 'Successfully sold Registration Codes', 'success');
+                        self.$swal({
+                            title: 'Success',
+                            text: 'Successfully sold Registration Codes',
+                            icon: 'success',
+                            onClose: () => {
+                                self.$router.push('/sell-registration-code')
+                            }
+                        })
                     })
                     .catch(function (error) {
                         self.$swal('Something Went Wrong', 'Contact your System Administrators', 'error');

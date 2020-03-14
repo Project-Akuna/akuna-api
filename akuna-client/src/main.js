@@ -10,7 +10,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import moment from 'moment'
+import moment from 'vue-moment'
 
 Vue.use(Vuetify);
 Vue.use(VueAxios, axios);

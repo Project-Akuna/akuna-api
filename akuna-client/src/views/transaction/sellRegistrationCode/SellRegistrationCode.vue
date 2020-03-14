@@ -12,6 +12,10 @@
         :items="regCodeList"
         multi-sort
       )
+        template(v-slot:item.dtimeCreated="{ item }") {{ item.dtimeCreated | moment("dddd, MMMM Do YYYY") }}
+        template(v-slot:item.isUsed="{ item }") 
+          v-chip(:color="item.isUsed==true ? 'primary': 'orange'" dark) {{ item.isUsed==true ? 'Used': 'Unused'}}
+          
 </template>
 <script>
 import {mapState} from 'vuex'

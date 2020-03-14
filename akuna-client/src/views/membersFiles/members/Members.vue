@@ -17,7 +17,7 @@
                     <tr>
                         <td>{{row.item.id}}</td>
                         <td>{{row.item.username}}</td>
-                        <td>{{row.item.dateRegistered}}</td>
+                        <td>{{ row.item.dateRegistered | moment("dddd, MMMM Do YYYY") }}</td>
                         <td>{{row.item.email}}</td>
                         <td>
                             <v-btn fab depressed small color="transparent" @click="onButtonClick(row.item)">
