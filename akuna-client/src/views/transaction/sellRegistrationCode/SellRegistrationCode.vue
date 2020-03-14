@@ -12,9 +12,19 @@
         :items="regCodeList"
         multi-sort
       )
+        template(v-slot:item.code="{ item }")
+          v-tooltip(right v-if="!item.isUsed")
+            template(v-slot:activator="{ on }")
+              span.clickable(@click="copyTextToClipboard(item.code)" v-on="on") {{ item.code }}
+            span Click to copy
+          
+          span.unclickable(v-if="item.isUsed") {{ item.code }}
         template(v-slot:item.dtimeCreated="{ item }") {{ item.dtimeCreated | moment("dddd, MMMM Do YYYY") }}
         template(v-slot:item.isUsed="{ item }") 
           v-chip(:color="item.isUsed==true ? 'primary': 'orange'" dark) {{ item.isUsed==true ? 'Used': 'Unused'}}
+
+    v-snackbar(v-model="copySnackbar" :timeout="3000" color="success") {{ copySnackbarText }} copied!
+      v-btn(text @click="copySnackbar = false") Close
           
 </template>
 <script>
@@ -26,6 +36,8 @@ export default {
   }),
   data() {
     return {
+      copySnackbar: false,
+      copySnackbarText: '',
       breadcrumbItems: [
         {
           text: "Transaction",
@@ -52,7 +64,8 @@ export default {
               text: 'Date Created',
               value: 'dtimeCreated'
           },
-      ]
+      ],
+
     }
   },
   methods: {
@@ -67,6 +80,15 @@ export default {
         this.$swal('Opssss! Something went wrong', response.data, 'error');
       })
     },
+    copyTextToClipboard(text) {
+      let self = this;
+      this.$copyText(text).then(function (e) {
+          self.copySnackbar = true;
+          self.copySnackbarText = text;
+        }, function (e) {
+          self.$swal('Opssss! Something went wrong', 'Unable to copy Registration Code.', 'error');
+        })
+    }
   },
   mounted() {
     this.getRegCodeList();

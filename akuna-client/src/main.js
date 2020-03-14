@@ -11,11 +11,13 @@ import VueAxios from 'vue-axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import moment from 'vue-moment'
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(Vuetify);
 Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
 Vue.use(moment);
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
