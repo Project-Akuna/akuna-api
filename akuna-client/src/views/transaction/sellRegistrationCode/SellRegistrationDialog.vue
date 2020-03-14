@@ -109,13 +109,14 @@
                 let auth = this.$session.get('account');
                 let url;
                 self.regCodeDetails.addedBy = self.$session.get('account').username;
-                self.regCodeDetails.amount = parseInt(self.regCodeDetails.quantity) * 1900;
                 self.regCodeDetails.soldBy = self.$session.get('account').username;
 
                 if (auth.roles[0].name == 'ROLE_SYSADMIN') {
                     url = 'api/registration/generate-codes-depot';
+                    self.regCodeDetails.amount = parseInt(self.regCodeDetails.quantity) * 1700;
                 } else if (auth.roles[0].name == 'ROLE_DEPOT') {
                     url = 'api/registration/generate-codes-adc';
+                    self.regCodeDetails.amount = parseInt(self.regCodeDetails.quantity) * 1800;
                 }
 
                 // Axios call for adc

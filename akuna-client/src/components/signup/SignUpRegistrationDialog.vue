@@ -9,8 +9,8 @@
           v-text-field.signup__registration-dialog-textfield(
             clearable
             required
-            label="Registration ID" 
-            color="green darken-2" 
+            label="Registration ID"
+            color="green darken-2"
             v-if="signupRadioGroup == 'yes'"
             v-model="registrationID"
             )
@@ -21,6 +21,7 @@
 
 </template>
 <script>
+    import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -29,6 +30,9 @@ export default {
       registrationID: ''
     }
   },
+    computed: mapState({
+        axiosURL: 'axiosURL'
+    }),
   methods: {
     continueToSignup() {
       if(this.registrationID == '' && this.signupRadioGroup == 'yes') {
@@ -37,11 +41,40 @@ export default {
           title: 'Oops...',
           text: 'Please enter your Registration ID'
         });
-      } else {
-        this.$router.replace('signup/'+this.registrationID);
-        
+      } else if (this.registrationID == '' && this.signupRadioGroup == 'no') {
+          this.$router.push('signup');
       }
-    }
+      else {
+          this.checkRegCode();
+      }
+    },
+      checkRegCode() {
+        let self = this;
+          this.axios.get(self.axiosURL+'api/registration/check-reg-code/' + this.registrationID, {
+                  auth: {
+                  },
+              },
+              {
+              })
+              .then( response => {
+                  if (response.data.status > 200) {
+                      this.$swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: response.data.message
+                      });
+                  } else {
+                      this.$router.replace('signup/'+this.registrationID);
+                  }
+              })
+              .catch(response => {
+                  this.$swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: response.data.message
+                  });
+              });
+      }
   }
 }
 </script>

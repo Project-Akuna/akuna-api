@@ -53,13 +53,11 @@ public class InventoryService {
     public void updateInventorySysAdmin(UpdateInventoryRequest request) {
         log.info("Updating inventory of SysAdmin...");
 
+        log.info("Adding delivery quantity: {}", request.getDeliveryQuantity());
         Inventory inventory = inventoryRepository.findByOwnerUser_Username("asd");
-
         Integer beginningQty = inventory.getQuantity();
-        for (ProductRequest productRequest : request.getProduct()) {
-            createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), productRequest);
-            beginningQty += request.getDeliveryQuantity();
-        }
+
+        createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), request.getProduct());
         createAcknowledgementReceipt(request);
 
         log.info("Inventory updated.");
@@ -71,10 +69,7 @@ public class InventoryService {
         Inventory inventory = inventoryRepository.findByOwnerDepot_Id(request.getDepotId());
 
         Integer beginningQty = inventory.getQuantity();
-        for (ProductRequest productRequest : request.getProduct()) {
-            createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), productRequest);
-            beginningQty += request.getDeliveryQuantity();
-        }
+        createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), request.getProduct());
         createAcknowledgementReceipt(request);
 
         log.info("Inventory updated.");
@@ -116,6 +111,7 @@ public class InventoryService {
     }
 
     public void createAcknowledgementReceipt(UpdateInventoryRequest request) {
+        log.info("Creating acknowledgement receipt...");
         AcknowledgementReceipt receipt = new AcknowledgementReceipt();
         receipt.setQuantity((Objects.nonNull(request.getDeliveryQuantity()) ? request.getDeliveryQuantity() : request.getQuantitySold()));
         receipt.setSoldTo(request.getSoldTo());

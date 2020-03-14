@@ -4,10 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ph.com.adcpp.commons.request.ProductRequest;
-import ph.com.adcpp.commons.request.RegistrationCodeRequest;
-import ph.com.adcpp.commons.request.SellDepotCodeRequest;
-import ph.com.adcpp.commons.request.UpdateInventoryRequest;
+import ph.com.adcpp.commons.exception.RegCodeNotFoundException;
+import ph.com.adcpp.commons.exception.RegCodeUsedException;
+import ph.com.adcpp.commons.request.*;
 import ph.com.adcpp.commons.response.RegistrationCodeResponse;
 import ph.com.adcpp.models.entity.*;
 import ph.com.adcpp.models.repository.*;
@@ -111,7 +110,7 @@ public class RegistrationCodeService {
         inventoryRequest.setDeliveryQuantity(Math.negateExact(request.getQuantity()));
 
         inventoryRequest.setSellingPrice(product.getCodePrice().multiply(new BigDecimal(request.getQuantity())));
-        inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
+//        inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
         inventoryRequest.setSoldBy(request.getSoldBy());
 
         inventoryService.updateInventorySysAdmin(inventoryRequest);
@@ -148,7 +147,7 @@ public class RegistrationCodeService {
         inventoryRequest.setDeliveryQuantity(Math.negateExact(request.getQuantity()));
 
         inventoryRequest.setSellingPrice(product.getCodePrice().multiply(new BigDecimal(request.getQuantity())));
-        inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
+//        inventoryRequest.getProduct().add(mapper.convertValue(product, ProductRequest.class));
         inventoryRequest.setSoldBy(request.getSoldBy());
         inventoryRequest.setDepotId(depot.getId());
         inventoryService.updateInventoryDepot(inventoryRequest);
@@ -157,5 +156,27 @@ public class RegistrationCodeService {
 
         inventoryRequest.setDeliveryQuantity(Math.abs(inventoryRequest.getDeliveryQuantity()));
         inventoryService.createAcknowledgementReceipt(inventoryRequest);
+    }
+
+    public void sellRegCodeToExistingUser(SellUserRegCodeRequest request) {
+        ADC adc = adcRepository.findByLinkedAccount_Username(request.getAdc());
+        List<RegistrationCode> registrationCodes = adc.getRegistrationCodes().stream()
+                .filter(code -> Objects.isNull(code.getOwner())).collect(Collectors.toList());
+        registrationCodes = registrationCodes.subList(0, request.getQuantity());
+
+        User owner = userRepository.findByUsername(request.getUsername());
+        registrationCodes.forEach(code -> code.setOwner(owner));
+
+        codeRepository.saveAll(registrationCodes);
+    }
+
+    public void checkRegCode(String regCode) throws RegCodeNotFoundException, RegCodeUsedException {
+        RegistrationCode code = codeRepository.findByCode(regCode);
+
+        if(Objects.isNull(code)) {
+            throw new RegCodeNotFoundException("Registration Code Not Found");
+        } else if (code.getIsUsed()) {
+            throw new RegCodeUsedException("Registration Code is already used");
+        }
     }
 }

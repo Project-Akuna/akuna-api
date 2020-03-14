@@ -16,6 +16,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 new Vue({
   router,

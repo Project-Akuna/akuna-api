@@ -28,18 +28,6 @@ public class InventoryController {
         return ResponseUtil.success();
     }
 
-//    @PostMapping("/createHistory-depot")
-//    public BaseResponse updateDepot(@RequestBody @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) UpdateInventoryRequest request) {
-//        inventoryService.updateInventoryOfDepot(request);
-//        return ResponseUtil.success();
-//    }
-
-//    @PostMapping("/createHistory-adc")
-//    public BaseResponse updateAdc(@RequestBody @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) UpdateInventoryRequest request) {
-//        inventoryService.updateInventoryOfAdc(request);
-//        return ResponseUtil.success();
-//    }
-
     @PostMapping("/initialize-inventory")
     public BaseResponse initializeInventory() {
         inventoryService.initializeInventory();

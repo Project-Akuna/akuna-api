@@ -46,61 +46,6 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="">
-        <v-list-item-content>
-          <v-list-item-title>DRI Daily Incentives</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="">
-        <v-list-item-content>
-          <v-list-item-title>PLA Incentives</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="">
-        <v-list-item-content>
-          <v-list-item-title>ADC Free Bottles Inventory</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="">
-        <v-list-item-content>
-          <v-list-item-title>ADC Free Bedcode</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="">
-        <v-list-item-content>
-          <v-list-item-title>Free Bottles Incentive</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link to="">
-        <v-list-item-content>
-          <v-list-item-title>Bedcode Inventory</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item link>
-        <v-list-item-content>
-          <v-menu top offset-x>
-            <template v-slot:activator="{ on }">
-                <v-list-item-title v-on="on">
-                  Wallets
-                  <v-icon class="float-right">mdi-menu-right</v-icon>
-                </v-list-item-title>
-            </template>
-
-            <v-list-item dense link to="">
-              <v-list-item-content>
-                <v-list-item-title>Incentive Wallets</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-menu>
-        </v-list-item-content>
-      </v-list-item>
-
     </v-list-group>
   </v-list>
 </template>

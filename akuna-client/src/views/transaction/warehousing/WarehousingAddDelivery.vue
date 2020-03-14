@@ -83,10 +83,10 @@
           </v-col> -->
 
           <!-- Products heading -->
-          <v-col class="add-form__input-container" cols="12" md="6">
-            <h4 class="d-inline font-weight-medium grey--text text--darken-3 pb-3 pt-5">Products</h4>
-            <v-btn class="d-inline ml-5 primary" @click="productsCounter.push(0)">Add Product</v-btn>
-          </v-col>
+          <!--<v-col class="add-form__input-container" cols="12" md="6">-->
+            <!--<h4 class="d-inline font-weight-medium grey&#45;&#45;text text&#45;&#45;darken-3 pb-3 pt-5">Products</h4>-->
+            <!--<v-btn class="d-inline ml-5 primary" @click="productsCounter.push(0)">Add Product</v-btn>-->
+          <!--</v-col>-->
 
           <!-- Products -->
           <v-col class="add-form__input-container pt-5" cols="12" md="6">
@@ -162,19 +162,17 @@ export default {
       breadcrumbItems: [
         {
           text: "Transaction",
-          disabled: true,
-          href: '',
+          disabled: true
         },
         {
           text: 'Warehousing',
           disabled: false,
-          href: '/warehousing',
+          to: '/warehousing'
         },
         {
           text: 'Add Warehousing Delivery',
-          disabled: false,
-          href: '',
-        },
+          disabled: false
+        }
       ],
       inventoryTypeList: [
         {
@@ -222,7 +220,7 @@ export default {
           Object.assign(tempDetails, {
             sellingPrice: this.$refs.productPrice[index].lazyValue,
             deliveryQuantity: this.$refs.productQuantity[index].lazyValue,
-            product: [{id: productName.selectedItems[0].id}]
+            product: {id: productName.selectedItems[0].id}
           });
 
           // Push object to array
@@ -234,7 +232,6 @@ export default {
     },
     uploadDeliveryDetails(details) {
       let self = this;
-
       this.axios.post(this.axiosURL + 'api/inventory/update-sysadmin', {
         auth: self.$session.get('auth')
       }, 
@@ -243,7 +240,7 @@ export default {
       })
       .then(response => {
           self.$swal('Success', 'Successfully added bottles', 'success');
-          self.$router.push('/warehousing')
+          this.$refs.warehousingAddDeliveryForm.reset();
       })
       .catch(function (error) { 
         self.$swal('Opssss! Something went wrong', error.data, 'error');

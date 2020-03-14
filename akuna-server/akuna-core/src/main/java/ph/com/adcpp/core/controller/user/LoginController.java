@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/entry")
 public class LoginController {
 
     @Autowired

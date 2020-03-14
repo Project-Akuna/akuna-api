@@ -26,4 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> getUsersByRoleId(Long roleId);
 
     List<User> findByTreeLevel(Integer treeLevel);
+
+    @Query(value = "SELECT a FROM User a WHERE a.isVisible = TRUE")
+    List<User> getAllVisible();
 }

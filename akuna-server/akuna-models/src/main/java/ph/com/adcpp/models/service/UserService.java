@@ -9,8 +9,8 @@ import ph.com.adcpp.commons.constant.IncentiveStatus;
 import ph.com.adcpp.commons.constant.IncentiveType;
 import ph.com.adcpp.commons.constant.MaritalStatus;
 import ph.com.adcpp.commons.constant.RoleConstant;
-import ph.com.adcpp.commons.request.PaginatedRequest;
 import ph.com.adcpp.commons.response.UserResponse;
+import ph.com.adcpp.commons.response.WalletResponse;
 import ph.com.adcpp.models.builder.GenealogyBuilder;
 import ph.com.adcpp.models.builder.PaginationBuilder;
 import ph.com.adcpp.models.entity.*;
@@ -20,6 +20,7 @@ import ph.com.adcpp.commons.request.UserRequest;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,6 +69,7 @@ public class UserService {
         User user = convert(request);
         if (Objects.nonNull(request.getRegCode())) {
             user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode()));
+            addUserToDRI(user.getDirectSponsor());
         }
         user.setWallet(new Wallet(user));
         userRepository.save(user);
@@ -76,21 +78,24 @@ public class UserService {
         upline.getDownlines().add(user);
         userRepository.save(upline);
 
-        addUserToDRI(user.getDirectSponsor());
         log.info("User [{}] successfully saved.", user.getUsername());
     }
 
     public void validate(UserRequest request) {
         save(request);
-        User directSponsor = userRepository.findByUsername(request.getUsername());
-        if (request.getNumberOfAccount() > 1) {
+        User directSponsor = userRepository.getOne(request.getDirectSponsor().getId());
+        String initialUsername = request.getUsername();
+        User upline = userRepository.findByUsername(initialUsername);
+        if (request.getNumberOfAccount() == 4) {
             for (Integer i = 0; i < request.getNumberOfAccount() - 1; i++) {
                 String username = request.getUsername() + "_" + (i + 1);
                 request.setUsername(username);
                 request.setPassword("changeme");
                 request.setDirectSponsor(mapper.convertValue(directSponsor, UserRequest.class));
-                request.setUpline(mapper.convertValue(directSponsor, UserRequest.class));
+                request.setUpline(mapper.convertValue(upline, UserRequest.class));
                 save(request);
+
+                request.setUsername(initialUsername);
             }
         }
     }
@@ -215,6 +220,7 @@ public class UserService {
         RegistrationCode registrationCode = codeService.findByCode(code);
         registrationCode.setIsUsed(true);
         registrationCode.setSoldTo(user);
+        registrationCode.setDtimeUsed(LocalDateTime.now());
         return codeService.save(registrationCode);
     }
 
@@ -227,6 +233,11 @@ public class UserService {
     public List<UserResponse> findAll() {
         return userRepository.findAll().stream()
                 .filter(user -> user.getDownlines().size() < 3 && user.getIsVisible())
+                .map(this::mapUser).collect(Collectors.toList());
+    }
+
+    public List<UserResponse> findAllForAdmin() {
+        return userRepository.findAll().stream()
                 .map(this::mapUser).collect(Collectors.toList());
     }
 
@@ -274,5 +285,16 @@ public class UserService {
             q3.addUser(user);
             incentiveRepository.save(q3);
         }
+    }
+
+    public List<UserResponse> getAllVisible() {
+        return userRepository.getAllVisible().stream()
+                .map(this::mapUser)
+                .collect(Collectors.toList());
+    }
+
+    public WalletResponse getWallet(String username) {
+        return mapper.convertValue(userRepository.findByUsername(username)
+        .getWallet(), WalletResponse.class);
     }
 }

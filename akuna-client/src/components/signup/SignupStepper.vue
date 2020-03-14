@@ -62,10 +62,6 @@ export default {
 
       // Axios call for regions
       this.axios.get(self.axiosURL+'api/region/get-all-regions', {
-        auth: {
-          username: 'asd',
-          password: 'asd'
-        }
       })
       .then(function (response) {
         self.$store.commit('updateRegions', response.data.payload)

@@ -41,9 +41,13 @@ export default {
           value: 'code'
         },
         {
-          text: 'ADC',
-          value: 'adc.name'
+          text: 'Is Used',
+          value: 'isUsed'
         },
+          {
+              text: 'Date Created',
+              value: 'dtimeCreated'
+          },
       ]
     }
   },

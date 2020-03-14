@@ -93,10 +93,7 @@
                 let username = this.$route.params.username;
                 let self = this;
                 this.axios.get(self.axiosURL + 'api/genealogy/get-genealogy/' + username, {
-                    auth: {
-                        username: 'asd',
-                        password: 'asd'
-                    }
+                    auth: self.$session.get('auth')
                 })
                     .then(response => {
                         this.oc(this.$refs.tree, response.data.payload)

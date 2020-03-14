@@ -22,7 +22,7 @@
             v-select(
               :disabled="isGenealogy"
               v-model="uplineInfo.directSponsor"
-              :items="usersList"
+              :items="sponsorList"
               item-text="username"
               item-value="id"
               label="Direct Sponsor"
@@ -72,6 +72,7 @@ export default {
     return {
       valid: false,
       usersList: [],
+      sponsorList: [],
       uplineInfo: {},
       accountsNumberList: [1,4,13],
       isGenealogy: false,
@@ -106,10 +107,10 @@ export default {
 
       // Axios get request for getting all users
       this.axios.post(self.axiosURL+'api/user/get-users', {
-        auth: {
-          username: 'asd',
-          password: 'asd'
-        },
+          auth: {
+              username: 'asd',
+              password: 'asd'
+          }
       })
       .then( response => {
         self.usersList = response.data.payload;
@@ -153,11 +154,29 @@ export default {
         });
         
       }
-    }
+    },
+      getAllVisible() {
+          let self = this
+
+          // Axios get request for getting all users
+          this.axios.get(self.axiosURL+'api/user/get-all-visible', {
+              auth: {
+                  username: 'asd',
+                  password: 'asd'
+              }
+          })
+              .then( response => {
+              self.sponsorList = response.data.payload;
+          })
+      .catch( response => {
+              this.$swal('Opssss! Something went wrong', response.data, 'error');
+              console.log(response)
+          })
+      }
   },
   mounted() {
     this.getAllUsers();
-    
+    this.getAllVisible();
   }
 }
 </script>

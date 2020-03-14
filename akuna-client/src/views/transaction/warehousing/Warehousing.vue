@@ -69,6 +69,10 @@
                         value: 'deliveryQuantity'
                     },
                     {
+                        text: 'Quantity Sold',
+                        value: 'quantitySold'
+                    },
+                    {
                         text: 'Ending Quantity',
                         value: 'endingQuantity'
                     },

@@ -42,14 +42,14 @@ public class UserController {
         return ResponseUtil.success();
     }
 
-//    @PostMapping("/get-users")
-//    public BaseResponse test() {
-//        return ResponseUtil.success(userService.getAllUsers());
-//    }
-
     @PostMapping("/get-users")
     public BaseResponse getAllUsers() {
         return ResponseUtil.success(userService.findAll());
+    }
+
+    @PostMapping("/get-users-admin")
+    public BaseResponse getAllUsersAdmin() {
+        return ResponseUtil.success(userService.findAllForAdmin());
     }
 
     @GetMapping("/get-user/{username}")
@@ -61,5 +61,15 @@ public class UserController {
     public BaseResponse buildInitialTree() {
         userService.generateCompanyUsers();
         return ResponseUtil.success();
+    }
+
+    @GetMapping("/get-all-visible")
+    public BaseResponse getAllVisible() {
+        return ResponseUtil.success(userService.getAllVisible());
+    }
+
+    @GetMapping("/get-wallet/{username}")
+    public BaseResponse getWallet(@PathVariable String username) {
+        return ResponseUtil.success(userService.getWallet(username));
     }
 }

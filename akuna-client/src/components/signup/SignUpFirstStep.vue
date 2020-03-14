@@ -117,10 +117,6 @@ export default {
 
         // Axios call for getting city
         this.axios.get(self.axiosURL+'api/city/get-all-city/' + self.selectedRegion, {
-          auth: {
-            username: 'asd',
-            password: 'asd'
-          }
         })
         .then(function (response) {
           self.citiesList = response.data.payload;
@@ -145,10 +141,6 @@ export default {
 
     // Axios call for adc
     this.axios.get(self.axiosURL+'api/adc/get-all-adc', {
-      auth: {
-        username: 'asd',
-        password: 'asd'
-      }
     })
     .then(function (response) {
       self.adcList = response.data.payload;

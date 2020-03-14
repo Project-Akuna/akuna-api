@@ -64,9 +64,10 @@ export default {
       let self = this;
 
       if (this.$refs.loginForm.validate()) {
+          this.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         this.axios({
           method: 'post',
-          url: self.axiosURL+ 'api/login',
+          url: self.axiosURL+ 'api/entry/login',
           auth: {
             username: self.username ,
             password: self.password
@@ -85,7 +86,7 @@ export default {
           }
         })
         .catch(response => {
-          this.$swal('Opssss! Something went wrong', response.data, 'error');
+          this.$swal('Oops!', 'Incorrect username or password', 'error');
         });
       }
     }

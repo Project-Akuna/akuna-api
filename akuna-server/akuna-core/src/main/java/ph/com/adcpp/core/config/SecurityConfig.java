@@ -30,10 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http
+
+                .httpBasic().and()
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/api/logout", "/api/**")
+                .antMatchers( "/api/logout", "/api/entry/login")
                 .hasAnyRole(RoleConstant.SYSADMIN.name(), RoleConstant.ADC.name(),
                         RoleConstant.MEMBER.name(), RoleConstant.CASHIER.name(),
                         RoleConstant.DEPOT.name())
@@ -42,12 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl("/api/logout")
-                .logoutSuccessUrl("/login")
-                .and()
-                .httpBasic();
+                .logoutSuccessUrl("/login");
     }
 
-    @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/resources/**", "/api/city/**", "/api/region/**","/api/product/**",

@@ -12,4 +12,5 @@ import ph.com.adcpp.models.entity.ADC;
 @Repository
 public interface ADCRepository extends JpaRepository<ADC, Long>{
     ADC findByName(String name);
+    ADC findByLinkedAccount_Username(String username);
 }

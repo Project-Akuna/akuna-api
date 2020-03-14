@@ -14,8 +14,8 @@
             >
                 <template v-slot:item="row">
                     <tr>
-                        <td>{{row.item.username}}</td>
                         <td>{{row.item.id}}</td>
+                        <td>{{row.item.username}}</td>
                         <td>
                             <v-btn fab depressed small color="transparent" @click="onButtonClick(row.item)">
                                 <v-icon color="grey darken-2">mdi-dots-vertical</v-icon>
@@ -69,11 +69,16 @@ export default {
     },
     methods: {
         getUsers() {
-            this.axios.post(this.axiosURL + 'api/user/get-users', {
-                auth: {
-                    username: 'asd',
-                    password: 'asd'
-                }
+            let auth = this.$session.get('account');
+            let url;
+
+            if (auth.roles[0].name == 'ROLE_SYSADMIN') {
+                url = 'api/user/get-users-admin';
+            } else {
+                url = 'api/user/get-users'
+            }
+
+            this.axios.post(this.axiosURL + url, {
             }, {
                 data: {
                     "pageIndex": 0,

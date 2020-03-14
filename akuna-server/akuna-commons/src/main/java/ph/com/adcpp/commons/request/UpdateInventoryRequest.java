@@ -6,8 +6,6 @@ import ph.com.adcpp.commons.constant.InventoryType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +19,7 @@ public class UpdateInventoryRequest {
     private Integer quantitySold;
     private BigDecimal sellingPrice;
     private InventoryType inventoryType;
-    private List<ProductRequest> product = new ArrayList<>();
+    private ProductRequest product;
     private String soldBy;
     private Long depotId;
 }

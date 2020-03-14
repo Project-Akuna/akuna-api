@@ -4,7 +4,7 @@
       <v-col cols="12" md="4">
         <v-card  class="views-container dashboard-wallet">
           <v-card dark class="views-container dashboard-wallet-inner">
-            <span>₱</span>16,349.00
+            <span>₱</span>{{wallet}}
           </v-card>
 
           Wallet Balance
@@ -25,16 +25,24 @@ export default {
   }),
   components: {
   },
+    data () {
+      return {
+          wallet: 0
+      }
+    },
   methods: {
+      getWallet() {
+          let self = this;
+          self.axios.get(self.axiosURL + 'api/user/get-wallet/' + self.$session.get('account').username, {})
+              .then(response => {
+              self.wallet = response.data.payload.amount;
+          }).catch(response => {
+              self.$swal('Something Went Wrong', 'Contact your System Administrators', 'error');
+          })
+      }
   },
   mounted() {
-    // this.axios.get(this.axiosURL + 'api/product/get-all-products', {
-    //     auth: self.$session.get('auth')
-    //   })
-    //   .then(response => {
-    //     self.productsList = response.data.payload;
-    //   })
-    //   .catch(function (error) { });
+      this.getWallet();
   }
 }
 </script>

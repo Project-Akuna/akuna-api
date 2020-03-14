@@ -1,9 +1,12 @@
 package ph.com.adcpp.core.controller.registration;
 
 import org.springframework.web.bind.annotation.*;
+import ph.com.adcpp.commons.exception.RegCodeNotFoundException;
+import ph.com.adcpp.commons.exception.RegCodeUsedException;
 import ph.com.adcpp.commons.request.EmailRequest;
 import ph.com.adcpp.commons.request.RegistrationCodeRequest;
 import ph.com.adcpp.commons.request.SellDepotCodeRequest;
+import ph.com.adcpp.commons.request.SellUserRegCodeRequest;
 import ph.com.adcpp.commons.response.BaseResponse;
 import ph.com.adcpp.email.EmailService;
 import ph.com.adcpp.models.service.InventoryService;
@@ -41,6 +44,12 @@ public class RegistrationController {
         return ResponseUtil.success();
     }
 
+    @PostMapping("/sell-codes-to-user")
+    public BaseResponse sellCodesToUser(@RequestBody SellUserRegCodeRequest request) {
+        codeService.sellRegCodeToExistingUser(request);
+        return ResponseUtil.success();
+    }
+
     @GetMapping("/all")
     public BaseResponse all() {
         return ResponseUtil.success(codeService.findAll());
@@ -49,6 +58,12 @@ public class RegistrationController {
     @PostMapping("/email")
     public BaseResponse email(@RequestBody EmailRequest request) {
         emailService.sendEmail(request);
+        return ResponseUtil.success();
+    }
+
+    @GetMapping("/check-reg-code/{regCode}")
+    public BaseResponse checkRegCode(@PathVariable String regCode) throws RegCodeNotFoundException, RegCodeUsedException {
+        codeService.checkRegCode(regCode);
         return ResponseUtil.success();
     }
 }

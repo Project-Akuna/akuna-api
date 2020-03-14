@@ -48,7 +48,7 @@
                 counter="100"
                 :rules="customRules('Confirm Password',{ required: true, counter: 100, match: accountInfo.password })"
                 )
-
+        <v-switch v-model="isVisible" class="mx-2" label="Is Visible"></v-switch>
           // Upline Information Buttons
           v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
             v-btn(@click="prevStep()" depressed background-color="white") Back
@@ -71,8 +71,8 @@ export default {
       showPassword: false,
       showConfirmPassword: false,
       valid: true,
-      accountInfo: {}
-
+      accountInfo: {},
+        isVisible : "true"
     }
   },
   components: {
@@ -98,7 +98,7 @@ export default {
 
         // Update is enabled,roles, and isVisible
         self.updateAccount({isEnabled: 1});
-        self.updateAccount({isVisible: 1});
+        self.updateAccount({isVisible: self.isVisible});
         self.updateAccount({roles: [{id: self.getRouteName() == 'addCashier' ? 3 : 2}]});
 
         // Remove confirm password and update signup Account
@@ -107,10 +107,6 @@ export default {
 
         // Axios post request for saving account
         this.axios.post(self.axiosURL+'api/user/save', {
-          auth: {
-            username: 'asd',
-            password: 'asd'
-          },
         },
         {
           data : self.signupAccount
@@ -129,7 +125,7 @@ export default {
       let self = this;
       this.axios({
         method: 'post',
-        url: self.axiosURL+ 'api/login',
+        url: self.axiosURL+ 'api/entry/login',
         auth: {
           username: self.signupAccount.username ,
           password: self.signupAccount.password

@@ -24,7 +24,7 @@ public class RegistrationCode {
     private String code;
 
     private BigDecimal amount;
-    private Boolean isUsed;
+    private Boolean isUsed = false;
 
     @OneToOne
     @JoinColumn(name = "SOLD_TO")
