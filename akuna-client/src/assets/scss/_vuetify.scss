@@ -1,3 +1,26 @@
+// Navigation Drawer
+.v-navigation-drawer {
+  .v-list-item__action {
+    margin-right: 20px !important;
+
+    & > .v-icon {
+      transform: scale(.9);
+    }
+  }
+
+  .v-list-group .v-list-group__items .v-list-item {
+    padding-left: 53px !important;
+
+    .v-list-item__action { 
+      margin-right: 10px !important;
+
+      & > .v-icon {
+        transform: scale(.75);
+      }
+    }
+  }
+}
+
 // Textfield
 .v-text-field {
   .v-input__prepend-inner i {
@@ -77,6 +100,8 @@
     font-weight: 500;
   }
 }
+
+
 
 // 640px+
 @media screen and (min-width: 40em) {

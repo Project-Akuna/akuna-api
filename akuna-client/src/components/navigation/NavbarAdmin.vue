@@ -1,7 +1,7 @@
 <template>
   <v-list dense nav>
     <!-- Dashboard -->
-    <v-list-item link to="/dashboard">
+    <v-list-item link to="/dashboard" color="primary">
       <v-list-item-action>
         <v-icon>mdi-view-dashboard</v-icon>
       </v-list-item-action>

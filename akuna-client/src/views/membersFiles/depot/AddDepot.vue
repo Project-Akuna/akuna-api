@@ -13,7 +13,7 @@
           <v-col class="add-form__input-container" cols="12" md="6">
             <!-- User Select -->
             <v-select
-              v-model="user"
+              v-model="selectedUser"
               dense
               label="User Account"
               :items="userList"
@@ -179,6 +179,7 @@ export default {
       valid: false,
       depotInfo: {},
       userList: [],
+      selectedUser: '',
       user: {}
     }
   },
@@ -198,7 +199,25 @@ export default {
       if (this.$refs.addDepotForm.validate()) {
         console.log("Validated")
       }
-    }
+    },
+    getUserByUsername() {
+      let self = this
+      // Axios get request for getting user by username
+      this.axios.get(self.axiosURL+'api/user/get-user/'+self.selectedUser, {
+        auth: self.$session.get('auth'),
+      })
+      .then( response => {
+        self.user = response.data.payload;
+      })
+      .catch( response => {
+        this.$swal('Opssss! Something went wrong', response.data, 'error');
+      })
+    },
+  },
+  watch: {
+    selectedUser: function(newUser, oldUser) {
+      this.getUserByUsername();
+    },
   },
   mounted() {
     this.getUsers();

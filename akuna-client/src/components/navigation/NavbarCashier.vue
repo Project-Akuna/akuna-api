@@ -1,7 +1,7 @@
 <template>
   <v-list dense nav>
     <!-- Dashboard -->
-    <v-list-item link to="/dashboard">
+    <v-list-item link to="/dashboard" color="primary">
       <v-list-item-action>
         <v-icon>mdi-view-dashboard</v-icon>
       </v-list-item-action>
@@ -11,14 +11,14 @@
     </v-list-item>
 
     <!-- Cashier Profile -->
-    <v-list-item link to="">
+    <!-- <v-list-item link to="">
       <v-list-item-action>
         <v-icon>mdi-account</v-icon>
       </v-list-item-action>
       <v-list-item-content>
         <v-list-item-title>Cashier Profile</v-list-item-title>
       </v-list-item-content>
-    </v-list-item>
+    </v-list-item> -->
 
     <!-- Member's File -->
     <v-list-group no-action>
@@ -61,7 +61,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-content>
           <v-menu top offset-x>
             <template v-slot:activator="{ on }">
@@ -84,7 +84,7 @@
             </v-list-item>
           </v-menu>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
     </v-list-group> 
 
     <!-- Reports -->
@@ -104,7 +104,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="">
+      <!-- <v-list-item link to="">
         <v-list-item-content>
           <v-list-item-title>DRI Daily Incentives</v-list-item-title>
         </v-list-item-content>
@@ -138,7 +138,7 @@
         <v-list-item-content>
           <v-list-item-title>Bedcode Inventory</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
     </v-list-group>
   </v-list>
