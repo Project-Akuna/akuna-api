@@ -238,6 +238,7 @@ public class UserService {
 
     public List<UserResponse> findAllForAdmin() {
         return userRepository.findAll().stream()
+                .filter(user -> Objects.nonNull(user.getTreeLevel()))
                 .map(this::mapUser).collect(Collectors.toList());
     }
 
@@ -289,6 +290,7 @@ public class UserService {
 
     public List<UserResponse> getAllVisible() {
         return userRepository.getAllVisible().stream()
+                .filter(user -> Objects.nonNull(user.getTreeLevel()))
                 .map(this::mapUser)
                 .collect(Collectors.toList());
     }

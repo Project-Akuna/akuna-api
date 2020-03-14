@@ -8,6 +8,7 @@
         </v-breadcrumbs>
         <v-card class="views-container ma-0 mt-5">
             <v-data-table
+                    ref="membersTable"
                 :headers="headers"
                 :items="users"
                 multi-sort
@@ -16,6 +17,8 @@
                     <tr>
                         <td>{{row.item.id}}</td>
                         <td>{{row.item.username}}</td>
+                        <td>{{row.item.dateRegistered}}</td>
+                        <td>{{row.item.email}}</td>
                         <td>
                             <v-btn fab depressed small color="transparent" @click="onButtonClick(row.item)">
                                 <v-icon color="grey darken-2">mdi-dots-vertical</v-icon>
@@ -38,6 +41,7 @@ export default {
     name: "Members",
     data() {
         return {
+            loadingState: 0,
             headers: [
                 {
                     text: 'ID',
@@ -46,6 +50,14 @@ export default {
                 {
                     text: 'Username',
                     value: 'username',
+                },
+                {
+                    text: 'Date Registered',
+                    value: 'dateRegistered',
+                },
+                {
+                    text: 'Email',
+                    value: 'email',
                 },
                 {
                     text: 'Action',
