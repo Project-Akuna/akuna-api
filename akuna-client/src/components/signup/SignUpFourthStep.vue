@@ -1,6 +1,6 @@
 <template lang="pug">
   v-stepper-content(:step="getRouteName() == 'addCashier' ? '3' : '4'")
-    v-container.pt-0
+    v-container.pt-0.signup-stepper-fourth-step
       v-form(ref="signupFourthStepForm" v-model="valid" lazy-validation)
         v-row
           //HEADING - Account Info
@@ -48,7 +48,13 @@
                 counter="100"
                 :rules="customRules('Confirm Password',{ required: true, counter: 100, match: accountInfo.password })"
                 )
-        <v-switch v-model="isVisible" class="mx-2" label="Is Visible"></v-switch>
+          v-col.signup__input-container(cols="12")
+            v-switch.account-visible-switch(
+              v-if="checkRoleExists([1])"
+              v-model="isVisible"
+              label="Is Account Visible"
+              color="primary"
+            )
           // Upline Information Buttons
           v-col.signup__account-info-btn-container.d-flex.justify-end.pb-0.pt-6(cols="12")
             v-btn(@click="prevStep()" depressed background-color="white") Back
@@ -62,10 +68,11 @@ import BaseRadioGroup from '../baseComponents/BaseRadioGroup'
 
 import SignupMixin from '../../mixins/signupMixin'
 import FormMixin from '../../mixins/formMixin'
+import RolesMixin from '../../mixins/rolesMixin'
 import { mapState } from 'vuex';
 
 export default {
-  mixins: [SignupMixin, FormMixin],
+  mixins: [SignupMixin, FormMixin, RolesMixin],
   data() {
     return {
       showPassword: false,
@@ -153,5 +160,10 @@ export default {
 }
 </script>
 <style lang="scss">
-
+.signup-stepper-fourth-step {
+  .v-input--switch.account-visible-switch .v-label {
+    font-size: 14px;
+    padding-left: 5px;
+  }
+}
 </style>

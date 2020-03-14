@@ -10,6 +10,7 @@
           // Number of accounts Select
           v-col.signup__input-container(cols="12" )
             v-select(
+              :disabled="!$session.exists()"
               v-model="uplineInfo.numberOfAccount"
               :items="accountsNumberList"
               label="Number of Accounts"
@@ -177,6 +178,9 @@ export default {
   mounted() {
     this.getAllUsers();
     this.getAllVisible();
+    if (!this.$session.exists()) {
+      this.uplineInfo.numberOfAccount = 1
+    }
   }
 }
 </script>

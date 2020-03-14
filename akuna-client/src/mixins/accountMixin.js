@@ -4,8 +4,6 @@ export default {
     axiosURL: 'axiosURL'
   }),
   methods: {
-    getUserFullName() {
-      
-    }
+    
   }
 }
