@@ -12,6 +12,7 @@ import Signup from '../views/Signup.vue';
 import Adc from '../views/membersFiles/adc/Adc.vue';
 import AddAdc from '../views/membersFiles/adc/AddAdc.vue'
 import Members from "../views/membersFiles/members/Members";
+import AddMemberAdmin from "../views/membersFiles/members/AddMember";
 import Cashier from "../views/membersFiles/cashier/Cashier";
 import AddCashier from '../views/membersFiles/cashier/AddCashier.vue'
 import Depot from "../views/membersFiles/depot/Depot";
@@ -85,6 +86,11 @@ const routes = [
         path: '/members',
         name: 'Members',
         component: Members
+    },
+    {
+        path: '/members/add',
+        name: 'AddMemberAdmin',
+        component: AddMemberAdmin
     },
     {
         path: '/cashiers',

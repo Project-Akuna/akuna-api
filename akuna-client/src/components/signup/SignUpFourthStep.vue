@@ -120,6 +120,7 @@ export default {
         })
         .then( response => {
           if (self.$route.name == 'AddMemberFromGenealogy') self.$router.replace('/genealogy/'+self.$session.get('account').username)
+          else if (self.$route.name == 'AddMemberAdmin') self.$router.replace('/members')
           else self.loginAccount()
         })
         .catch( response => {

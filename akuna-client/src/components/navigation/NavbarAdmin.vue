@@ -73,6 +73,12 @@
         <!--</v-list-item-content>-->
       <!--</v-list-item>-->
 
+      <v-list-item link to="/members/add">
+        <v-list-item-content>
+          <v-list-item-title>Add Member</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item link to="/depot">
         <v-list-item-content>
           <v-list-item-title>Depot</v-list-item-title>
