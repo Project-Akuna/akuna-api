@@ -9,8 +9,28 @@
   }
 
   .v-list-group .v-list-group__items .v-list-item {
-    padding-left: 53px !important;
+    padding-left: 76px !important;
 
+    &.v-list-item--active .v-list-item__content:after{
+      border: 2px solid $c-primary;
+    }
+    
+    .v-list-item__content {
+      position: relative;
+      overflow: visible;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: -18px;
+        top: 50%;
+        transform: translate(0, -50%);
+        border: 2px solid gray;
+        border-radius: 50px;
+        height: 10px;
+        width: 10px;
+      }
+    }
     .v-list-item__action { 
       margin-right: 10px !important;
 

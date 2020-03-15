@@ -4,6 +4,7 @@
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer" 
       app
+      width="280"
       )
 
       navbar-admin(v-if="checkRoleExists([1])")

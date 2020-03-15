@@ -62,7 +62,6 @@
               clearable
               :counter="100"
               label="Name"
-              :rules="customRules('Name',{ required: true, counter: 100 })"
             ></v-text-field>
 
             <!-- Landline Number 1  -->
@@ -74,7 +73,6 @@
               clearable
               :counter="100"
               label="Landline Number 1"
-              :rules="customRules('Landline Number 1',{ required: true, counter: 100 })"
             ></v-text-field>
 
             <!-- Landline Number 2  -->
@@ -86,7 +84,6 @@
               clearable
               :counter="100"
               label="Landline Number 2"
-              :rules="customRules('Landline Number 2',{ counter: 100 })"
             ></v-text-field>
 
             <!-- Mobile Number 1 -->
@@ -98,7 +95,6 @@
               clearable
               :counter="100"
               label="Mobile Number 1"
-              :rules="customRules('Mobile Number 1',{ required: true, counter: 100 })"
             ></v-text-field>
 
             <!-- Mobile Number 2 -->
@@ -110,7 +106,6 @@
               clearable
               :counter="100"
               label="Mobile Number 2"
-              :rules="customRules('Mobile Number 2',{ counter: 100 })"
             ></v-text-field>
 
             <!-- Email -->
@@ -121,7 +116,6 @@
               clearable
               :counter="100"
               label="Email"
-              :rules="customRules('Email',{ required: true, email: true, counter: 100 })"
             ></v-text-field>
 
             <!-- City -->
@@ -132,7 +126,6 @@
               clearable
               :counter="100"
               label="City"
-              :rules="customRules('City',{ required: true, counter: 100 })"
             ></v-text-field>
           </v-col>
 
@@ -197,7 +190,8 @@ export default {
     addDepot() {
       let self = this;
       if (this.$refs.addDepotForm.validate()) {
-        console.log("Validated")
+        console.log(self.user)
+
       }
     },
     getUserByUsername() {
