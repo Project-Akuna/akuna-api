@@ -82,15 +82,15 @@
             )
 
           // Relationship TextField
-          v-col.signup__input-container(cols="12" )
-            v-text-field.capitalize-input(
-              v-model="localSignupAccount.relationship"
-              clearable
-              dense
-              counter="100"
-              label="Relationship to Member"
-              :rules="customRules('Relationship to Member',{ counter: 100 })"
-            )
+          //- v-col.signup__input-container(cols="12" )
+          //-   v-text-field.capitalize-input(
+          //-     v-model="localSignupAccount.relationship"
+          //-     clearable
+          //-     dense
+          //-     counter="100"
+          //-     label="Relationship to Member"
+          //-     :rules="customRules('Relationship to Member',{ counter: 100 })"
+          //-   )
 
           // TIN Number TextField
           //- v-col.signup__input-container(cols="12" )
