@@ -15,9 +15,11 @@
 <script>
     import OrgChart from '@balkangraph/orgchart.js/orgchart';
     import { mapState } from 'vuex';
+    import RolesMixin from '@/mixins/rolesMixin.js';
 
     export default {
         name: "Genealogy",
+        mixins: [ RolesMixin ],
         data () {
             return {
                 breadcrumbItems: [
@@ -28,7 +30,7 @@
                     },
                     {
                         text: 'Members',
-                        disabled: false,
+                        disabled: !this.checkRoleExists([1,3,4,5]),
                         to: '/members',
                     },
                     {

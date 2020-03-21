@@ -8,6 +8,7 @@ export default {
         // if (title == 'counter') rulesArray.push((v => console.log(v)))
         if (title == 'email' && rules['email']) rulesArray.push((v => /.+@.+\..+/.test(v) || name +' must be valid'))
         if (title == 'match') rulesArray.push((v => rules['match'] == v || name+' must be match.'))
+        // if (title == 'alpha-numeric') rulesArray.push((v =>))
       })
       return rulesArray
     },
