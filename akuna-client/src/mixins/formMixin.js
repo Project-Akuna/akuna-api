@@ -8,7 +8,8 @@ export default {
         // if (title == 'counter') rulesArray.push((v => console.log(v)))
         if (title == 'email' && rules['email']) rulesArray.push((v => /.+@.+\..+/.test(v) || name +' must be valid'))
         if (title == 'match') rulesArray.push((v => rules['match'] == v || name+' must be match.'))
-        // if (title == 'alpha-numeric') rulesArray.push((v =>))
+        if (title == 'alphanumeric') rulesArray.push((v => !v.match(/[^A-Za-z0-9]/) || name+' must be alpha numeric.'))
+        if (title == 'textWithSymbols') rulesArray.push((v => !v.match(/[^A-Za-z0-9.,!@&#\-_]/) || name+' must only contain valid symbols.'))
       })
       return rulesArray
     },
