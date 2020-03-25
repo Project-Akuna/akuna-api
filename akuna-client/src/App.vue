@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     checkRoute() {
-      if (this.$route.path.includes("signup") || this.$route.path.includes("login")) {
+      if (this.$route.path.includes("signup") || this.$route.path.includes("login") || this.$route.name == 'LandingPage') {
         this.$store.commit('toggleNav', false);
       } else  {
         this.$store.commit('toggleNav', true);
