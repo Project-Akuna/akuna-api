@@ -3,6 +3,9 @@ import Vue from 'vue';
 import VueSession from 'vue-session'
 import VueRouter from 'vue-router';
 
+// Landing Page
+import LandingPage from '../views/LandingPage.vue'
+
 // Base Views
 import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
@@ -37,6 +40,11 @@ Vue.use(VueRouter);
 
 
 const routes = [
+    {
+        path: '/',
+        name: 'LandingPage',
+        component: LandingPage
+    },
     {
         path: '/dashboard',
         name: 'Dashboard',
@@ -158,8 +166,9 @@ router.afterEach((to, from) => {
 
 router.beforeEach((to, from, next) => {
     let session = Vue.prototype.$session;
-
-    if (!session.exists() && to.name !== 'Login') {
+    if (to.name == 'LandingPage') {
+        next();
+    } else if (!session.exists() && to.name !== 'Login') {
         if (to.name !== 'Signup' && to.name !== 'signupWithRegID') next('/login')
         else next()
     } else if (session.exists() && to.name === 'Login' || to.name === 'Signup' || to.name === 'signupWithRegID') {

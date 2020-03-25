@@ -2,7 +2,7 @@
   v-app
     navbar(v-if="isNavShown")
     v-content
-       router-view(style="padding: 20px;")
+       router-view.pa-5
 </template>
 
 <script>
