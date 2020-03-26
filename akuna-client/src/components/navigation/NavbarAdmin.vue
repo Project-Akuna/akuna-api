@@ -127,11 +127,11 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/sell-bottle-codes">
+      <!-- <v-list-item link to="/sell-bottle-codes">
         <v-list-item-content>
           <v-list-item-title>Sell Bottle Codes</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <!-- <v-list-item link to="">
         <v-list-item-content>
