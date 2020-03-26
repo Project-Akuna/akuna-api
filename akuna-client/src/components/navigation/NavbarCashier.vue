@@ -39,7 +39,7 @@
 
       <v-list-item link to="/members">
         <v-list-item-content>
-          <v-list-item-title>Member</v-list-item-title>
+          <v-list-item-title>Members</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list-group>

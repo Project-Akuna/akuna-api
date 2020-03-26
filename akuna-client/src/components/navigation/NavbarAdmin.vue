@@ -99,7 +99,7 @@
 
       <v-list-item link to="/members">
         <v-list-item-content>
-          <v-list-item-title>Member</v-list-item-title>
+          <v-list-item-title>Members</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list-group>
@@ -127,60 +127,60 @@
         </v-list-item-content>
       </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>ADC Free Bottles</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="/sell-bottle-codes">
+        <v-list-item-content>
+          <v-list-item-title>Sell Bottle Codes</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>Replenish</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <!-- <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>Replenish</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>Qualifier / PLA</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>Qualifier / PLA</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item> -->
 
-      <!--<v-list-item link>-->
-        <!--<v-list-item-content>-->
-          <!--&lt;!&ndash;<v-menu top offset-x>&ndash;&gt;-->
-            <!--&lt;!&ndash;<template v-slot:activator="{ on }">&ndash;&gt;-->
-                <!--&lt;!&ndash;<v-list-item-title v-on="on">&ndash;&gt;-->
-                  <!--&lt;!&ndash;Run Incentives&ndash;&gt;-->
-                  <!--&lt;!&ndash;<v-icon class="float-right">mdi-menu-right</v-icon>&ndash;&gt;-->
-                <!--&lt;!&ndash;</v-list-item-title>&ndash;&gt;-->
-            <!--&lt;!&ndash;</template>&ndash;&gt;-->
+      <!-- <v-list-item link>
+        <v-list-item-content>
+          <v-menu top offset-x>
+            <template v-slot:activator="{ on }">
+                <v-list-item-title v-on="on">
+                  Run Incentives
+                  <v-icon class="float-right">mdi-menu-right</v-icon>
+                </v-list-item-title>
+            </template>
 
-            <!--&lt;!&ndash;<v-list-item dense link to="">&ndash;&gt;-->
-              <!--&lt;!&ndash;<v-list-item-content>&ndash;&gt;-->
-                <!--&lt;!&ndash;<v-list-item-title>Free Bottles Incentives</v-list-item-title>&ndash;&gt;-->
-              <!--&lt;!&ndash;</v-list-item-content>&ndash;&gt;-->
-            <!--&lt;!&ndash;</v-list-item>&ndash;&gt;-->
+            <v-list-item dense link to="">
+              <v-list-item-content>
+                <v-list-item-title>Free Bottles Incentives</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
-            <!--&lt;!&ndash;<v-list-item dense link to="">&ndash;&gt;-->
-              <!--&lt;!&ndash;<v-list-item-content>&ndash;&gt;-->
-                <!--&lt;!&ndash;<v-list-item-title>Free Bedcodes</v-list-item-title>&ndash;&gt;-->
-              <!--&lt;!&ndash;</v-list-item-content>&ndash;&gt;-->
-            <!--&lt;!&ndash;</v-list-item>&ndash;&gt;-->
+            <v-list-item dense link to="">
+              <v-list-item-content>
+                <v-list-item-title>Free Bedcodes</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
-            <!--&lt;!&ndash;<v-list-item dense link to="">&ndash;&gt;-->
-              <!--&lt;!&ndash;<v-list-item-content>&ndash;&gt;-->
-                <!--&lt;!&ndash;<v-list-item-title>DRI</v-list-item-title>&ndash;&gt;-->
-              <!--&lt;!&ndash;</v-list-item-content>&ndash;&gt;-->
-            <!--&lt;!&ndash;</v-list-item>&ndash;&gt;-->
+            <v-list-item dense link to="">
+              <v-list-item-content>
+                <v-list-item-title>DRI</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
-            <!--&lt;!&ndash;<v-list-item dense link to="">&ndash;&gt;-->
-              <!--&lt;!&ndash;<v-list-item-content>&ndash;&gt;-->
-                <!--&lt;!&ndash;<v-list-item-title>PLA</v-list-item-title>&ndash;&gt;-->
-              <!--&lt;!&ndash;</v-list-item-content>&ndash;&gt;-->
-            <!--&lt;!&ndash;</v-list-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;</v-menu>&ndash;&gt;-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+            <v-list-item dense link to="">
+              <v-list-item-content>
+                <v-list-item-title>PLA</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-menu>
+        </v-list-item-content>
+      </v-list-item> -->
     </v-list-group>
 
     <!-- Reports -->
@@ -200,47 +200,47 @@
         </v-list-item-content>
       </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>Transactions</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <!-- <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>Transactions</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>DRI Daily Incentives</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>DRI Daily Incentives</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>PLA Incentives</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>PLA Incentives</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>ADC Free Bottles Inventory</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>ADC Free Bottles Inventory</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>ADC Free Bedcode</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>ADC Free Bedcode</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>Free Bottles Incentive</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>Free Bottles Incentive</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <!--<v-list-item link to="">-->
-        <!--<v-list-item-content>-->
-          <!--<v-list-item-title>Daily Payout Report</v-list-item-title>-->
-        <!--</v-list-item-content>-->
-      <!--</v-list-item>-->
+      <v-list-item link to="">
+        <v-list-item-content>
+          <v-list-item-title>Daily Payout Report</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item> -->
 
     </v-list-group>
   </v-list>

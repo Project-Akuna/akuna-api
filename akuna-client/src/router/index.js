@@ -26,6 +26,7 @@ import SellRegistrationCode from '../views/transaction/sellRegistrationCode/Sell
 import SellRegistrationCodeDialog from '../views/transaction/sellRegistrationCode/SellRegistrationDialog.vue'
 import Warehousing from '../views/transaction/warehousing/Warehousing.vue'
 import WarehousingAddDelivery from '../views/transaction/warehousing/WarehousingAddDelivery.vue'
+import SellBottleCodes from '../views/transaction/sellBottleCode/SellBottleCode.vue'
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -119,6 +120,11 @@ const routes = [
         path: '/sell-registration-code/add',
         name: 'sellRegistrationCodeAdd',
         component: SellRegistrationCodeDialog
+    },
+    {
+        path: '/sell-bottle-codes',
+        name: 'sellBottleCodes',
+        component: SellBottleCodes
     },
     {
         path: '/depot',
