@@ -54,7 +54,7 @@ public class InventoryService {
         log.info("Updating inventory of SysAdmin...");
 
         log.info("Adding delivery quantity: {}", request.getDeliveryQuantity());
-        Inventory inventory = inventoryRepository.findByOwnerUser_Username("asd");
+        Inventory inventory = inventoryRepository.findByOwnerUser_Username(request.getSoldTo());
         Integer beginningQty = inventory.getQuantity();
 
         createHistory(request, inventory, beginningQty, beginningQty + request.getDeliveryQuantity(), request.getProduct());

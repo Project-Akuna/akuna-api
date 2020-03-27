@@ -51,6 +51,14 @@ public class RegistrationCodeService {
         return codeRepository.findAll();
     }
 
+    public List<RegistrationCode> getDepotCodes(String username) {
+        return codeRepository.getDepotCodes(depotRepository.findByLinkedAccount_Username(username).getId());
+    }
+
+    public List<RegistrationCode> getAdcCodes(String username) {
+        return codeRepository.getAdcCodes(adcRepository.findByLinkedAccount_Username(username).getId());
+    }
+
     public RegistrationCode save(RegistrationCode code) {
         return codeRepository.save(code);
     }
@@ -62,8 +70,8 @@ public class RegistrationCodeService {
     public List<RegistrationCodeResponse> convertToList(List<RegistrationCode> codes) {
         log.info("Converting registration codes to response...");
 
-        List<RegistrationCodeResponse> responses = new ArrayList<>();
-        codes.forEach(code -> responses.add(mapper.convertValue(code, RegistrationCodeResponse.class)));
+        List<RegistrationCodeResponse> responses = codes.stream().map(code -> mapper.convertValue(code, RegistrationCodeResponse.class))
+                .collect(Collectors.toList());
 
         log.info("Codes successfully converted.");
         return responses;

@@ -1,6 +1,6 @@
 <template>
   <section class="dashboard">
-    <v-row align="center" justify="center" v-if="checkRoleExists([1,2])">
+    <v-row align="center" justify="center" v-if="checkRoleExists([1,2,4,5])">
       <v-col cols="12" md="4">
         <v-card  class="views-container dashboard-wallet">
           <v-card dark class="views-container dashboard-wallet-inner">

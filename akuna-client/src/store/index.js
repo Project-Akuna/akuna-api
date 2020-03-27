@@ -7,8 +7,8 @@ export default new Vuex.Store({
   state: {
     signupStep: 1,
     isNavShown: false,
-    axiosURL: 'http://localhost:3000/',
-      // axiosURL: 'http://mywellnesscon.com/',
+    // axiosURL: 'http://localhost:3000/',
+      axiosURL: 'http://mywellnesscon.com/',
     items: [
       "One",
       "Two",

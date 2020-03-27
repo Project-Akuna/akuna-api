@@ -55,6 +55,16 @@ public class RegistrationController {
         return ResponseUtil.success(codeService.findAll());
     }
 
+    @GetMapping("/get-depot-codes/{username}")
+    public BaseResponse getDepotCodes(@PathVariable String username) {
+        return ResponseUtil.success(codeService.getDepotCodes(username));
+    }
+
+    @GetMapping("/get-adc-codes/{username}")
+    public BaseResponse getAdcCodes(@PathVariable String username) {
+        return ResponseUtil.success(codeService.getAdcCodes(username));
+    }
+
     @PostMapping("/email")
     public BaseResponse email(@RequestBody EmailRequest request) {
         emailService.sendEmail(request);

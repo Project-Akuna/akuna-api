@@ -61,6 +61,10 @@ export default {
           value: 'isUsed'
         },
           {
+              text: 'Sold To',
+              value: 'soldTo.username'
+          },
+          {
               text: 'Date Created',
               value: 'dtimeCreated'
           },
@@ -70,7 +74,18 @@ export default {
   },
   methods: {
     getRegCodeList() {
-      this.axios.get(this.axiosURL+ 'api/registration/all', {
+        let url;
+        let auth = this.$session.get('account');
+
+        if (auth.roles[0].name == 'ROLE_SYSADMIN') {
+            url = 'api/registration/all';
+        } else if (auth.roles[0].name == 'ROLE_DEPOT') {
+            url = 'api/registration/get-depot-codes/' + auth.username;
+        } else if (auth.roles[0].name == 'ROLE_ADC') {
+            url = 'api/registration/get-adc-codes/' + auth.username;
+        }
+
+      this.axios.get(this.axiosURL+ url, {
         auth: this.$session.get('auth')
       })
       .then(response => {

@@ -69,7 +69,7 @@ public class UserService {
         User user = convert(request);
         if (Objects.nonNull(request.getRegCode())) {
             user.setRegistrationCode(updateRegistrationCode(user, request.getRegCode()));
-            addUserToDRI(user.getDirectSponsor());
+//            addUserToDRI(user.getDirectSponsor());
         }
         user.setWallet(new Wallet(user));
         userRepository.save(user);
